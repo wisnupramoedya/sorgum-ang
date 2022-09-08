@@ -1,0 +1,24 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+    <h1 nz-typography>Masuk</h1>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan Email anda!">
+        <nz-input-group nzPrefixIcon="mail">
+          <input type="email" autocomplete="username" nz-input formControlName="Email" placeholder="Email" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan Password anda!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" autocomplete="current-password" nz-input formControlName="Password" placeholder="Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+          <a class="login-form-forgot" [routerLink]="['../forget-password']" routerLinkActive="router-link-active" >Lupa password</a>
+    </div>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [disabled]="form.invalid||disabledSubmit">Masuk</button>
+    Atau
+    <a [routerLink]="['../sign-up']">Daftar</a>
+    
+</form>

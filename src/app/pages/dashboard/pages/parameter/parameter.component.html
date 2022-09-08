@@ -1,0 +1,44 @@
+<div style="display: block;width: 100%;margin-bottom:1rem;">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a routerLink="/home">
+              <i nz-icon nzType="home"></i>
+            </a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a [routerLink]="linkDashboard">
+                <i nz-icon nzType="pic-center"></i>
+            </a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>Parameter</nz-breadcrumb-item>
+    </nz-breadcrumb>
+</div>
+<form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Masukkan tanggal!">
+            <nz-date-picker formControlName="ChosenDate" nzMode="date" [nzFormat]="'dd/MM/yyyy'"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Pilih parameter">
+            <nz-select formControlName="ChosenParameterIds" nzMode="multiple" nzPlaceHolder="Please select" style="min-width: 200px;">
+                <nz-option *ngFor="let option of listOfParams" [nzLabel]="option.display" [nzValue]="option.value"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+    <nz-form-control>
+        <button nz-button nzType="primary" [disabled]="!form.valid && isLoading === false">Cari</button>
+    </nz-form-control>
+    </nz-form-item>
+</form>
+<nz-spin [nzSpinning]="isLoading">
+    <div nz-row style="min-height: 150px;">
+        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" class="col-card" *ngFor="let item of chartOptions|keyvalue">
+            <nz-card  [nzBordered]="false" >
+                <div echarts [options]="item.value.init" style="height: 240px;">
+                </div>
+            </nz-card>
+        </div>
+    </div>
+</nz-spin>

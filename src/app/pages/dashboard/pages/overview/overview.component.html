@@ -1,0 +1,184 @@
+
+
+  <div style="display: block;width: 100%;margin-bottom:1rem;">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a routerLink="/home">
+              <i nz-icon nzType="home"></i>
+            </a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>Overview</nz-breadcrumb-item>
+      </nz-breadcrumb>
+  </div>
+<div nz-row>
+    <!-- <div nz-col nzSpan="6"  >
+        <nz-card  [nzBordered]="false" nzTitle="pH Tanah">
+            <div echarts [options]="chartOptionsGauge['ph'].init" style="height: 240px;"  class=" test">
+
+            </div>
+        </nz-card>
+    </div>
+    <div nz-col nzSpan="6"  >
+        <nz-card  [nzBordered]="false" nzTitle="pH Tanah">
+            <div echarts [options]="chartOptionsGauge['ph'].init" style="height: 240px;"  class=" test">
+
+            </div>
+        </nz-card>
+    </div>
+    <div nz-col nzSpan="6"  >
+        <nz-card  [nzBordered]="false" nzTitle="pH Tanah">
+            <div echarts [options]="chartOptionsGauge['ph'].init" style="height: 240px;"  class=" test">
+
+            </div>
+        </nz-card>
+    </div>
+    <div nz-col nzSpan="6"  >
+        <nz-card  [nzBordered]="false" nzTitle="pH Tanah">
+            <div echarts [options]="chartOptionsGauge['ph'].init" style="height: 240px;"  class=" test">
+
+            </div>
+        </nz-card>
+    </div>
+    <div nz-col nzSpan="6"  >
+        <nz-card  [nzBordered]="false" nzTitle="pH Tanah">
+            <div echarts [options]="chartOptionsGauge['ph'].init" style="height: 240px;"  class=" test">
+
+            </div>
+        </nz-card>
+    </div> -->
+    <!-- <div nz-col nzSpan="6">col-12</div>
+    <div nz-col nzSpan="6">col-12</div>
+    <div nz-col nzSpan="6">col-12</div>
+
+    <div nz-col nzSpan="6">col-12</div> -->
+    <div nz-col nzSpan="24">
+        <nz-card  [nzBordered]="true" [nzTitle]="greenHouseName">
+            <div nz-row>
+                <!-- <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="4" nzXl="6" style="padding-left:0.5rem;padding-right:0.5rem;">
+                    <div class="green-house-img">
+                        <img alt="" width="100%" *ngIf="greenhouseData.photo!==null; else defaultPhoto" [src]="'data:image/png;base64,'+greenhouseData.photo" />
+                        <ng-template #defaultPhoto>
+                            <img width="100%" src="https://sunrise-steel.com/wp-content/uploads/2021/03/greenhouse-baja-ringan-1024x769.jpg" alt="">
+                        </ng-template>
+                    </div>
+                </div> -->
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="11" nzXl="10" style="">
+                    <nz-table #basicTablePlant [nzData]="greenhouseData.plants" style="overflow-x: auto;">
+                        <thead>
+                            <tr style="font-size:20px !important;">
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size:20px !important;">
+                            <tr *ngFor="let data of basicTablePlant.data">
+                            <td>{{data.id}}</td>
+
+                            <td>{{data.name + (data.latinName===null?'':' ('+data.latinName+')')}}</td>
+                            <td>{{data.n}}</td>
+                            <td>
+                                <button nz-button nzSize="small" nzType="primary" type="button" (click)="showModalCondition(data.id)" style="font-size:20px !important; line-height: 0.5715 !important;">Open Status</button>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+                <div nz-col nzXs="0" nzSm="0" nzMd="0" nzLg="2" nzXl="4" style=""></div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="11" nzXl="10" style="">
+                    <nz-table #basicTableIot [nzData]="greenhouseData.iots" style="overflow-x: auto; ">
+                        <thead >
+                            <tr style="font-size:20px !important;">
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Secret</th>
+                                <th>Status</th>
+                                <!-- <th>Aksi</th> -->
+                            </tr>
+                        </thead>
+                        <tbody style="font-size:20px !important;">
+                            <tr *ngFor="let data of basicTableIot.data">
+                                <td>{{data.name}}</td>
+                                <td>{{data.code}}</td>
+                                <td>{{data.secret}}</td>
+                                <td [style]="data.connected ? 'color:green;':'color:red;'">{{data.connected ? 'Connected':'Disconnected'}}</td>
+                                <!-- <td>
+                                    <button nz-button nzSize="small" nzType="primary" type="button" (click)="openCommandIoT(data.id)">Perintah</button>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </div>
+        </nz-card>
+        <ng-template #greenHouseName>
+            <h2 nz-typography>{{greenhouseData.name}}</h2>
+          </ng-template>
+    </div>
+</div>
+<nz-modal [(nzVisible)]="isModalConditionVisible" nzTitle="Condition" style="font-size:20px !important;"  (nzOnCancel)="handleCancelModalCondition()">
+    <div *nzModalContent>
+        <div *ngIf="idConditionChosen!==-1">
+            <nz-table #basicTableCondition [nzData]="['']">
+                <thead>
+                  <tr style="font-size:20px !important;">
+                    <th>Parameter</th>
+                    <th>Time</th>
+                    <th>State</th>
+                    
+                  </tr>
+                </thead>
+                <tbody style="font-size:20px !important;">
+                  <tr >
+                    <td>Fan/Humidifier</td>
+                    <td>{{conditionShown.rFanTime === 0 ? 'Off':conditionShown.rFanTime +' Minute(s)'}}</td>
+                    <!-- <td>{{conditionShown.rFanMode === 0 ? 'Off':conditionShown.rFanMode === 1 ? 'Fan':conditionShown.rFanMode === 2 ? 'Humidifier':'Fan + Humidifier'}}</td> -->
+                    <td></td>
+                  </tr>
+                  <tr >
+                    <td>Servo (Ventilation)</td>
+                    <td>{{conditionShown.rServoTime === 0 ? 'Off':conditionShown.rServoTime +' Minute(s)'}}</td>
+                    <td></td>
+                  </tr>
+                  <tr >
+                    <td>Irrigation</td>
+                    <td>{{conditionShown.rWaterPumpTime === 0 ? 'Off':conditionShown.rWaterPumpTime +' Second(s)'}}</td>
+                    <td></td>
+                  </tr>
+                  <tr >
+                    <td>Artificial Light</td>
+                    <td></td>
+                    <td>{{conditionShown.rLampState === 0 ? 'Off':'on'}}</td>
+                  </tr>
+                </tbody>
+              </nz-table>
+        </div>
+        
+    </div>
+    <div *nzModalFooter>
+            
+    </div>
+</nz-modal>
+<div style="margin-top: 2rem;">
+    <a [routerLink]="linkGraph" ><h2 nz-typography>Graph Parameter</h2></a>
+</div>
+<div nz-row>
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" class="col-card" *ngFor="let item of chartOptions|keyvalue">
+        <nz-card  [nzBordered]="false" >
+            <div echarts [options]="item.value.init" style="height: 240px;" [merge]="item.value.merged">
+
+            </div>
+        </nz-card>
+        
+    </div>
+    <!-- <div nz-col nzSpan="24" class="col-card">
+        <nz-card  [nzBordered]="false" >
+            <div echarts [options]="chartOptions['air_temperature'].init" [merge]="chartOptions['air_temperature'].merged">
+
+            </div>
+        </nz-card>
+    </div> -->
+</div>
+
+

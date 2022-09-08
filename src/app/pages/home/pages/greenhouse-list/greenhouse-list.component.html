@@ -1,0 +1,40 @@
+<div style="display: block;width: 100%;margin-bottom:1rem;">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <i nz-icon nzType="home"></i>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+<div class="greenhouse-list-toolbar">
+  <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitFormSearch()" style="width: 60%;">
+    <nz-form-item >
+      <nz-form-control>
+        <nz-input-group [nzSuffix]="suffixIconSearch" >
+          <input type="text" nz-input formControlName="Search" placeholder="Cari Greenhouse" />
+          <ng-template #suffixIconSearch>
+              <i nz-icon nzType="search"></i>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <button nz-button nzType="primary" (click)="showModalAddGreenHouse()"><i nz-icon nzType="plus"></i>Tambah Greenhouse</button>
+</div>
+<div class="greenhouse-list-content">
+    <nz-card nzHoverable [nzCover]="coverTemplate" *ngFor="let item of data" (click)="gotoDashboard(item.id)">
+      <nz-card-meta [nzTitle]="item.name + ' ('+item.code+')'" [nzDescription]="item.address"></nz-card-meta>
+      <ng-template #coverTemplate>
+        <img alt="" *ngIf="item.photo!==null; else defaultPhoto" [src]="'data:image/png;base64,'+item.photo" />
+        <ng-template #defaultPhoto>
+          <img  src="https://sunrise-steel.com/wp-content/uploads/2021/03/greenhouse-baja-ringan-1024x769.jpg" alt="">
+        </ng-template>
+      </ng-template>    
+    </nz-card>
+</div>
+<nz-pagination 
+[nzPageIndex]="form.controls.Page.value" 
+[nzTotal]="dataTotal"
+(nzPageIndexChange)="changePageIndex($event)"
+(nzPageSizeChange)="changePageSize($event)"
+></nz-pagination>

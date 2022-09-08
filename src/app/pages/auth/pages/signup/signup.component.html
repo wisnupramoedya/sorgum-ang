@@ -1,0 +1,39 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+    <h1 nz-typography>Daftar</h1>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan nama anda!">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="UserName" placeholder="Nama" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Masukkan email anda!">
+          <nz-input-group nzPrefixIcon="mail">
+            <input type="text" nz-input formControlName="Email" placeholder="Email" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan password!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="Password" placeholder="Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Masukkan password sekali lagi!">
+            <nz-input-group nzPrefixIcon="lock">
+                <input type="password" nz-input formControlName="ConfirmPassword" placeholder="Konfirmasi Password" />
+            </nz-input-group>
+            <div *ngIf="form.hasError('confirmPasswordNotMatchError') && form.controls.ConfirmPassword.touched && form.controls.ConfirmPassword.dirty" class="ng-tns-c109-1 ant-form-item-explain ant-form-item-explain-error ng-star-inserted" ng-reflect-ng-class="ant-form-item-explain,ant-form">
+                <div class="ng-tns-c109-1 ng-trigger ng-trigger-helpMotion">
+                    Konfirmasi Password tidak cocok!
+                </div>
+            </div>
+        </nz-form-control>
+    </nz-form-item>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [disabled]="form.invalid||disabledSubmit">Daftar</button>
+    Atau
+    sudah punya akun? <a  [routerLink]="['../sign-in']">Masuk.</a>
+</form>

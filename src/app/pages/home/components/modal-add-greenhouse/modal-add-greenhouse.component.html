@@ -1,0 +1,40 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+    <div *nzModalTitle>
+        <h3 nz-typography>Tambah Greenhouse</h3>
+    </div>
+    <div>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Masukkan nama greenhouse anda!">
+            <nz-input-group nzPrefixIcon="bank">
+              <input type="text" nz-input formControlName="Name" placeholder="Nama Greenhouse" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Masukkan kode greenhouse anda!">
+              <nz-input-group nzPrefixIcon="qrcode">
+                <input type="text" nz-input formControlName="Code" placeholder="Kode Greenhouse" />
+              </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Masukkan alamat greenhouse anda!">
+              <nz-input-group nzPrefixIcon="compass">
+                <input type="text" nz-input formControlName="Address" placeholder="Alamat Greenhouse" />
+              </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Masukkan Foto greenhouse anda!">
+              <nz-input-group >
+                <input (change)="onFileChange($event)" type="file" multiple="false" placeholder="Foto Greenhouse" />
+              </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" type="button" (click)="destroyModal()">Cancel</button>
+        <button nz-button nzType="primary" type="submit" (click)="submitForm()" [disabled]="form.invalid" [nzLoading]="isSubmitLoading">Submit</button>
+    </div>
+</form>

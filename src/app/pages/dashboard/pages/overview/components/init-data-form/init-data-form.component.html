@@ -1,0 +1,153 @@
+<div *nzModalTitle>
+    <h3 nz-typography>Isi Data Cepat</h3>
+</div>
+<div >
+    <form nz-form [formGroup]="form" >
+
+    <nz-steps [nzCurrent]="indexStepper" >
+        <nz-step nzTitle="Tumbuhan" nzDescription="Tambah daftar tumbuhan yang ada di dalam greenhouse.">
+        </nz-step>
+        <nz-step nzTitle="IoT" nzDescription="Tambah perangkat IoT.">
+        </nz-step>
+    </nz-steps>
+
+    <div nz-row *ngIf="indexStepper===0" class="form-content">
+        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" class="init-data-form-col">
+            <button nz-button  (click)="addRow('plant')" nzType="primary" type="button" class="btn-add" *ngIf="!(Plants.length>0)">Tambah Tumbuhan</button>
+            <nz-table #basicTable [nzData]="Plants.controls" [nzPageSize]="5"  [nzFrontPagination]="false">
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Jumlah</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="Plants">
+                  <tr *ngFor="let data of basicTable.data;let i=index">
+                    <ng-container *ngIf="editCache['plant'][i]!==undefined && editCache['plant'][i].edit; else showTemplate">
+                        <td [formGroupName]="i">
+                            <nz-form-item>
+                                <nz-form-control >
+                                    <nz-select nzPlaceHolder="Pilih tanaman" formControlName="PlantId">
+                                        <nz-option [nzValue]="item.value" [nzLabel]="item.display" *ngFor="let item of plantsOptions"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                           
+                        </td>
+                        <td [formGroupName]="i">
+                            <nz-form-item>
+                                <nz-form-control >
+                                    <nz-input-group>
+                                        <nz-input-number formControlName="N" [nzMin]="1" [nzStep]="1" style="width: 100%;" nzPlaceHolder="Banyak tanaman"></nz-input-number>
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                            
+                        </td>
+                        
+                        <td>
+                          <a (click)="saveEdit('plant',i)">Save</a>
+                          <nz-divider nzType="vertical"></nz-divider>
+                          <a (click)="cancelEdit('plant',i)">Cancel</a>
+                        </td>
+                      </ng-container>
+                      <ng-template #showTemplate>
+                        <td>{{data.value.PlantName}}</td>
+                        <td>{{data.value.N}}</td>
+                        <td>
+                            <a (click)="startEdit('plant',i)">Ubah</a>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <a (click)="deleteRow('plant',i)">Hapus</a>
+                        </td>
+                        
+                      </ng-template>
+                    
+                  </tr>
+                </tbody>
+              </nz-table>
+
+        </div>
+        
+      </div>
+        
+      
+      <div nz-row *ngIf="indexStepper===1" class="form-content">
+        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" class="init-data-form-col">
+            <button nz-button (click)="addRow('iot')" nzType="primary" type="button" class="btn-add"  *ngIf="!(Iots.length>0)">Tambah IoT</button>
+            <nz-table #basicTable2 [nzData]="Iots.controls" [nzPageSize]="5" [nzFrontPagination]="false">
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Kode</th>
+                    <th>Password</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="Iots">
+                  <tr *ngFor="let data of basicTable2.data;let j=index">
+                    <ng-container *ngIf="editCache['iot'][j]!==undefined && editCache['iot'][j].edit; else showTemplate2">
+                        <td [formGroupName]="j">
+                            <nz-form-item>
+                                <nz-form-control >
+                                <nz-input-group >
+                                    <input type="text" nz-input formControlName="Name"  placeholder="Nama IoT" />
+                                </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                           
+                        </td>
+                        <td [formGroupName]="j">
+                            <nz-form-item>
+                                <nz-form-control >
+                                    <nz-input-group >
+                                    <input type="text" nz-input formControlName="Code" placeholder="Kode IoT" />
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                           
+                        </td>
+                        <td [formGroupName]="j">
+                            <nz-form-item>
+                                <nz-form-control >
+                                    <nz-input-group >
+                                    <input type="text" nz-input formControlName="Secret" placeholder="Password IoT" />
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                            
+                        </td>
+                       
+                        
+                        <td>
+                          <a (click)="saveEdit('iot',j)">Save</a>
+                          <nz-divider nzType="vertical"></nz-divider>
+                          <a (click)="cancelEdit('iot',j)">Cancel</a>
+                        </td>
+                      </ng-container>
+                      <ng-template #showTemplate2>
+                        <td>{{data.value.Name}}</td>
+                        <td>{{data.value.Code}}</td>
+                        <td>{{data.value.Secret}}</td>
+                        <td>
+                            <a (click)="startEdit('iot',j)">Ubah</a>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <a (click)="deleteRow('iot',j)">Hapus</a>
+                        </td>
+                        
+                      </ng-template>
+                    
+                  </tr>
+                </tbody>
+              </nz-table>
+        </div>
+        
+      </div>
+      
+    </form>
+</div>
+<div *nzModalFooter>
+    <button nz-button nzType="default" type="button" *ngIf="indexStepper>minStep" (click)="preStep()">Kembali</button>
+    <button nz-button nzType="default" type="button" *ngIf="indexStepper<maxStep" (click)="nextStep()">Berikutnya</button>
+    <button nz-button nzType="primary" *ngIf="indexStepper===maxStep" (click)="submit()">Submit</button>
+</div>
