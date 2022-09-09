@@ -67,7 +67,7 @@ export class ModalAddGreenhouseComponent implements OnInit {
     //Todo validation file size
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.form.controls.Photo.setValue(file);
+      this.form.controls['Photo'].setValue(file);
     }
   }
   destroyModal(): void {

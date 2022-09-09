@@ -1,4 +1,3 @@
-import { Byte } from '@angular/compiler/src/util';
 import { number } from 'echarts';
 import { SearchResponse } from './app.model';
 
@@ -14,7 +13,7 @@ export class GreenHouseDto {
   name!: string;
   code!: string;
   address!: string;
-  photo!: Byte[];
+  photo!: any[];
 }
 export class GreenHousePlantOptionDto {
   value!: number;

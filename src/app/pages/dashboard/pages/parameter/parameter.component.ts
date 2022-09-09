@@ -1,6 +1,33 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { GreenHouseService } from 'src/app/api-services/green-house.service';
 import { GreenHouseGraphParameterDto, GreenHouseGraphParameterDtoWithLocal, GreenHouseParameterOptionDto } from 'src/app/common/greenhouse.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
@@ -8,7 +35,38 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
 @Component({
   selector: 'app-parameter',
   templateUrl: './parameter.component.html',
-  styleUrls: ['./parameter.component.scss']
+  styleUrls: ['./parameter.component.scss'],
+  standalone:true,
+  imports:[
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NzSwitchModule,
+    NzGridModule,
+    NzCardModule,
+    NzButtonModule,
+    NzTypographyModule ,
+    NzIconModule,
+    NzListModule,
+    NzFormModule,
+    NgxEchartsModule,
+    // NzToolTipModule,
+    NzInputModule,
+    NzModalModule,
+    NzPaginationModule,
+    NzUploadModule,
+    NzMessageModule,
+    NzTableModule,
+    NzSelectModule,
+    NzStepsModule,
+    NzInputNumberModule,
+    NzDividerModule,
+    NzNotificationModule,
+    NzBreadCrumbModule,
+    NzDatePickerModule,
+    NzSpaceModule,
+    NzSpinModule
+  ]
 })
 export class ParameterComponent implements OnInit {
   isLoading=false;
@@ -48,7 +106,7 @@ export class ParameterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.form.controls.GreenhouseId.setValue(this.currentGhService.getId())
+    this.form.controls['GreenhouseId'].setValue(this.currentGhService.getId())
     this.greenhouseService.getAllParameters().subscribe(x=>{
       this.listOfParams = x
     });
@@ -66,7 +124,7 @@ export class ParameterComponent implements OnInit {
   setChart(data:GreenHouseGraphParameterDto[]):void{
     
     this.resetChart();
-    const chosenParam = this.form.controls.ChosenParameterIds.value;
+    const chosenParam = this.form.controls['ChosenParameterIds'].value;
     
     for (let index = 0; index < chosenParam.length; index++) {
       const element = chosenParam[index];

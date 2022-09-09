@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -26,6 +27,7 @@ import { TokenService } from 'src/app/services/token.service';
   imports:[
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     NzLayoutModule,
     NzMenuModule,
     NzButtonModule,

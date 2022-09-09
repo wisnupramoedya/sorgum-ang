@@ -84,10 +84,10 @@ export class GreenhouseListComponent implements OnInit {
     })
   }
   changePageIndex(event:number):void{
-    this.form.controls.Page.setValue(event);
+    this.form.controls['Page'].setValue(event);
   }
   changePageSize(event:number):void{
-    this.form.controls.N.setValue(event);
+    this.form.controls['N'].setValue(event);
   }
   submitFormSearch():void{
 

@@ -26,7 +26,7 @@
             <nz-input-group nzPrefixIcon="lock">
                 <input type="password" nz-input formControlName="ConfirmPassword" placeholder="Konfirmasi Password" />
             </nz-input-group>
-            <div *ngIf="form.hasError('confirmPasswordNotMatchError') && form.controls.ConfirmPassword.touched && form.controls.ConfirmPassword.dirty" class="ng-tns-c109-1 ant-form-item-explain ant-form-item-explain-error ng-star-inserted" ng-reflect-ng-class="ant-form-item-explain,ant-form">
+            <div *ngIf="form.hasError('confirmPasswordNotMatchError') && form.controls['ConfirmPassword'].touched && form.controls['ConfirmPassword'].dirty" class="ng-tns-c109-1 ant-form-item-explain ant-form-item-explain-error ng-star-inserted" ng-reflect-ng-class="ant-form-item-explain,ant-form">
                 <div class="ng-tns-c109-1 ng-trigger ng-trigger-helpMotion">
                     Konfirmasi Password tidak cocok!
                 </div>

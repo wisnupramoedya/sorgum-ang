@@ -33,7 +33,7 @@
     </nz-card>
 </div>
 <nz-pagination 
-[nzPageIndex]="form.controls.Page.value" 
+[nzPageIndex]="form.controls['Page'].value" 
 [nzTotal]="dataTotal"
 (nzPageIndexChange)="changePageIndex($event)"
 (nzPageSizeChange)="changePageSize($event)"

@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  webPush: {
+    publicKey: 'BF5DTE-Fccv5g-ECQLuXf3hYa1GaXHenrJmtKEVDTdlG8sHDf7joP5w5E5-VO7P58iezdovdO9SxpfF5Ickar5E'
+  }
 };
 
 /*

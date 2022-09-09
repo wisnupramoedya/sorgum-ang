@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -24,6 +25,7 @@ import { AppResponse } from 'src/app/common/app.model';
   imports:[
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     NzLayoutModule,
     NzMenuModule,
     NzButtonModule,

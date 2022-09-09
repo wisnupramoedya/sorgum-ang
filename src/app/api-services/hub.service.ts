@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as signalR from '@aspnet/signalr';
-import { IHttpConnectionOptions } from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
+import { IHttpConnectionOptions } from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root',

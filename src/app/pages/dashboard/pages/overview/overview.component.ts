@@ -35,6 +35,8 @@ import { HubAPI } from 'src/app/apis/hub.api';
 import { GreenHouseDetailDto, GreenHouseParameterOptionDto, IoTChangeStatusDto, IoTSubmitBroadcast, PlantsConditionDto } from 'src/app/common/greenhouse.model';
 import { CommandIotComponent } from './components/command-iot/command-iot.component';
 import { InitDataFormComponent } from './components/init-data-form/init-data-form.component';
+import * as signalR from '@microsoft/signalr';
+import { RouterModule } from '@angular/router';
 
 @Component({
   templateUrl: './overview.component.html',
@@ -43,6 +45,8 @@ import { InitDataFormComponent } from './components/init-data-form/init-data-for
   imports:[
     CommonModule,
     ReactiveFormsModule,
+    NgxEchartsModule,
+    RouterModule,
     NzSwitchModule,
     NzGridModule,
     NzCardModule,
@@ -176,7 +180,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.greenhouseData = this.activatedRouter.snapshot.data.data;
+    this.greenhouseData = this.activatedRouter.snapshot.data['data'];
     this.linkGraph = "/dashboard/"+this.greenhouseData.id+"/parameter";
     this.greenHouseService.getAllParameters()
     .subscribe(x=>{

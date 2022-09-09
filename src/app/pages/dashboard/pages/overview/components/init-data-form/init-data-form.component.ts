@@ -96,10 +96,10 @@ export class InitDataFormComponent implements OnInit {
 
   ) { }
   get Plants(): UntypedFormArray{
-    return this.form.controls.Plants as UntypedFormArray;
+    return this.form.controls['Plants'] as UntypedFormArray;
   }
   get Iots(): UntypedFormArray{
-    return this.form.controls.Iots as UntypedFormArray;
+    return this.form.controls['Iots'] as UntypedFormArray;
   }
   ngOnInit(): void {
     this.setInitForm();

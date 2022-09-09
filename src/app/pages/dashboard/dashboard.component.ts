@@ -6,10 +6,17 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { environment } from 'src/environments/environment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  standalone:true,
+  imports:[
+    CommonModule,
+    RouterModule
+  ]
 })
 export class DashboardComponent implements OnInit {
 
