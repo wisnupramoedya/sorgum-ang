@@ -16,7 +16,8 @@ import { RouterModule } from '@angular/router';
   imports:[
     CommonModule,
     RouterModule
-  ]
+  ],
+  providers:[NzNotificationService]
 })
 export class DashboardComponent implements OnInit {
 

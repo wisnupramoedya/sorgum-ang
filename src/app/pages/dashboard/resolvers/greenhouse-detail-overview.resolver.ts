@@ -8,9 +8,19 @@ import { Observable, of } from 'rxjs';
 import { GreenHouseService } from 'src/app/api-services/green-house.service';
 import { GreenHouseDetailDto } from 'src/app/common/greenhouse.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
+import { GreenhouseDetailOverviewMockResolver } from './greenhouse-detail-overview-mock.resolver';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  useFactory: (p:boolean, h: GreenHouseService, u:CurrentGreenHouseService) =>{
+    if(p){
+      return new  GreenhouseDetailOverviewMockResolver(h);
+    }
+    else{
+     return  new GreenhouseDetailOverviewResolver(h,u);
+    }
+  },
+  deps: ["mocking", GreenHouseService,CurrentGreenHouseService ],
 })
 export class GreenhouseDetailOverviewResolver implements Resolve<GreenHouseDetailDto> {
   constructor(

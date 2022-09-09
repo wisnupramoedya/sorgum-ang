@@ -19,7 +19,7 @@ import * as AllIcons from '@ant-design/icons-angular/icons';
 import en from '@angular/common/locales/en';
 import { registerLocaleData } from '@angular/common';
 import { IconDefinition } from '@ant-design/icons-angular';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -44,7 +44,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     //   registrationStrategy: 'registerWhenStable:30000'
     // })
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    // BrowserAnimationsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     NzLayoutModule,
@@ -72,6 +72,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    {provide:"mocking", useValue: environment.mocking, multi: true}
   ],
   bootstrap: [AppComponent]
 })

@@ -59,6 +59,8 @@ export class SigninComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    console.log(this.accountService);
+    
   }
   initForm():void{
     this.form = this.fb.group({

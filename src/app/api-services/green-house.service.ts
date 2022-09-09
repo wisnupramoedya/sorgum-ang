@@ -17,10 +17,20 @@ import {
   GreenHouseSearchResponse,
   InitDataGreenhouseForm,
 } from '../common/greenhouse.model';
+import { GreenhouseMockService } from '../mock-services/greenhouse-mock.service';
 import { UtilityService } from '../services/utility.service';
 
 @Injectable({
   providedIn: 'root',
+  useFactory: (p:boolean, h: HttpClient, u:UtilityService) =>{
+    if(p){
+      return new GreenhouseMockService();
+    }
+    else{
+     return  new GreenHouseService(h,u);
+    }
+  },
+  deps: ["mocking", HttpClient, UtilityService],
 })
 export class GreenHouseService {
   constructor(

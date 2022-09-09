@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AccountAPI } from '../apis/account.api';
 import { 
   LoginResponse, 
@@ -14,11 +15,21 @@ import {
   UserUpdatePasswordForm 
 } from '../common/account.model';
 import { AppResponse } from '../common/app.model';
+import { UserMockService } from '../mock-services/user-mock.service';
 import { TokenService } from '../services/token.service';
 import { UtilityService } from '../services/utility.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  useFactory: (p:boolean, h: HttpClient, u:UtilityService, t:TokenService, r:Router) =>{
+    if(p){
+      return new UserMockService();
+    }
+    else{
+     return  new AccountService(h,u,t,r);
+    }
+  },
+  deps: ["mocking", HttpClient, UtilityService, TokenService, Router],
 })
 export class AccountService {
 
