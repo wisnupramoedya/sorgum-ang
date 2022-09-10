@@ -22,8 +22,8 @@ import { UtilityService } from '../services/utility.service';
 
 @Injectable({
   providedIn: 'root',
-  useFactory: (p:boolean, h: HttpClient, u:UtilityService) =>{
-    if(p){
+  useFactory: (p:any[], h: HttpClient, u:UtilityService) =>{
+    if(p[0]===true){
       return new GreenhouseMockService();
     }
     else{

@@ -12,8 +12,8 @@ import { GreenhouseDetailOverviewMockResolver } from './greenhouse-detail-overvi
 
 @Injectable({
   providedIn: 'root',
-  useFactory: (p:boolean, h: GreenHouseService, u:CurrentGreenHouseService) =>{
-    if(p){
+  useFactory: (p:any[], h: GreenHouseService, u:CurrentGreenHouseService) =>{
+    if(p[0]===true){
       return new  GreenhouseDetailOverviewMockResolver(h);
     }
     else{

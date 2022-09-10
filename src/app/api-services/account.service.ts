@@ -21,9 +21,13 @@ import { UtilityService } from '../services/utility.service';
 
 @Injectable({
   providedIn: 'root',
-  useFactory: (p:boolean, h: HttpClient, u:UtilityService, t:TokenService, r:Router) =>{
-    if(p){
+  useFactory: (p:any[], h: HttpClient, u:UtilityService, t:TokenService, r:Router) =>{
+    console.log(p);
+    
+    if(p[0]===true){
+      console.log("mocking user serv");
       return new UserMockService();
+      
     }
     else{
      return  new AccountService(h,u,t,r);
