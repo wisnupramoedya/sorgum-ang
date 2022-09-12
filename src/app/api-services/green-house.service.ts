@@ -20,17 +20,28 @@ import {
 import { GreenhouseMockService } from '../mock-services/greenhouse-mock.service';
 import { UtilityService } from '../services/utility.service';
 
+export interface GreenHouseServiceInterface {
+  create(data: GreenHouseCreateForm): Observable<CreateResponse<number>>;
+  search(data: SearchRequest): Observable<GreenHouseSearchResponse>;
+  initDataGreenHouse(data: InitDataGreenhouseForm): Observable<AppResponse>;
+  getAllPlants(): Observable<GreenHousePlantOptionDto[]>;
+  getAllParameters(): Observable<GreenHouseParameterOptionDto[]>;
+  getGreenHouseById(id: number): Observable<GreenHouseDetailDto>;
+  getGraphParamater(
+    data: GreenHouseGraphParameterRequest
+  ): Observable<GreenHouseGraphParameterDto[]>;
+}
+
 @Injectable({
   providedIn: 'root',
-  useFactory: (p:any[], h: HttpClient, u:UtilityService) =>{
-    if(p[0]===true){
+  useFactory: (p: any[], h: HttpClient, u: UtilityService) => {
+    if (p[0] === true) {
       return new GreenhouseMockService();
-    }
-    else{
-     return  new GreenHouseService(h,u);
+    } else {
+      return new GreenHouseService(h, u);
     }
   },
-  deps: ["mocking", HttpClient, UtilityService],
+  deps: ['mocking', HttpClient, UtilityService],
 })
 export class GreenHouseService {
   constructor(
@@ -70,11 +81,16 @@ export class GreenHouseService {
       params: { Id: id },
     });
   }
-  getGraphParamater(data:GreenHouseGraphParameterRequest):Observable<GreenHouseGraphParameterDto[]>{
-    const p = new Date(data.ChosenDate.setHours(0,0,0,0));
-    data.ChosenDate = new Date(Date.parse(p.toUTCString()));//new Date(Date.parse(data.ChosenDate.toUTCString()));
-    return this.http.get<GreenHouseGraphParameterDto[]>(GreenHouseAPI.GraphParameter, {
-      params: this.utilityService.convertModelToHttpParams(data),
-    });
+  getGraphParamater(
+    data: GreenHouseGraphParameterRequest
+  ): Observable<GreenHouseGraphParameterDto[]> {
+    const p = new Date(data.ChosenDate.setHours(0, 0, 0, 0));
+    data.ChosenDate = new Date(Date.parse(p.toUTCString())); //new Date(Date.parse(data.ChosenDate.toUTCString()));
+    return this.http.get<GreenHouseGraphParameterDto[]>(
+      GreenHouseAPI.GraphParameter,
+      {
+        params: this.utilityService.convertModelToHttpParams(data),
+      }
+    );
   }
 }

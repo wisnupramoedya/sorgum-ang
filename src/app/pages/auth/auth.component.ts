@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { FooterComponent } from 'src/app/components/footer/footer.component';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
   selector: 'app-auth',
@@ -10,6 +13,9 @@ import { RouterModule } from '@angular/router';
   imports:[
     CommonModule,
     RouterModule,
+    NzLayoutModule,
+    FooterComponent,
+    HeaderComponent
   ]
 })
 export class AuthComponent implements OnInit {

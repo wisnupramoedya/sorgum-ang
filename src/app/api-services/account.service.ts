@@ -19,6 +19,18 @@ import { UserMockService } from '../mock-services/user-mock.service';
 import { TokenService } from '../services/token.service';
 import { UtilityService } from '../services/utility.service';
 
+
+export interface AccountServiceInterface {
+  create(data: UserCreateForm): Observable<AppResponse>;
+  update(data: UserUpdateForm): Observable<AppResponse>;
+  updatePassword(data: UserUpdatePasswordForm): Observable<AppResponse>;
+  OTPForgetPassword(data: UserOTPPassword): Observable<AppResponse>;
+  resetPassword(data: UserResetPassword): Observable<AppResponse>;
+  read(data: UserForm): Observable<AppResponse>;
+  login(data: UserLoginForm): Observable<LoginResponse>;
+  logout(): void;
+}
+
 @Injectable({
   providedIn: 'root',
   useFactory: (p:any[], h: HttpClient, u:UtilityService, t:TokenService, r:Router) =>{
@@ -26,7 +38,7 @@ import { UtilityService } from '../services/utility.service';
     
     if(p[0]===true){
       console.log("mocking user serv");
-      return new UserMockService();
+      return new UserMockService(t,r);
       
     }
     else{
@@ -35,7 +47,7 @@ import { UtilityService } from '../services/utility.service';
   },
   deps: ["mocking", HttpClient, UtilityService, TokenService, Router],
 })
-export class AccountService {
+export class AccountService implements AccountServiceInterface{
 
   constructor(
     private httpClient:HttpClient,

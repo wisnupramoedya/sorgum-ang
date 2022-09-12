@@ -9,11 +9,15 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzListModule } from 'ng-zorro-antd/list';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { FooterComponent } from 'src/app/components/footer/footer.component';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +26,13 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
   standalone:true,
   imports:[
     CommonModule,
-    RouterModule
+    RouterModule,
+    HeaderComponent,
+    FooterComponent,
+    NzLayoutModule,
+    NzBreadCrumbModule, 
+    NzMenuModule,
+    NzIconModule
   ]
 })
 export class HomeComponent implements OnInit {

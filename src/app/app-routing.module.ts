@@ -47,12 +47,12 @@ const routes: Routes = [
     children:[
       {
         path:'',
-        redirectTo:'list',
+        redirectTo:'land',
         pathMatch:'full'
       },
       {
-        path:'list',
-        loadComponent: ()=>import('./pages/home/pages/greenhouse-list/greenhouse-list.component').then(x=>x.GreenhouseListComponent)
+        path:'land',
+        loadComponent: ()=>import('./pages/home/pages/land-list/land-list.component').then(x=>x.LandListComponent)
       }
     ]
   },
