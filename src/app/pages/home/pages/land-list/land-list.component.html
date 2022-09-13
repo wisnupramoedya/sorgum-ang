@@ -1,9 +1,9 @@
-  <div class="greenhouse-list-toolbar">
+  <div class="land-list-toolbar">
     <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitFormSearch()" style="width: 60%;">
       <nz-form-item >
         <nz-form-control>
           <nz-input-group [nzSuffix]="suffixIconSearch" >
-            <input type="text" nz-input formControlName="Search" placeholder="Cari Greenhouse" />
+            <input type="text" nz-input formControlName="Search" placeholder="Cari lahan berdasarkan nama atau kode" />
             <ng-template #suffixIconSearch>
                 <i nz-icon nzType="search"></i>
             </ng-template>
@@ -11,11 +11,42 @@
         </nz-form-control>
       </nz-form-item>
     </form>
-  
-    <button nz-button nzType="primary" (click)="showModalAddGreenHouse()"><i nz-icon nzType="plus"></i>Tambah Greenhouse</button>
+   
+    <button nz-button nzType="primary" (click)="showModalAddGreenHouse()"><i nz-icon nzType="plus"></i>Tambah Lahan</button>
   </div>
-  <div class="greenhouse-list-content">
-      <nz-card nzHoverable [nzCover]="coverTemplate" *ngFor="let item of data" (click)="gotoDashboard(item.id)">
+  <nz-list nzItemLayout="vertical" class="land-list-content">
+    <nz-list-item *ngFor="let item of data">
+      <nz-list-item-meta>
+        <nz-list-item-meta-title>
+          <a href="#">{{item.name}} | {{item.code}}</a>
+        </nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          {{ item.description }}
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <div class="land-item-card">
+          <app-card-n [name]="'Status'" [n]="4"></app-card-n>
+          <app-card-n [name]="'Micro controller'" [n]="4"></app-card-n>
+      </div>
+        <!-- <ul nz-list-item-actions>
+          <nz-list-item-action>
+            <nz-card style="width:100px;" nzTitle="Region">
+              <p>4</p>
+            </nz-card>
+          </nz-list-item-action>
+          <nz-list-item-action>
+            <nz-card style="width:100px;" nzTitle="Microcontroller">
+              <p>4</p>
+            </nz-card>
+          </nz-list-item-action>
+        </ul> -->
+        <nz-list-item-extra>
+          <img width="272" alt="logo" [src]="item.photo === null ? './assets/land-default.jpg':item.photo" />
+        </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+  <!-- <div class="land-list-content"> -->
+      <!-- <nz-card nzHoverable [nzCover]="coverTemplate" *ngFor="let item of data" (click)="gotoDashboard(item.id)">
         <nz-card-meta [nzTitle]="item.name + ' ('+item.code+')'" [nzDescription]="item.address"></nz-card-meta>
         <ng-template #coverTemplate>
           <img alt="" *ngIf="item.photo!==null; else defaultPhoto" [src]="'data:image/png;base64,'+item.photo" />
@@ -23,11 +54,14 @@
             <img  src="https://sunrise-steel.com/wp-content/uploads/2021/03/greenhouse-baja-ringan-1024x769.jpg" alt="">
           </ng-template>
         </ng-template>    
-      </nz-card>
-  </div>
+      </nz-card> -->
+  <!-- </div> -->
   <nz-pagination 
   [nzPageIndex]="form.controls['Page'].value" 
   [nzTotal]="dataTotal"
   (nzPageIndexChange)="changePageIndex($event)"
   (nzPageSizeChange)="changePageSize($event)"
   ></nz-pagination>
+
+
+<!-- <ng-template #form></ng-template> -->

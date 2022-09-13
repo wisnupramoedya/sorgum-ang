@@ -11,11 +11,19 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { GreenHouseService } from 'src/app/api-services/green-house.service';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import { ModalAddGreenhouseComponent } from '../../components/modal-add-greenhouse/modal-add-greenhouse.component';
-
+import { LandItemDto } from 'src/app/common/land.model';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  startWith,
+  switchMap,
+  tap
+} from 'rxjs/operators';
+import { LandService } from 'src/app/api-services/land.service';
+import { CardNComponent } from 'src/app/components/card-n/card-n.component';
 @Component({
   selector: 'app-land-list',
   standalone: true,
@@ -24,6 +32,7 @@ import { ModalAddGreenhouseComponent } from '../../components/modal-add-greenhou
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     NzFormModule,
     RouterModule,
     NzCardModule,
@@ -34,11 +43,12 @@ import { ModalAddGreenhouseComponent } from '../../components/modal-add-greenhou
     NzGridModule,
     NzUploadModule,
     NzIconModule,
-    NzModalModule
+    NzModalModule,
+    CardNComponent
   ],
 })
 export class LandListComponent implements OnInit {
-  data: GreenHouseDto[] = [];
+  data: LandItemDto[] = [];
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
@@ -49,12 +59,34 @@ export class LandListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NzModalService,
-    private greenhouseService: GreenHouseService,
+    private landService: LandService,
     private currentGreenHouse: CurrentGreenHouseService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.initForm();
+    this.form.valueChanges.pipe(
+      startWith(
+        this.form.value
+        ),
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(x=>this.landService.search(x))
+    ).subscribe(
+      (res: any)=>{
+        console.log(res);
+        this.data = res.data;
+        this.dataTotal=res.nTotal;
+      }
+    );
+  }
+  initForm():void{
+    this.form = this.fb.nonNullable.group({
+      Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
+      Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),
+      N: this.fb.nonNullable.control(10,{validators:[Validators.required]})
+    });
   }
   changePageIndex(event:number):void{
     this.form.controls['Page'].setValue(event);
@@ -65,17 +97,17 @@ export class LandListComponent implements OnInit {
   submitFormSearch():void{
 
   }
-  gotoDashboard(id:number):void{
-    this.currentGreenHouse.chosedGreenHouse.next(id);
-    this.router.navigate(["dashboard",id]);
-  }
+  // gotoDashboard(id:number):void{
+  //   this.currentGreenHouse.chosedGreenHouse.next(id);
+  //   this.router.navigate(["dashboard",id]);
+  // }
   showModalAddGreenHouse():void{
     this.modalService.create({
       nzContent:ModalAddGreenhouseComponent,
     }).afterClose.subscribe(id=>{
       console.log(id);
       if(!!id){
-        this.gotoDashboard(id);
+        // this.gotoDashboard(id);
       }
     })
   }

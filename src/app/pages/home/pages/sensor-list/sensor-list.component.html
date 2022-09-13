@@ -1,0 +1,56 @@
+<div class="microcontroller-list-toolbar">
+    <form
+      nz-form
+      [formGroup]="form"
+      class="login-form"
+      
+      style="width: 60%"
+    >
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input
+              type="text"
+              nz-input
+              formControlName="Search"
+              placeholder="Cari lahan berdasarkan nama atau kode"
+            />
+            <ng-template #suffixIconSearch>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  
+  <nz-table #mcTable [nzData]="data" class="microcontroller-list-content">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Region</th>
+        <th>Lahan</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody  >
+      <tr *ngFor="let item of mcTable.data">
+        <td>{{item.name}}</td>
+        <td>{{item.region_name}} <a nz-icon nzType="select" nzTheme="outline" style="margin-left: 0.5em;"></a></td>
+        <td>{{item.land_name}}  <a nz-icon nzType="select" nzTheme="outline" style="margin-left: 0.5em;"></a></td>
+        <td [ngClass]="item.status ? 'con':'dcon'">{{item.status ? 'Connected' : 'Disconnected'}}
+        </td>
+      </tr>
+    </tbody>
+    
+  </nz-table>
+  <!-- <nz-pagination
+    [nzPageIndex]="form.controls['Page'].value"
+    [nzTotal]="dataTotal"
+    (nzPageIndexChange)="changePageIndex($event)"
+    (nzPageSizeChange)="changePageSize($event)"
+  ></nz-pagination> -->
+  
+  
+  <!-- <ng-template #form></ng-template> -->
+  
