@@ -1,9 +1,8 @@
-<div class="microcontroller-list-toolbar">
+<div class="plant-list-toolbar">
     <form
       nz-form
       [formGroup]="form"
       class="login-form"
-      
       style="width: 60%"
     >
       <nz-form-item>
@@ -13,7 +12,7 @@
               type="text"
               nz-input
               formControlName="Search"
-              placeholder="Cari lahan berdasarkan nama atau kode"
+              placeholder="Cari tanaman berdasarkan nama atau kode"
             />
             <ng-template #suffixIconSearch>
               <i nz-icon nzType="search"></i>
@@ -22,9 +21,10 @@
         </nz-form-control>
       </nz-form-item>
     </form>
+    <button nz-button nzType="primary" (click)="showModalCreate()"><i nz-icon nzType="plus"></i>Tambah Tanaman</button>
   </div>
   
-  <nz-table #mcTable [nzData]="data" class="microcontroller-list-content">
+  <nz-table #mcTable [nzData]="data" class="plant-list-content">
     <thead>
       <tr>
         <th>Nama</th>
@@ -50,7 +50,4 @@
     (nzPageIndexChange)="changePageIndex($event)"
     (nzPageSizeChange)="changePageSize($event)"
   ></nz-pagination> -->
-  
-  
-  <!-- <ng-template #form></ng-template> -->
   
