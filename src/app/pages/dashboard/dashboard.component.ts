@@ -8,6 +8,11 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { HeaderComponent } from 'src/app/components/header/header.component';
+import { FooterComponent } from 'src/app/components/footer/footer.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,7 +20,13 @@ import { RouterModule } from '@angular/router';
   standalone:true,
   imports:[
     CommonModule,
-    RouterModule
+    RouterModule,
+    NzLayoutModule,
+    HeaderComponent,
+    FooterComponent,
+    NzIconModule,
+    NzMenuModule,
+    
   ],
   providers:[NzNotificationService]
 })

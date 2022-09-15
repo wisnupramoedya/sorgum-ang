@@ -43,7 +43,26 @@ export class GreenhouseMockService implements GreenHouseServiceInterface {
     
   }
   getAllParameters(): Observable<GreenHouseParameterOptionDto[]> {
-    throw new Error('Method not implemented.');
+    const t:GreenHouseParameterOptionDto[]=[
+      {
+        code: 'xx01',
+        description:'ABCD',
+        display:'ph',
+        value:90
+      },
+      {
+        code: 'xx02',
+        description:'EFGH',
+        display:'ph',
+        value:86
+      },{
+        code: 'xx03',
+        description:'IJKL',
+        display:'ph',
+        value:83
+      }
+    ];
+    return of(t);
   }
   getGraphParamater(
     data: GreenHouseGraphParameterRequest
