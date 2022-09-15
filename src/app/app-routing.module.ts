@@ -57,6 +57,10 @@ const routes: Routes = [
       {
         path:'microcontroller',
         loadComponent: ()=>import('./pages/home/pages/microcontroller-list/microcontroller-list.component').then(x=>x.MicrocontrollerListComponent)
+      },
+      {
+        path:'plant',
+        loadComponent: ()=>import('./pages/home/pages/plant-list/plant-list.component').then(x=>x.PlantListComponent)
       }
     ]
   },
