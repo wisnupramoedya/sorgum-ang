@@ -85,6 +85,10 @@ const routes: Routes = [
       {
         path:'parameter',
         loadComponent: ()=>import('./pages/dashboard/pages/parameter/parameter.component').then(x=>x.ParameterComponent)
+      },
+      {
+        path:'actuator',
+        loadComponent: ()=>import('./pages/dashboard/pages/actuator/actuator.component').then(x=>x.ActuatorComponent)
       }
     ]
   },
