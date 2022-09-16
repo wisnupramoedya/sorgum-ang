@@ -61,6 +61,10 @@ const routes: Routes = [
       {
         path:'plant',
         loadComponent: ()=>import('./pages/home/pages/plant-list/plant-list.component').then(x=>x.PlantListComponent)
+      },
+      {
+        path:'camera',
+        loadComponent: ()=>import('./pages/home/pages/camera-list/camera-list.component').then(x=>x.CameraListComponent)
       }
     ]
   },
