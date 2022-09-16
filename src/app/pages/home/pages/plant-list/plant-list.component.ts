@@ -14,6 +14,9 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
 import { CreatePlantComponent } from './create-plant/create-plant.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { UpdatePlantComponent } from './update-plant/update-plant.component';
+import { ReadPlantDto } from 'src/app/common/plant.model';
+import { PlantService } from 'src/app/api-services/plant.service';
 
 
 @Component({
@@ -34,7 +37,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   ],
 })
 export class PlantListComponent implements OnInit {
-  data: MicrocontrollerRowDto[] = [];
+  data: ReadPlantDto[] = [];
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
@@ -45,7 +48,7 @@ export class PlantListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NzModalService,
-    private microService: MicrocontrollerService,
+    private plantService: PlantService,
     private currentGreenHouse: CurrentGreenHouseService,
     private router: Router
   ) { }
@@ -57,7 +60,7 @@ export class PlantListComponent implements OnInit {
         ),
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap(x=>this.microService.search(x))
+      switchMap(x=>this.plantService.search(x))
     ).subscribe(
       (res: any)=>{
         console.log(res);
@@ -77,6 +80,41 @@ export class PlantListComponent implements OnInit {
     this.modalService.create({
       nzContent:CreatePlantComponent,
       nzWidth:'80%'
+    }).afterClose.subscribe(id=>{
+      console.log(id);
+      if(!!id){
+        // this.gotoDashboard(id);
+      }
+    })
+  }
+
+  showModalUpdate(id:number):void{
+    const dt = this.data.filter(x=>x.Id === id )[0];
+    this.modalService.create({
+      nzContent:UpdatePlantComponent,
+      nzWidth:'80%',
+      nzComponentParams:{
+        data: dt
+        // {
+          // Id:1,
+          // Name:'dddd',
+          // Code:'code',
+          // Description: 'desc',
+          // Parameters:[
+          //   {
+          //     GroupName:'dddd',
+          //     Descriptions:[
+          //       {
+          //         Id:10,
+          //         Description:'optimal',
+          //         MaxValue:7.8,
+          //         MinValue:6.8
+          //       }
+          //     ]
+          //   }
+          // ]
+        // }
+      }
     }).afterClose.subscribe(id=>{
       console.log(id);
       if(!!id){

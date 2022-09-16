@@ -28,17 +28,18 @@
     <thead>
       <tr>
         <th>Nama</th>
-        <th>Region</th>
-        <th>Lahan</th>
-        <th>Status</th>
+        <th>Kode</th>
+        <th>Deskripsi</th>
+        <th>Detail</th>
       </tr>
     </thead>
     <tbody  >
       <tr *ngFor="let item of mcTable.data">
-        <td>{{item.name}}</td>
-        <td>{{item.region_name}} <a nz-icon nzType="select" nzTheme="outline" style="margin-left: 0.5em;"></a></td>
-        <td>{{item.land_name}}  <a nz-icon nzType="select" nzTheme="outline" style="margin-left: 0.5em;"></a></td>
-        <td [ngClass]="item.status ? 'con':'dcon'">{{item.status ? 'Connected' : 'Disconnected'}}
+        <td>{{item.Name}}</td>
+        <td>{{item.Code}} </td>
+        <td>{{item.Description}}  </td>
+        <td >
+          <button nz-button nzType="primary" (click)="showModalUpdate(item.Id)"><i nz-icon nzType="edit"></i></button>
         </td>
       </tr>
     </tbody>
