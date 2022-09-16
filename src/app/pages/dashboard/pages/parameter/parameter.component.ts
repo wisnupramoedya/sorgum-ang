@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -18,6 +18,7 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -31,7 +32,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { GreenHouseService } from 'src/app/api-services/green-house.service';
 import { GreenHouseGraphParameterDto, GreenHouseGraphParameterDtoWithLocal, GreenHouseParameterOptionDto } from 'src/app/common/greenhouse.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
-
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 @Component({
   selector: 'app-parameter',
   templateUrl: './parameter.component.html',
@@ -40,36 +41,21 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
   imports:[
     CommonModule,
     ReactiveFormsModule,
-    RouterModule,
-    NzSwitchModule,
-    NzGridModule,
-    NzCardModule,
-    NzButtonModule,
-    NzTypographyModule ,
-    NzIconModule,
-    NzListModule,
-    NzFormModule,
+    FormsModule,
     NgxEchartsModule,
-    // NzToolTipModule,
-    NzInputModule,
-    NzModalModule,
-    NzPaginationModule,
-    NzUploadModule,
-    NzMessageModule,
-    NzTableModule,
-    NzSelectModule,
-    NzStepsModule,
-    NzInputNumberModule,
-    NzDividerModule,
-    NzNotificationModule,
-    NzBreadCrumbModule,
+    NzPageHeaderModule,
+    NzFormModule,
     NzDatePickerModule,
-    NzSpaceModule,
-    NzSpinModule
+    NzSelectModule,
+    NzRadioModule,
+    NzButtonModule,
+    NzDividerModule
   ]
 })
 export class ParameterComponent implements OnInit {
   isLoading=false;
+  radioValue='s';
+  dateValue:any=new Date();
   linkDashboard = "";
   form = this.fb.group({
     GreenhouseId:[null, Validators.required],

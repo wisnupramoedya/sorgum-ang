@@ -1,0 +1,101 @@
+<nz-page-header
+  class="site-page-header"
+  nzTitle="Aktuator"
+  nzSubtitle="Nama Lahan | Code Lahan"
+>
+  <nz-page-header-content></nz-page-header-content>
+</nz-page-header>
+<div style="display: flex; flex-direction: row; margin-bottom: 1em">
+  <nz-button-group style="margin: 0px 1em">
+    <button nz-button>
+      <span nz-icon nzType="check"></span>
+    </button>
+    <button
+      nz-button
+      nz-dropdown
+      [nzDropdownMenu]="menu2"
+      nzPlacement="bottomLeft"
+    >
+      DropDown
+    </button>
+    <nz-dropdown-menu #menu2="nzDropdownMenu">
+      <div nz-menu style="padding: 1em; overflow-y: auto; max-height: 400px">
+        <label
+          nz-checkbox
+          [(ngModel)]="allChecked"
+          (ngModelChange)="updateAllChecked()"
+          [nzIndeterminate]="indeterminate"
+        >
+          Check all
+        </label>
+        <nz-checkbox-group
+          class="checkbox-group-vertical"
+          [(ngModel)]="checkOptionsOne"
+          (ngModelChange)="updateSingleChecked()"
+        ></nz-checkbox-group>
+      </div>
+    </nz-dropdown-menu>
+  </nz-button-group>
+  <nz-button-group style="margin: 0px 1em">
+    <button nz-button>
+      <span nz-icon nzType="check"></span>
+    </button>
+    <button
+      nz-button
+      nz-dropdown
+      [nzDropdownMenu]="menu3"
+      nzPlacement="bottomLeft"
+    >
+      DropDown
+    </button>
+    <nz-dropdown-menu #menu3="nzDropdownMenu" style="">
+      <div nz-menu style="padding: 1em; overflow-y: auto; max-height: 400px">
+        <label
+          nz-checkbox
+          [(ngModel)]="allChecked"
+          (ngModelChange)="updateAllChecked()"
+          [nzIndeterminate]="indeterminate"
+        >
+          Check all
+        </label>
+        <nz-checkbox-group
+          class="checkbox-group-vertical"
+          [(ngModel)]="checkOptionsOne"
+          (ngModelChange)="updateSingleChecked()"
+        ></nz-checkbox-group>
+      </div>
+    </nz-dropdown-menu>
+  </nz-button-group>
+</div>
+<div
+  style="
+    white-space: nowrap;
+    display: table;
+    width: max-content;
+    border-collapse: collapse;
+  "
+>
+  <div
+    style="
+      display: table-row;
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
+    "
+  >
+    <app-actor-card style="display: table-cell; padding: 1em"></app-actor-card>
+    <app-actor-card style="display: table-cell; padding: 1em"></app-actor-card>
+    <app-actor-card style="display: table-cell; padding: 1em"></app-actor-card>
+    <app-actor-card style="display: table-cell; padding: 1em"></app-actor-card>
+  </div>
+  <div
+    style="
+      display: table-row;
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
+    "
+  >
+    <app-actor-card style="display: table-cell; padding: 1em"></app-actor-card>
+    <app-actor-card style="display: table-cell; padding: 1em"></app-actor-card>
+    <app-actor-card style="display: table-cell; padding: 1em"></app-actor-card>
+  </div>
+</div>

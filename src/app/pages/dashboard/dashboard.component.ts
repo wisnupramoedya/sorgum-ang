@@ -5,7 +5,7 @@ import { SwUpdate, SwPush, SwRegistrationOptions } from '@angular/service-worker
 import { NotificationService } from 'src/app/services/notification.service';
 import { environment } from 'src/environments/environment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -13,6 +13,8 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,7 +28,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
     FooterComponent,
     NzIconModule,
     NzMenuModule,
-    
+    NzPageHeaderModule
   ],
   providers:[NzNotificationService]
 })
@@ -39,11 +41,14 @@ export class DashboardComponent implements OnInit {
     private currentGHService: CurrentGreenHouseService,
     private deviceService: DeviceDetectorService,
     private nzNotifService: NzNotificationService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private router: Router
   ) { 
     
   }
-
+  onBack():void{
+    this.router.navigateByUrl('/home');
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
       const id = parseInt(paramMap.get('ghId')!!);

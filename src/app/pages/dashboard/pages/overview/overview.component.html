@@ -1,51 +1,76 @@
-<nz-page-header
-      class="site-page-header"
-      nzBackIcon
-      nzTitle="Welcome to ITS Smart Farm"
-    ></nz-page-header>
-
-<div style="background: #ECECEC;padding:30px;">
-  <h2 nz-typography>PHP LEVEL</h2>
-  <div nz-row [nzGutter]="8">
-    <div nz-col [nzSpan]="8">
-      <nz-card [nzBordered]="false" nzTitle="PH">
-        <p>Sensor Ph 1</p>
-        <p>6.5</p>
-    </nz-card>
-    </div>
-    <div nz-col [nzSpan]="8">
-      <nz-card [nzBordered]="false" nzTitle="PH">
-        <p>Sensor Ph 2</p>
-        <p>2.3</p>
-    </nz-card>
-    </div>
-    <div nz-col [nzSpan]="8">
-      <nz-card [nzBordered]="false" nzTitle="PH">
-        <p >Sensor Ph 3</p>
-        <p>8.1</p>
-    </nz-card>
-    </div>
+<nz-page-header class="site-page-header" nzTitle="Nama Lahan | Code Lahan" nzSubtitle="">
+  <nz-page-header-content></nz-page-header-content>
+</nz-page-header>
+<div style="display: flex; flex-direction: row;margin-bottom:1em;">
+  <nz-button-group style="margin: 0px 1em;">
+    <button nz-button >
+      <span nz-icon nzType="check"></span>
+    </button>
+    <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomLeft">DropDown</button>
+    <nz-dropdown-menu #menu2="nzDropdownMenu">
+      <div nz-menu style="padding: 1em;overflow-y:auto;max-height: 400px;"> 
+        <label
+        nz-checkbox
+        [(ngModel)]="allChecked"
+        (ngModelChange)="updateAllChecked()"
+        [nzIndeterminate]="indeterminate"
+      >
+        Check all
+      </label>
+      <nz-checkbox-group class="checkbox-group-vertical" [(ngModel)]="checkOptionsOne" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+      </div>
+    </nz-dropdown-menu>
+  </nz-button-group>
+  <nz-button-group style="margin: 0px 1em;">
+    <button nz-button >
+      <span nz-icon nzType="check"></span>
+    </button>
+    <button nz-button nz-dropdown [nzDropdownMenu]="menu3" nzPlacement="bottomLeft">DropDown</button>
+    <nz-dropdown-menu #menu3="nzDropdownMenu" style="">
+      <div nz-menu style="padding: 1em;overflow-y:auto;max-height: 400px;"> 
+        <label
+        nz-checkbox
+        [(ngModel)]="allChecked"
+        (ngModelChange)="updateAllChecked()"
+        [nzIndeterminate]="indeterminate"
+      >
+        Check all
+      </label>
+      <nz-checkbox-group class="checkbox-group-vertical" [(ngModel)]="checkOptionsOne" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+      </div>
+      
+    </nz-dropdown-menu>
+  </nz-button-group>
+</div>
+<div style="white-space: nowrap; display: table;width: max-content;border-collapse: collapse;">
+  <div style="display: table-row; border-top: 1px solid grey;border-bottom: 1px solid grey;">
+    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
   </div>
-  <h2 nz-typography>SOIL MOISTURE LEVEL</h2>
-  <div nz-row [nzGutter]="8">
-    <div nz-col [nzSpan]="8">
-      <nz-card [nzBordered]="false" nzTitle="SM">
-        <p>Sensor SM 1</p>
-        <p>40%</p>
-    </nz-card>
-    </div>
-    <div nz-col [nzSpan]="8">
-      <nz-card [nzBordered]="false" nzTitle="SM">
-        <p>Sensor SM 2</p>
-        <p>80%</p>
-    </nz-card>
-    </div>
-    <div nz-col [nzSpan]="8">
-      <nz-card [nzBordered]="false" nzTitle="SM">
-        <p >Sensor SM 3</p>
-        <p>97%</p>
-    </nz-card>
-    </div>
+  <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
+    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+  </div>
+
+  <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
+    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+  </div>
+
+  <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
+    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
   </div>
 </div>
-

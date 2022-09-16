@@ -9,3 +9,7 @@ body{
     height: 100%;
     width: 100%;
 }
+.ant-checkbox-group.checkbox-group-vertical{
+    display: flex;
+    flex-direction: column;
+}

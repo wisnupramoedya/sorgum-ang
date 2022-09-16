@@ -83,12 +83,24 @@ const routes: Routes = [
         }
       },
       {
+        path:'region',
+        loadComponent: ()=>import('./pages/dashboard/pages/land-region/land-region.component').then(x=>x.LandRegionComponent)
+      },
+      {
+        path:'microcontroller',
+        loadComponent: ()=>import('./pages/dashboard/pages/land-microcontroller/land-microcontroller.component').then(x=>x.LandMicrocontrollerComponent)
+      },
+      {
+        path:'sensor',
+        loadComponent: ()=>import('./pages/dashboard/pages/land-sensor/land-sensor.component').then(x=>x.LandSensorComponent)
+      },
+      {
         path:'parameter',
         loadComponent: ()=>import('./pages/dashboard/pages/parameter/parameter.component').then(x=>x.ParameterComponent)
       },
       {
         path:'actuator',
-        loadComponent: ()=>import('./pages/dashboard/pages/actuator/actuator.component').then(x=>x.ActuatorComponent)
+        loadComponent: ()=>import('./pages/dashboard/pages/land-actuator/land-actuator.component').then(x=>x.LandActuatorComponent)
       }
     ]
   },

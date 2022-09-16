@@ -31,7 +31,7 @@ import { TitleStrategy } from '@angular/router';
 })
 export class CreatePlantComponent implements OnInit {
   form:FormGroup = this.fb.nonNullable.group({
-    Id: this.fb.nonNullable.control(0),
+    // Id: this.fb.nonNullable.control(0),
     Name: this.fb.nonNullable.control('', {validators:[Validators.required]}),
     Code: this.fb.nonNullable.control('', {validators:[Validators.required]}),
     Description: this.fb.nonNullable.control(''),
@@ -55,7 +55,7 @@ export class CreatePlantComponent implements OnInit {
   }
   newParameter():FormGroup{
     return this.fb.nonNullable.group({
-      Id: this.fb.nonNullable.control(0),
+      // Id: this.fb.nonNullable.control(0),
       GroupName: this.fb.nonNullable.control('',{validators:[Validators.required]}),
       Descriptions:this.fb.nonNullable.array([
         this.newDescriptionParameter()
@@ -64,7 +64,7 @@ export class CreatePlantComponent implements OnInit {
   }
   newDescriptionParameter():FormGroup{
     return this.fb.nonNullable.group({
-      Id: this.fb.nonNullable.control(0),
+      // Id: this.fb.nonNullable.control(0),
       Description: this.fb.nonNullable.control('',{validators:[Validators.required]}),
       MinValue: this.fb.nonNullable.control('',{validators:[Validators.required]}),
       MaxValue: this.fb.nonNullable.control('',{validators:[Validators.required]}),

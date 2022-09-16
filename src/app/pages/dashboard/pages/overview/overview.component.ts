@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as echart from 'echarts';
 import { EChartsOption } from 'echarts';
@@ -39,7 +39,10 @@ import * as signalR from '@microsoft/signalr';
 import { RouterModule } from '@angular/router';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-
+import { McCardComponent } from './components/mc-card/mc-card.component';
+import { ParamCardComponent } from './components/param-card/param-card.component';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 @Component({
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
@@ -47,34 +50,20 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
   imports:[
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxEchartsModule,
     RouterModule,
-    NzSwitchModule,
-    NzGridModule,
     NzCardModule,
     NzButtonModule,
     NzTypographyModule ,
     NzIconModule,
-    NzListModule,
-    NzFormModule,
-    // NzToolTipModule,
-    NzInputModule,
-    NzModalModule,
-    NzPaginationModule,
-    NzUploadModule,
-    NzMessageModule,
-    NzTableModule,
-    NzSelectModule,
-    NzStepsModule,
     NzInputNumberModule,
-    NzDividerModule,
     NzNotificationModule,
-    NzBreadCrumbModule,
-    NzDatePickerModule,
-    NzSpaceModule,
-    NzSpinModule,
-    NzCollapseModule,
-    NzPageHeaderModule
+    NzPageHeaderModule,
+    McCardComponent,
+    ParamCardComponent,
+    NzCheckboxModule,
+    NzDropDownModule
   ]
 })
 export class OverviewComponent implements OnInit, OnDestroy {
@@ -83,6 +72,48 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     
+  }
+  allChecked = false;
+  indeterminate = true;
+  checkOptionsOne = [
+    { label: 'Apple', value: 'Apple', checked: true },
+    { label: 'Pear', value: 'Pear', checked: false },
+    { label: 'Orange', value: 'Orange', checked: false },
+    { label: 'Pear', value: 'Pear', checked: false },
+    { label: 'Orange', value: 'Orange', checked: false },
+    { label: 'Pear', value: 'Pear', checked: false },
+    { label: 'Orange', value: 'Orange', checked: false },
+    { label: 'Pear', value: 'Pear', checked: false },
+    { label: 'Orange', value: 'Orange', checked: false },
+    { label: 'Pear', value: 'Pear', checked: false },
+    { label: 'Orange', value: 'Orange', checked: false }
+  ];
+
+  updateAllChecked(): void {
+    this.indeterminate = false;
+    if (this.allChecked) {
+      this.checkOptionsOne = this.checkOptionsOne.map(item => ({
+        ...item,
+        checked: true
+      }));
+    } else {
+      this.checkOptionsOne = this.checkOptionsOne.map(item => ({
+        ...item,
+        checked: false
+      }));
+    }
+  }
+
+  updateSingleChecked(): void {
+    if (this.checkOptionsOne.every(item => !item.checked)) {
+      this.allChecked = false;
+      this.indeterminate = false;
+    } else if (this.checkOptionsOne.every(item => item.checked)) {
+      this.allChecked = true;
+      this.indeterminate = false;
+    } else {
+      this.indeterminate = true;
+    }
   }
   // linkGraph = "";
   // isModalConditionVisible=false;

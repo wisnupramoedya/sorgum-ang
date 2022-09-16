@@ -24,6 +24,7 @@ import {
 } from 'rxjs/operators';
 import { LandService } from 'src/app/api-services/land.service';
 import { CardNComponent } from 'src/app/components/card-n/card-n.component';
+import { CreateLandComponent } from './create-land/create-land.component';
 @Component({
   selector: 'app-land-list',
   standalone: true,
@@ -101,9 +102,9 @@ export class LandListComponent implements OnInit {
   //   this.currentGreenHouse.chosedGreenHouse.next(id);
   //   this.router.navigate(["dashboard",id]);
   // }
-  showModalAddGreenHouse():void{
+  showModalCreate():void{
     this.modalService.create({
-      nzContent:ModalAddGreenhouseComponent,
+      nzContent:CreateLandComponent,
     }).afterClose.subscribe(id=>{
       console.log(id);
       if(!!id){

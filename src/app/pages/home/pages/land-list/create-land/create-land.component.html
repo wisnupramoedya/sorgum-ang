@@ -1,0 +1,76 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+    <div *nzModalTitle>
+      <h3 nz-typography>Tambah Lahan</h3>
+    </div>
+    <div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Masukkan nama lahan anda!">
+          <nz-input-group nzPrefixIcon="bank">
+            <input
+              type="text"
+              nz-input
+              formControlName="Name"
+              placeholder="Nama Lahan"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Masukkan kode lahan anda!">
+          <nz-input-group nzPrefixIcon="qrcode">
+            <input
+              type="text"
+              nz-input
+              formControlName="Code"
+              placeholder="Kode Lahan"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Masukkan deskripsi lahan anda!">
+          <nz-input-group nzPrefixIcon="compass">
+            <input
+              type="text"
+              nz-input
+              formControlName="Description"
+              placeholder="Deskripsi Lahan"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-upload
+      nzType="drag"
+      [nzMultiple]="false"
+      nzListType="picture"
+        [(nzFileList)]="fileList"
+      (nzChange)="handleChange($event)"
+      [nzBeforeUpload]="beforeUpload"
+      [nzPreview]="handlePreview"
+    >
+      <p class="ant-upload-drag-icon">
+        <span nz-icon nzType="inbox"></span>
+      </p>
+      <p class="ant-upload-text">Click or drag file to this area to upload</p>
+      <p class="ant-upload-hint">
+        Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
+      </p>
+    </nz-upload>
+     
+    </div>
+    <div *nzModalFooter>
+      <button nz-button nzType="default" type="button" (click)="destroyModal()">
+        Cancel
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="form.invalid"
+        [nzLoading]="isSubmitLoading"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+  
