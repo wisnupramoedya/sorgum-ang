@@ -16,13 +16,13 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control nzErrorTip="Masukkan kode tanaman anda!">
+      <nz-form-control nzErrorTip="Masukkan nama latin tanaman anda!">
         <nz-input-group nzPrefixIcon="qrcode">
           <input
             type="text"
             nz-input
-            formControlName="Code"
-            placeholder="Kode Tanaman"
+            formControlName="LatinName"
+            placeholder="Nama Latin Tanaman"
           />
         </nz-input-group>
       </nz-form-control>
@@ -88,6 +88,7 @@
                 nzType="primary"
                 nzPrimary
                 type="button"
+                (click)="saveParameter(i)"
                 [disabled]="
                   Paramete.controls[i].get('GroupName')?.pristine ||
                   (isAllNewDescriptionParameter(
@@ -128,7 +129,7 @@
                   </svg>
                 </i>
               </div>
-              <div nz-col nzSpan="6">
+              <div nz-col nzSpan="5">
                 <nz-input-group>
                   <input
                     type="text"
@@ -138,10 +139,9 @@
                   />
                 </nz-input-group>
               </div>
-              <div nz-col nzSpan="5">
+              <div nz-col nzSpan="4">
                 <nz-input-group>
                   <input
-                    type="text"
                     nz-input
                     placeholder="Nilai Batas Bawah. contoh: 1"
                     formControlName="MinValue"
@@ -149,15 +149,20 @@
                   />
                 </nz-input-group>
               </div>
-              <div nz-col nzSpan="5">
+              <div nz-col nzSpan="4">
                 <nz-input-group>
                   <input
-                    type="text"
                     nz-input
                     placeholder="Nilai Batas Atas. contoh: 4"
                     formControlName="MaxValue"
                     type="number"
                   />
+                </nz-input-group>
+                
+              </div>
+              <div nz-col nzSpan="3">
+                <nz-input-group >
+                  <input type="color" nz-input placeholder="Warna Indikator" formControlName="Color"/>
                 </nz-input-group>
               </div>
               <div nz-col nzSpan="1">

@@ -12,6 +12,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { TitleStrategy } from '@angular/router';
+import { PlantService } from 'src/app/api-services/plant.service';
+import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notification';
+import { tap } from 'rxjs';
 @Component({
   selector: 'app-create-plant',
   standalone: true,
@@ -26,14 +29,15 @@ import { TitleStrategy } from '@angular/router';
     NzModalModule,
     NzGridModule,
     NzIconModule,
-    NzListModule
+    NzListModule,
+    NzNotificationModule
   ],
 })
 export class CreatePlantComponent implements OnInit {
   form:FormGroup = this.fb.nonNullable.group({
     // Id: this.fb.nonNullable.control(0),
     Name: this.fb.nonNullable.control('', {validators:[Validators.required]}),
-    Code: this.fb.nonNullable.control('', {validators:[Validators.required]}),
+    LatinName: this.fb.nonNullable.control('', {validators:[Validators.required]}),
     Description: this.fb.nonNullable.control(''),
     Parameters: this.fb.nonNullable.array([])
   });
@@ -49,7 +53,8 @@ export class CreatePlantComponent implements OnInit {
     private fb:UntypedFormBuilder,
     private msg: NzMessageService,
     private http: HttpClient,
-    private greenhouseService: GreenHouseService
+    private plantService: PlantService,
+    private notification: NzNotificationService
   ) { }
   ngOnInit(): void {
   }
@@ -68,6 +73,7 @@ export class CreatePlantComponent implements OnInit {
       Description: this.fb.nonNullable.control('',{validators:[Validators.required]}),
       MinValue: this.fb.nonNullable.control('',{validators:[Validators.required]}),
       MaxValue: this.fb.nonNullable.control('',{validators:[Validators.required]}),
+      Color: this.fb.nonNullable.control('#000000',{validators:[Validators.required]}),
     });
   }
   addParameter():void{
@@ -84,11 +90,18 @@ export class CreatePlantComponent implements OnInit {
     (this.Paramete.at(idx_parameter).get('Descriptions') as FormArray).removeAt(idx_desc_parameter);
   }
 
-
   submitForm():void{
-    console.log(this.form.valid);
-    console.log(this.form.errors);
-    console.log(this.form.value);
+    console.log(this.form.errors, this.form.value);
+    if(this.form.valid){
+      this.plantService.add(this.form.value)
+          .pipe(
+            tap(()=>this.notification.create(
+              'success',
+              'Sukses',
+              'Submit tanaman baru berhasil.'
+            ))
+          ).subscribe(id=>this.modal.close(id));
+    }
   }
   destroyModal():void{
     this.modal.close();

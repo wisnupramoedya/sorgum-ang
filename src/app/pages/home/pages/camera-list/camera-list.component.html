@@ -1,49 +1,21 @@
-<!-- <div nz-row>
-    <div nz-col nzSpan="12">
-        <img alt="logo" [src]="'./assets/land-default.jpg'" />
-        <nz-slider [(ngModel)]="value1"></nz-slider>
-    </div>
-    <div nz-col nzSpan="12">
-        <img alt="logo" [src]="'./assets/land-default.jpg'" />
-        <nz-slider [(ngModel)]="value1"></nz-slider>
-    </div>
-</div>
-<div nz-row>
-    <div nz-col nzSpan="12">
-        <img alt="logo" [src]="'./assets/land-default.jpg'" />
-    </div>
-    <div nz-col nzSpan="12">
-        <img alt="logo" [src]="'./assets/land-default.jpg'" />
-    </div>
-</div> -->
-
-
-<!-- <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
-    <div nz-col class="gutter-row" [nzSpan]="12">
-        <div>
-            <img alt="logo" [src]="'./assets/land-default.jpg'" />
-            <nz-slider [(ngModel)]="value1"></nz-slider>
-        </div>
-    </div>
-    <div nz-col class="gutter-row" [nzSpan]="12">
-        <div><img alt="logo" [src]="'./assets/land-default.jpg'" /></div>
-    </div>
-</div>
-
-<div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
-    <div nz-col class="gutter-row" [nzSpan]="12">
-        <div><img alt="logo" [src]="'./assets/land-default.jpg'" /></div>
-    </div>
-    <div nz-col class="gutter-row" [nzSpan]="12">
-        <div><img alt="logo" [src]="'./assets/land-default.jpg'" /></div>
-    </div>
-</div> -->
+<nz-page-header
+  class="site-page-header"
+  nzTitle="Kamera"
+  nzSubtitle="Nama Lahan | Code Lahan"
+>
+  <nz-page-header-content></nz-page-header-content>
+</nz-page-header>
 
 
 <div nz-row [nzGutter]="100">
     <div nz-col [nzSpan]="12">
         <img class="card-image" [src]="'./assets/land-default2.jpg'" />
         <div>
+            <label for="">Vertikal</label>
+            <nz-slider [(ngModel)]="slider1"></nz-slider>
+        </div>
+        <div>
+            <label for="">Horizontal</label>
             <nz-slider [(ngModel)]="slider1"></nz-slider>
         </div>
     </div>

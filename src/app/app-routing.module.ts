@@ -62,10 +62,7 @@ const routes: Routes = [
         path:'plant',
         loadComponent: ()=>import('./pages/home/pages/plant-list/plant-list.component').then(x=>x.PlantListComponent)
       },
-      {
-        path:'camera',
-        loadComponent: ()=>import('./pages/home/pages/camera-list/camera-list.component').then(x=>x.CameraListComponent)
-      }
+      
     ]
   },
   { 
@@ -105,6 +102,10 @@ const routes: Routes = [
       {
         path:'actuator',
         loadComponent: ()=>import('./pages/dashboard/pages/land-actuator/land-actuator.component').then(x=>x.LandActuatorComponent)
+      },
+      {
+        path:'camera',
+        loadComponent: ()=>import('./pages/dashboard/pages/land-camera/land-camera.component').then(x=>x.LandCameraComponent)
       }
     ]
   },

@@ -18,50 +18,25 @@
     <nz-list-item *ngFor="let item of data">
       <nz-list-item-meta>
         <nz-list-item-meta-title>
-          <a  routerLink="/dashboard/4">{{item.name}} | {{item.code}}</a>
+          <a  routerLink="/dashboard/4">{{item.Name}} | {{item.Code}}</a>
         </nz-list-item-meta-title>
         <nz-list-item-meta-description>
-          {{ item.description }}
+          {{ item.Address }}
         </nz-list-item-meta-description>
       </nz-list-item-meta>
       <div class="land-item-card">
-          <app-card-n [name]="'Region'" [n]="4"></app-card-n>
-          <app-card-n [name]="'Micro controller'" [n]="4"></app-card-n>
+          <app-card-n [name]="'Region'" icon="build" [n]="item.NRegion"></app-card-n>
+          <app-card-n [name]="'Micro controller'" icon="code-sandbox" [n]="item.NMicrocontroller"></app-card-n>
       </div>
-        <!-- <ul nz-list-item-actions>
-          <nz-list-item-action>
-            <nz-card style="width:100px;" nzTitle="Region">
-              <p>4</p>
-            </nz-card>
-          </nz-list-item-action>
-          <nz-list-item-action>
-            <nz-card style="width:100px;" nzTitle="Microcontroller">
-              <p>4</p>
-            </nz-card>
-          </nz-list-item-action>
-        </ul> -->
+        
         <nz-list-item-extra>
-          <img width="272" alt="logo" [src]="item.photo === null ? './assets/land-default.jpg':item.photo" />
+          <img width="272" alt="logo" [src]="item.Photo === null ? './assets/land-default.jpg':'data:image/png;base64, '+item.Photo" />
         </nz-list-item-extra>
     </nz-list-item>
   </nz-list>
-  <!-- <div class="land-list-content"> -->
-      <!-- <nz-card nzHoverable [nzCover]="coverTemplate" *ngFor="let item of data" (click)="gotoDashboard(item.id)">
-        <nz-card-meta [nzTitle]="item.name + ' ('+item.code+')'" [nzDescription]="item.address"></nz-card-meta>
-        <ng-template #coverTemplate>
-          <img alt="" *ngIf="item.photo!==null; else defaultPhoto" [src]="'data:image/png;base64,'+item.photo" />
-          <ng-template #defaultPhoto>
-            <img  src="https://sunrise-steel.com/wp-content/uploads/2021/03/greenhouse-baja-ringan-1024x769.jpg" alt="">
-          </ng-template>
-        </ng-template>    
-      </nz-card> -->
-  <!-- </div> -->
   <nz-pagination 
   [nzPageIndex]="form.controls['Page'].value" 
   [nzTotal]="dataTotal"
   (nzPageIndexChange)="changePageIndex($event)"
   (nzPageSizeChange)="changePageSize($event)"
   ></nz-pagination>
-
-
-<!-- <ng-template #form></ng-template> -->

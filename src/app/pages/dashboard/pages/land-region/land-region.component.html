@@ -36,7 +36,7 @@
     <thead>
       <tr>
         <th>Nama</th>
-        <th>Kode</th>
+        <th>NamaLatin</th>
         <th>Deskripsi</th>
         <th>Detail</th>
       </tr>
@@ -44,7 +44,7 @@
     <tbody  >
       <tr *ngFor="let item of mcTable.data">
         <td>{{item.Name}}</td>
-        <td>{{item.Code}} </td>
+        <td>{{item.LatinName}} </td>
         <td>{{item.Description}}  </td>
         <td >
           <button nz-button nzType="primary" (click)="showModalUpdate(item.Id)"><i nz-icon nzType="edit"></i></button>

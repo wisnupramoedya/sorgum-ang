@@ -16,13 +16,13 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control nzErrorTip="Masukkan kode tanaman anda!">
+      <nz-form-control nzErrorTip="Masukkan nama latin tanaman anda!">
         <nz-input-group nzPrefixIcon="qrcode">
           <input
             type="text"
             nz-input
-            formControlName="Code"
-            placeholder="Kode Tanaman"
+            formControlName="LatinName"
+            placeholder="Nama Latin Tanaman"
           />
         </nz-input-group>
       </nz-form-control>
@@ -63,19 +63,24 @@
                   <svg style="width: 1em; height: 1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M.2 468.9C2.7 493.1 23.1 512 48 512l96 0 320 0c26.5 0 48-21.5 48-48l0-96c0-26.5-21.5-48-48-48l-48 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-64-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-64-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-48c0-26.5-21.5-48-48-48L48 0C21.5 0 0 21.5 0 48L0 368l0 96c0 1.7 .1 3.3 .2 4.9z"/></svg>
                 </i>
               </div>
-              <div nz-col nzSpan="6">
+              <div nz-col nzSpan="4">
                 <nz-input-group >
                   <input type="text" nz-input placeholder="Deskripsi Parameter. contoh: Terlalu asam" formControlName="Description"/>
                 </nz-input-group>
               </div>
-              <div nz-col nzSpan="5">
+              <div nz-col nzSpan="3">
                 <nz-input-group >
-                  <input type="text" nz-input placeholder="Nilai Batas Bawah. contoh: 1" formControlName="MinValue" type="number"/>
+                  <input nz-input placeholder="Nilai Batas Bawah. contoh: 1" formControlName="MinValue" type="number"/>
                 </nz-input-group>
               </div>
-              <div nz-col nzSpan="5">
+              <div nz-col nzSpan="3">
                 <nz-input-group >
-                  <input type="text" nz-input placeholder="Nilai Batas Atas. contoh: 4" formControlName="MaxValue" type="number"/>
+                  <input nz-input placeholder="Nilai Batas Atas. contoh: 4" formControlName="MaxValue" type="number"/>
+                </nz-input-group>
+              </div>
+              <div nz-col nzSpan="3">
+                <nz-input-group >
+                  <input type="color" nz-input placeholder="Warna Indikator" formControlName="Color"/>
                 </nz-input-group>
               </div>
               <div nz-col nzSpan="2">
@@ -186,6 +191,7 @@
       type="submit"
       [disabled]="form.invalid"
       [nzLoading]="isSubmitLoading"
+      (click)="submitForm()"
     >
       Submit
     </button>

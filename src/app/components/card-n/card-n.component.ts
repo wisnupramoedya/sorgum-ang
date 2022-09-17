@@ -13,7 +13,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
   ],
   template: `
     <nz-card class="card-n-container">
-      <span nz-icon [nzType]="'home'"></span>
+      <span nz-icon [nzType]="icon"></span>
       <div class="status-info">
         <div>{{name}}</div>
         <div>{{n}}</div>
@@ -54,6 +54,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 export class CardNComponent implements OnInit {
   @Input() name!:string;
   @Input() n!:number;
+  @Input() icon!:string;
   constructor() { }
 
   ngOnInit(): void {

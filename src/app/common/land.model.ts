@@ -1,12 +1,29 @@
 import { SearchResponse } from './app.model';
 
 export class LandItemDto{
-    id!:number;
-    name!:string;
-    description!:string;
-    n_region!:number;
-    code!:string;
-    coordinate!:string;
-    photo!:string|null;
+    Id!:number;
+    Name!:string;
+    Code!:string;
+    NRegion!:number;
+    NMicrocontroller!:number;
+    Address!:string;
+    CordinateLand!:string;
+    Photo!:string|null;
 }
 export class LandSearchResponse extends SearchResponse<LandItemDto> {}
+
+export class CreateLandDto {
+    Name!:string;
+    Code!:string;
+    Address!:string;
+    Photo!:File;
+    CordinateLand!:string;
+}
+
+export class UpdateLandDto {
+    Name!:string;
+    Code!:string;
+    Address!:string;
+    Photo!:File;
+    CordinateLand!:string;
+}

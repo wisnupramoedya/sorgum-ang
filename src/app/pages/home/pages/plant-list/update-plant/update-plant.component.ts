@@ -24,6 +24,10 @@ import {
   ReadPlantDto,
 } from 'src/app/common/plant.model';
 import { CreateDescriptionParameter, CreateParameter, DescriptionCreateParameter, UpdateDescriptionParameter, UpdateParameter } from 'src/app/common/PlantParameter.model';
+import { PlantService } from 'src/app/api-services/plant.service';
+import { filter, switchMap, tap } from 'rxjs';
+import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notification';
+import { PlantParameterService } from 'src/app/api-services/plant-parameter.service';
 
 @Component({
   selector: 'app-update-plant',
@@ -40,6 +44,7 @@ import { CreateDescriptionParameter, CreateParameter, DescriptionCreateParameter
     NzGridModule,
     NzIconModule,
     NzListModule,
+    NzNotificationModule
   ],
 })
 export class UpdatePlantComponent implements OnInit {
@@ -51,7 +56,7 @@ export class UpdatePlantComponent implements OnInit {
     Name: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
-    Code: this.fb.nonNullable.control('', {
+    LatinName: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
     Description: this.fb.nonNullable.control(''),
@@ -73,7 +78,10 @@ export class UpdatePlantComponent implements OnInit {
     private modalService: NzModalService,
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private notification: NzNotificationService,
+    private plantService: PlantService,
+    private plantParameterService: PlantParameterService
   ) {}
 
   ngOnInit(): void {
@@ -119,6 +127,9 @@ export class UpdatePlantComponent implements OnInit {
         MaxValue: this.fb.nonNullable.control(element.MaxValue, {
           validators: [Validators.required],
         }),
+        Color: this.fb.nonNullable.control(element.Color, {
+          validators: [Validators.required],
+        }),
       });
       temp.push(tempF);
     }
@@ -127,9 +138,22 @@ export class UpdatePlantComponent implements OnInit {
 
 
   updatePlant():void{
-    // const formCp: FormGroup = this.form;
-    // formCp.removeControl('Parameters');
-    // console.log(formCp.value);
+    console.log(this.form.valid, this.form.value);
+    
+    if(this.form.valid){
+      this.plantService.update(this.form.controls['Id'].value, {
+        Description: this.form.controls['Description'].value,
+        LatinName: this.form.controls['LatinName'].value,
+        Name: this.form.controls['Name'].value
+      }).pipe(
+        tap(()=>this.notification.create(
+          'success',
+          'Sukses',
+          'Pembaharuan data tanaman berhasil.'
+        ))
+      )
+      .subscribe(x=>{});
+    }
     
   }
   newParameter(): FormGroup {
@@ -153,6 +177,9 @@ export class UpdatePlantComponent implements OnInit {
         validators: [Validators.required],
       }),
       MaxValue: this.fb.nonNullable.control('', {
+        validators: [Validators.required],
+      }),
+      Color: this.fb.nonNullable.control('#000000', {
         validators: [Validators.required],
       }),
     });
@@ -189,6 +216,8 @@ export class UpdatePlantComponent implements OnInit {
     const isAllNew = this.isAllNewDescriptionParameter(newDesc);
 
     if(isAllNew){
+      console.log("Buat group plant parameter baru");
+      
       const descs:DescriptionCreateParameter[]=[];
       const tempArr = newDesc as FormArray;
       for (let index = 0; index < tempArr.length; index++) {
@@ -197,23 +226,60 @@ export class UpdatePlantComponent implements OnInit {
           Description:element.get('Description')?.value,
           MaxValue:element.get('MaxValue')?.value,
           MinValue:element.get('MinValue')?.value,
+          Color:element.get('Color')?.value,
         };
         descs.push(temp);
       }
       // jika allnew 
+      console.log("allnew");
+      
       const obj:CreateParameter={
         PlantId: this.data.Id,
         GroupName:param.get('GroupName')?.value,
         Descriptions:descs
       }
+      console.log(obj);
+      this.plantParameterService.createGroup(obj)
+      .pipe(
+        
+        tap(()=>this.notification.create(
+          'success',
+          'Sukses',
+          'Submit grup baru parameter tanaman berhasil.'
+        )))
+      .subscribe(x=>{
+        const param = this.Paramete.at(idx_parameter);
+        const descArr = (this.Paramete.at(idx_parameter).get('Descriptions') as FormArray);
+        for (let index = 0; index < descArr.length; index++) {
+          const descParam = descArr.at(index);
+          descParam.get('Id')?.setValue(x);
+          descParam.updateValueAndValidity();
+        }
+      });
 
 
     }else{
+      console.log("jika update hanya groupname");
       // jika update hanya groupname
+      const ids:number[]=[];
+      for (let index = 0; index < (newDesc as FormArray).length; index++) {
+        const element = (newDesc as FormArray).at(index);
+        ids.push(element.get('Id')?.value)
+      }
       const obj:UpdateParameter={
         GroupName:param.get('GroupName')?.value,
-        PlantId: this.data.Id,
+        Ids: ids,
       }
+      console.log(obj);
+      this.plantParameterService.updateGroup(this.data.Id,obj)
+      .pipe(
+        tap(()=>this.notification.create(
+          'success',
+          'Sukses',
+          'Pembaharuan grup parameter tanaman berhasil.'
+        )))
+      .subscribe(x=>{
+      });
     }
   }
 
@@ -232,8 +298,6 @@ export class UpdatePlantComponent implements OnInit {
   saveDescriptionParameter(idx_parameter:number,idx_desc_parameter: number):void{
     const param = this.Paramete.at(idx_parameter);
     const descParam = (this.Paramete.at(idx_parameter).get('Descriptions') as FormArray).at(idx_desc_parameter);
-    console.log(descParam.get('Id')?.value);
-    console.log(this.DescParamete(idx_parameter).controls[idx_desc_parameter].invalid);
     
     if(descParam.get('Id')?.value !== 0){
       // update
@@ -242,7 +306,19 @@ export class UpdatePlantComponent implements OnInit {
         Description: descParam.get('Description')?.value,
         MaxValue: descParam.get('MaxValue')?.value,
         MinValue: descParam.get('MinValue')?.value,
+        Color:descParam.get('Color')?.value,
       }
+      console.log(obj);
+      this.plantParameterService.update(descParam.get('Id')?.value,obj)
+      .pipe(
+        tap(()=>this.notification.create(
+          'success',
+          'Sukses',
+          'Pembaharuan parameter tanaman berhasil.'
+        )))
+      .subscribe(x=>{
+
+      });
     }
     else{
       // create new
@@ -253,7 +329,23 @@ export class UpdatePlantComponent implements OnInit {
         Description: descParam.get('Description')?.value,
         MaxValue: descParam.get('MaxValue')?.value,
         MinValue: descParam.get('MinValue')?.value,
+        Color:descParam.get('Color')?.value,
+
       }
+      console.log(obj);
+      this.plantParameterService.create(obj)
+      .pipe(
+        tap(()=>this.notification.create(
+          'success',
+          'Sukses',
+          'Submit parameter baru tanaman berhasil.'
+        )))
+      .subscribe(x=>{
+        console.log("id baru parameter",x);
+        descParam.get('Id')?.setValue(x);
+        descParam.updateValueAndValidity();
+      });
+      
     }
   }
 
@@ -267,7 +359,7 @@ export class UpdatePlantComponent implements OnInit {
       nzOnOk: () => {
         console.log('OK');
         return {
-          GroupName: d.controls['GroupName'].value,
+          Ids: (d.controls['Descriptions'] as FormArray).value.map((x:DescriptionReadParameterPlantDto)=>x.Id),
           PlantId: this.data.Id
         };
       },
@@ -276,11 +368,21 @@ export class UpdatePlantComponent implements OnInit {
         console.log('Cancel');
         return -1;
       }
-    }).afterClose.subscribe(x=>{
-      console.log("id hapus",x)
-      if(x!==-1){
+    }).afterClose
+    .pipe(
+      // tap(x=>console.log(x)),
+      filter(x=>x!==-1),
+      switchMap(x=>{
+          return this.plantParameterService.deleteGroup(this.data.Id, x);
+      }),
+      tap(()=>this.notification.create(
+        'success',
+        'Sukses',
+        'Hapus grup parameter berhasil.'
+      ))
+    )
+    .subscribe(x=>{
         this.removeParameter(i);
-      }
     });
   }
   deleteDescParameter(i:number, j:number):void{
@@ -299,15 +401,25 @@ export class UpdatePlantComponent implements OnInit {
         console.log('Cancel');
         return -1;
       }
-    }).afterClose.subscribe(x=>{
-      console.log("id hapus",x)
-      if(x!==-1){
-        this.removeDescriptionParameter(i,j);
-      }
+    }).afterClose
+    .pipe(
+      filter(x=>x!==-1),
+      switchMap(x=>this.plantParameterService.delete(x)),
+      
+      tap(()=>this.notification.create(
+        'success',
+        'Sukses',
+        'Hapus parameter berhasil.'
+      ))
+    )
+    .subscribe(x=>{
+        this.removeDescriptionParameter(i,j);     
     });
   }
 
   deletePlant():void{
+    console.log('menghapus tanaman dengan id', this.data.Id);
+    
     this.modalService.confirm({
       nzTitle: 'Anda yakin ingin menghapus tanaman ini?',
       nzOkText: 'Yes',
@@ -322,11 +434,21 @@ export class UpdatePlantComponent implements OnInit {
         console.log('Cancel');
         return -1;
       }
-    }).afterClose.subscribe(x=>{
-      console.log("id hapus",x)
-      if(x!==-1){
-        
-      }
+    })
+    .afterClose
+    .pipe(
+      filter(x=>x!==-1),
+      switchMap(x=>{        
+          return this.plantService.delete(x);
+      }),
+      tap(()=>this.notification.create(
+        'success',
+        'Sukses',
+        'Hapus tanaman baru berhasil.'
+      ))
+    )
+    .subscribe(x=>{
+      
     });
   }
 

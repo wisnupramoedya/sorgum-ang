@@ -1,11 +1,5 @@
 <div class="microcontroller-list-toolbar">
-  <form
-    nz-form
-    [formGroup]="form"
-    class="login-form"
-    
-    style="width: 60%"
-  >
+  <form nz-form [formGroup]="form" class="login-form" style="width: 60%">
     <nz-form-item>
       <nz-form-control>
         <nz-input-group [nzSuffix]="suffixIconSearch">
@@ -24,7 +18,14 @@
   </form>
 </div>
 
-<nz-table #mcTable [nzData]="data" class="microcontroller-list-content">
+<nz-table
+  #mcTable
+  [nzData]="data"
+  class="microcontroller-list-content"
+  [nzPageSize]="form.controls['N'].value"
+  [nzPageIndex]="form.controls['Page'].value"
+  (nzPageIndexChange)="changePageIndex($event)"
+>
   <thead>
     <tr>
       <th>Nama</th>
@@ -33,16 +34,32 @@
       <th>Status</th>
     </tr>
   </thead>
-  <tbody  >
+  <tbody>
     <tr *ngFor="let item of mcTable.data">
-      <td>{{item.name}}</td>
-      <td>{{item.region_name}} <a nz-icon nzType="select" nzTheme="outline" style="margin-left: 0.5em;"></a></td>
-      <td>{{item.land_name}}  <a nz-icon nzType="select" nzTheme="outline" style="margin-left: 0.5em;"></a></td>
-      <td [ngClass]="item.status ? 'con':'dcon'">{{item.status ? 'Connected' : 'Disconnected'}}
+      <td>{{ item.name }}</td>
+      <td>
+        {{ item.region_name }}
+        <a
+          nz-icon
+          nzType="select"
+          nzTheme="outline"
+          style="margin-left: 0.5em"
+        ></a>
+      </td>
+      <td>
+        {{ item.land_name }}
+        <a
+          nz-icon
+          nzType="select"
+          nzTheme="outline"
+          style="margin-left: 0.5em"
+        ></a>
+      </td>
+      <td [ngClass]="item.status ? 'con' : 'dcon'">
+        {{ item.status ? "Connected" : "Disconnected" }}
       </td>
     </tr>
   </tbody>
-  
 </nz-table>
 <!-- <nz-pagination
   [nzPageIndex]="form.controls['Page'].value"
@@ -50,6 +67,5 @@
   (nzPageIndexChange)="changePageIndex($event)"
   (nzPageSizeChange)="changePageSize($event)"
 ></nz-pagination> -->
-
 
 <!-- <ng-template #form></ng-template> -->

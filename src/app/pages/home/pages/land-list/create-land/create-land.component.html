@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+<form nz-form [formGroup]="form" class="login-form" >
     <div *nzModalTitle>
       <h3 nz-typography>Tambah Lahan</h3>
     </div>
@@ -28,13 +28,13 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Masukkan deskripsi lahan anda!">
+        <nz-form-control nzErrorTip="Masukkan alamat lahan anda!">
           <nz-input-group nzPrefixIcon="compass">
             <input
               type="text"
               nz-input
-              formControlName="Description"
-              placeholder="Deskripsi Lahan"
+              formControlName="Address"
+              placeholder="Alamat Lahan"
             />
           </nz-input-group>
         </nz-form-control>
@@ -44,16 +44,17 @@
       [nzMultiple]="false"
       nzListType="picture"
         [(nzFileList)]="fileList"
-      (nzChange)="handleChange($event)"
       [nzBeforeUpload]="beforeUpload"
       [nzPreview]="handlePreview"
     >
+    <!-- (nzChange)="handleChange($event)" -->
+
       <p class="ant-upload-drag-icon">
         <span nz-icon nzType="inbox"></span>
       </p>
-      <p class="ant-upload-text">Click or drag file to this area to upload</p>
+      <p class="ant-upload-text">Klik atau seret berkas pada area unggah.</p>
       <p class="ant-upload-hint">
-        Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
+        File JPEG atau PNG
       </p>
     </nz-upload>
      
@@ -68,6 +69,7 @@
         type="submit"
         [disabled]="form.invalid"
         [nzLoading]="isSubmitLoading"
+        (click)="submitForm()"
       >
         Submit
       </button>

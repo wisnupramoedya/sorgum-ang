@@ -1,20 +1,21 @@
 import { SearchResponse } from './app.model';
 
 
-export class DescriptionParameterPlantDto{
+export class DescriptionPlantParameterDto{
     Description!:string;
     MinValue!:number;
     MaxValue!:number;
+    Color!:string;
 }
-export class ParameterPlantDto{
+export class PlantParameterDto{
     GroupName!:string;
-    Descriptions!:DescriptionParameterPlantDto[];
+    Descriptions!:DescriptionPlantParameterDto[];
 }
 export class CreatePlantDto{
     Name!:string;
-    Code!:string;
+    LatinName!:string;
     Description!:string;
-    Parameters!:ParameterPlantDto[];
+    PlantParameter!:PlantParameterDto[];
 }
 
 
@@ -23,6 +24,7 @@ export class DescriptionReadParameterPlantDto{
     Description!:string;
     MinValue!:number;
     MaxValue!:number;
+    Color!:string;
 }
 export class ParameterReadPlantDto{
     GroupName!:string;
@@ -31,9 +33,15 @@ export class ParameterReadPlantDto{
 export class ReadPlantDto{
     Id!:number;
     Name!:string;
-    Code!:string;
+    LatinName!:string;
     Description!:string;
     Parameters!:ParameterReadPlantDto[];
 }
 
 export class PlantSearchResponse extends SearchResponse<ReadPlantDto> {}
+
+export class UpatePlantDto{
+    Name!:string;
+    LatinName!:string;
+    Description!:string;
+}

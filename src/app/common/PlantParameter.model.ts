@@ -2,6 +2,7 @@ export class DescriptionCreateParameter{
     Description!:string;
     MinValue!:number;
     MaxValue!:number;
+    Color!:string;
 }
 
 export class CreateParameter{
@@ -16,14 +17,16 @@ export class CreateDescriptionParameter{
     Description!:string;
     MinValue!:number;
     MaxValue!:number;
+    Color!:string;
 }
 
 export class UpdateDescriptionParameter{
     Description!:string;
     MinValue!:number;
     MaxValue!:number;
+    Color!:string;
 }
 export class UpdateParameter{
-    PlantId!:number;
+    Ids!:number[];
     GroupName!:string;
 }

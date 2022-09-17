@@ -95,25 +95,6 @@ export class PlantListComponent implements OnInit {
       nzWidth:'80%',
       nzComponentParams:{
         data: dt
-        // {
-          // Id:1,
-          // Name:'dddd',
-          // Code:'code',
-          // Description: 'desc',
-          // Parameters:[
-          //   {
-          //     GroupName:'dddd',
-          //     Descriptions:[
-          //       {
-          //         Id:10,
-          //         Description:'optimal',
-          //         MaxValue:7.8,
-          //         MinValue:6.8
-          //       }
-          //     ]
-          //   }
-          // ]
-        // }
       }
     }).afterClose.subscribe(id=>{
       console.log(id);

@@ -22,6 +22,8 @@ import {
 } from 'rxjs/operators';
 import { LandService } from 'src/app/api-services/land.service';
 import { CardNComponent } from 'src/app/components/card-n/card-n.component';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-camera-list', 
@@ -43,7 +45,8 @@ import { CardNComponent } from 'src/app/components/card-n/card-n.component';
     NzModalModule,
     CardNComponent,
     NzSliderModule,
-    FormsModule
+    FormsModule,
+    NzPageHeaderModule
   ],
 })
 export class CameraListComponent implements OnInit {
@@ -51,10 +54,16 @@ export class CameraListComponent implements OnInit {
   slider2 = 0;
   slider3 = 0;
   slider4 = 0;
+  cc=null;
 
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+  checkColor():void{
+    console.log(this.cc);
+    
   }
 
 }
