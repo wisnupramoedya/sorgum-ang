@@ -1,5 +1,11 @@
 import { SearchResponse } from './app.model';
 
+export class LandItemMinimalDto{
+    Id!:number;
+    Name!:string;
+    Code!:string;
+}
+
 export class LandItemDto{
     Id!:number;
     Name!:string;

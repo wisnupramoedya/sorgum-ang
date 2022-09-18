@@ -21,6 +21,7 @@ import { registerLocaleData } from '@angular/common';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -74,7 +75,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     {provide:"mocking", useValue: environment.mocking, multi: true},
-    NzMessageService
+    NzMessageService,
+    NzModalService 
   ],
   bootstrap: [AppComponent]
 })

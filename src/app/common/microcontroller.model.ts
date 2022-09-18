@@ -1,14 +1,32 @@
 import { SearchResponse } from './app.model';
 
-export class MicrocontrollerRowDto{
-    id!:number;
-    name!:string;
-    region_id!:number;
-    region_name!:string;
-    land_id!:number;
-    land_name!:string;
-    status!:boolean;
+export class MicroItemMinimalDto{
+    Id!:number;
+    Name!:string;
+    Description!:string;
+    RegionId!:number;
+    RegionName!:string;
+}
+export class MicroItemDto{
+    Id!:number;
+    Name!:string;
+    RegionId!:number;
+    RegionName!:string;
+    Description!:string;
+    LandId!:number;
+    LandName!:string;
+    Status!:boolean;
 }
 
-export class MicrocontrollerSearchResponse extends SearchResponse<MicrocontrollerRowDto>{}
+export class MicrocontrollerSearchResponse extends SearchResponse<MicroItemDto>{}
 
+export class AddMicroDto{
+    Name!:string;
+    Description!:string;
+    RegionId!:number;
+}
+export class UpdateMicroDto{
+    Name!:string;
+    Description!:string;
+    RegionId!:number;
+}

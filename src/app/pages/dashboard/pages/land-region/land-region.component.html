@@ -7,56 +7,60 @@
 </nz-page-header>
 
 <div class="land-region-list-toolbar">
-    <form
-      nz-form
-      [formGroup]="form"
-      class="login-form"
-      style="width: 60%"
-    >
-      <nz-form-item>
-        <nz-form-control>
-          <nz-input-group [nzSuffix]="suffixIconSearch">
-            <input
-              type="text"
-              nz-input
-              formControlName="Search"
-              placeholder="Cari region berdasarkan nama atau kode"
-            />
-            <ng-template #suffixIconSearch>
-              <i nz-icon nzType="search"></i>
-            </ng-template>
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-    <button nz-button nzType="primary" (click)="showModalCreate()"><i nz-icon nzType="plus"></i>Tambah Region</button>
-  </div>
-  
-  <nz-table #mcTable [nzData]="data" class="land-region-list-content">
-    <thead>
-      <tr>
-        <th>Nama</th>
-        <th>NamaLatin</th>
-        <th>Deskripsi</th>
-        <th>Detail</th>
-      </tr>
-    </thead>
-    <tbody  >
-      <tr *ngFor="let item of mcTable.data">
-        <td>{{item.Name}}</td>
-        <td>{{item.LatinName}} </td>
-        <td>{{item.Description}}  </td>
-        <td >
-          <button nz-button nzType="primary" (click)="showModalUpdate(item.Id)"><i nz-icon nzType="edit"></i></button>
-        </td>
-      </tr>
-    </tbody>
-    
-  </nz-table>
-  <!-- <nz-pagination
+  <form nz-form [formGroup]="form" class="login-form" style="width: 60%">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input
+            type="text"
+            nz-input
+            formControlName="Search"
+            placeholder="Cari region berdasarkan nama atau kode"
+          />
+          <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <button nz-button nzType="primary" (click)="showModalCreate()">
+    <i nz-icon nzType="plus"></i>Tambah Region
+  </button>
+</div>
+
+<nz-table
+  #mcTable
+  [nzData]="data"
+  class="land-region-list-content"
+  [nzPageSize]="form.controls['N'].value"
+  [nzPageIndex]="form.controls['Page'].value"
+  (nzPageIndexChange)="changePageIndex($event)"
+>
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>Deskripsi</th>
+      <th>Jumlah Micro controller</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of mcTable.data">
+      <td>{{ item.Name }}</td>
+      <td>{{ item.RegionDescription }}</td>
+      <td>{{ item.NMicrocontroller }}</td>
+      <td>
+        <button nz-button nzType="primary" (click)="showModalUpdate(item.Id)">
+          <i nz-icon nzType="edit"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<!-- <nz-pagination
     [nzPageIndex]="form.controls['Page'].value"
     [nzTotal]="dataTotal"
     (nzPageIndexChange)="changePageIndex($event)"
     (nzPageSizeChange)="changePageSize($event)"
   ></nz-pagination> -->
-  

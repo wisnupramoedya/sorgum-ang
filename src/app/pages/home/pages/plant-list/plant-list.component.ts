@@ -8,8 +8,6 @@ import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
-import { MicrocontrollerRowDto } from 'src/app/common/microcontroller.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import { CreatePlantComponent } from './create-plant/create-plant.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -49,7 +47,6 @@ export class PlantListComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NzModalService,
     private plantService: PlantService,
-    private currentGreenHouse: CurrentGreenHouseService,
     private router: Router
   ) { }
 

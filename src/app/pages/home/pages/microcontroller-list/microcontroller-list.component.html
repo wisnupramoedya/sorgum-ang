@@ -36,9 +36,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let item of mcTable.data">
-      <td>{{ item.name }}</td>
+      <td>{{ item.Name }}</td>
       <td>
-        {{ item.region_name }}
+        {{ item.RegionName }}
         <a
           nz-icon
           nzType="select"
@@ -47,7 +47,7 @@
         ></a>
       </td>
       <td>
-        {{ item.land_name }}
+        {{ item.LandName }}
         <a
           nz-icon
           nzType="select"
@@ -55,8 +55,8 @@
           style="margin-left: 0.5em"
         ></a>
       </td>
-      <td [ngClass]="item.status ? 'con' : 'dcon'">
-        {{ item.status ? "Connected" : "Disconnected" }}
+      <td [ngClass]="item.Status ? 'con' : 'dcon'">
+        {{ item.Status ? "Connected" : "Disconnected" }}
       </td>
     </tr>
   </tbody>

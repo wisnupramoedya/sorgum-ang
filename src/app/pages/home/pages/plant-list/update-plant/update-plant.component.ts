@@ -444,7 +444,7 @@ export class UpdatePlantComponent implements OnInit {
       tap(()=>this.notification.create(
         'success',
         'Sukses',
-        'Hapus tanaman baru berhasil.'
+        'Hapus tanaman berhasil.'
       ))
     )
     .subscribe(x=>{

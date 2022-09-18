@@ -24,7 +24,7 @@ import {
   tap
 } from 'rxjs/operators';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { MicrocontrollerRowDto } from 'src/app/common/microcontroller.model';
+import { MicroItemDto } from 'src/app/common/microcontroller.model';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
 @Component({
   selector: 'app-microcontroller-list',
@@ -51,7 +51,7 @@ import { MicrocontrollerService } from 'src/app/api-services/microcontroller.ser
   ],
 })
 export class MicrocontrollerListComponent implements OnInit {
-  data: MicrocontrollerRowDto[] = [];
+  data: MicroItemDto[] = [];
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),

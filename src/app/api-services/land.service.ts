@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchRequest } from '../common/app.model';
-import { CreateLandDto, LandSearchResponse, UpdateLandDto } from '../common/land.model';
+import { CreateLandDto, LandItemMinimalDto, LandSearchResponse, UpdateLandDto } from '../common/land.model';
 import { LandMockService } from '../mock-services/land-mock.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -13,6 +13,7 @@ export interface LandServiceInterface {
   add(data: CreateLandDto):Observable<number>;
   update(id:number,data:UpdateLandDto):Observable<void>;
   delete(id:number):Observable<void>;
+  showMinimal():Observable<LandItemMinimalDto[]>;
 }
 
 @Injectable({
@@ -34,6 +35,9 @@ export class LandService implements LandServiceInterface{
   ) {
     console.log("using land service");
 
+  }
+  showMinimal(): Observable<LandItemMinimalDto[]> {
+    return this.http.get<LandItemMinimalDto[]>('/api/LandCrud/ShowLandMinimal');
   }
   update(id: number, data: UpdateLandDto): Observable<void> {
     return this.http.put<void>('/api/LandCrud/UpdateLand/'+id,data);

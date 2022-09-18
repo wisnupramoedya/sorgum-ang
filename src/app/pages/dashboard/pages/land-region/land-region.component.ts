@@ -8,6 +8,13 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ReadPlantDto } from 'src/app/common/plant.model';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { RegionsItemDto } from 'src/app/common/region.model';
+import { RegionService } from 'src/app/api-services/region.service';
+import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
+import { CreateLandRegionComponent } from './create-land-region/create-land-region.component';
+import { UpdateLandRegionComponent } from './update-land-region/update-land-region.component';
 
 @Component({
   selector: 'app-land-region',
@@ -22,11 +29,11 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
     NzTableModule,
     NzButtonModule,
     NzIconModule,
-    NzPageHeaderModule
+    NzPageHeaderModule,
   ],
 })
 export class LandRegionComponent implements OnInit {
-  data: ReadPlantDto[] = [];
+  data: RegionsItemDto[] = [];
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
@@ -35,15 +42,51 @@ export class LandRegionComponent implements OnInit {
   });
   dataTotal = 0;
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NzModalService,
+    private regionService: RegionService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.form.valueChanges.pipe(
+      startWith(
+        this.form.value
+        ),
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(x=>this.regionService.search(x))
+    ).subscribe(
+      (res: any)=>{
+        console.log(res);
+        this.data = res.data;
+        this.dataTotal=res.nTotal;
+      }
+    );
+  }
+  changePageIndex(event:number):void{
+    this.form.controls['Page'].setValue(event);
+  }
+  changePageSize(event:number):void{
+    this.form.controls['N'].setValue(event);
   }
   showModalCreate():void{
-
+    this.modalService.create({
+      nzContent:CreateLandRegionComponent,
+    }).afterClose.subscribe(id=>{
+      this.form.updateValueAndValidity();
+    });
   }
   showModalUpdate(id:number):void{
-
+    const dt = this.data.filter(x=>x.Id === id )[0];
+    this.modalService.create({
+      nzContent:UpdateLandRegionComponent,
+      nzComponentParams:{
+        region: dt
+      }
+    }).afterClose.subscribe(id=>{
+      this.form.updateValueAndValidity();
+    });
   }
+  
 }

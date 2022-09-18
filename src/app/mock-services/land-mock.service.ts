@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { filter, map, Observable, of } from 'rxjs';
 import { LandServiceInterface } from '../api-services/land.service';
 import { SearchRequest } from '../common/app.model';
-import { CreateLandDto, LandItemDto, LandSearchResponse, UpdateLandDto } from '../common/land.model';
+import { CreateLandDto, LandItemDto, LandItemMinimalDto, LandSearchResponse, UpdateLandDto } from '../common/land.model';
 import { UtilityService } from '../services/utility.service';
 
 @Injectable()
@@ -12,6 +12,21 @@ export class LandMockService implements LandServiceInterface{
     private utilityService: UtilityService
   ) { 
     console.log("using land mock service");
+  }
+  showMinimal(): Observable<LandItemMinimalDto[]> {
+    const d:LandItemMinimalDto[]=[
+      {
+        Id:1,
+        Code:'CRR3',
+        Name:'dafaga'
+      },
+      {
+        Id:2,
+        Code:'CCD',
+        Name:'dada'
+      }
+    ];
+    return of(d);
   }
   add(data: CreateLandDto): Observable<number> {
     console.log(this.utilityService.convertModelToFormData(data, null, null));

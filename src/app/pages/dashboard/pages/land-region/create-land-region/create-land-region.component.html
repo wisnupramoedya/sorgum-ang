@@ -1,0 +1,49 @@
+<form nz-form [formGroup]="form" class="login-form" >
+    <div *nzModalTitle>
+      <h3 nz-typography>Tambah Region Lahan</h3>
+    </div>
+    <div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Masukkan nama region anda!">
+          <nz-input-group nzPrefixIcon="bank">
+            <input
+              type="text"
+              nz-input
+              formControlName="Name"
+              placeholder="Nama Region"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Masukkan deskripsi region anda!">
+          <nz-input-group nzPrefixIcon="compass">
+            <input
+              type="text"
+              nz-input
+              formControlName="RegionDescription"
+              placeholder="Deskripsi region lahan"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+     
+     
+    </div>
+    <div *nzModalFooter>
+      <button nz-button nzType="default" type="button" (click)="destroyModal()">
+        Cancel
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="form.invalid"
+        [nzLoading]="isSubmitLoading"
+        (click)="submitForm()"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+  
