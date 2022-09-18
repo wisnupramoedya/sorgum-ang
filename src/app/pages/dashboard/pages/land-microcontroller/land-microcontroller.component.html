@@ -6,7 +6,7 @@
   <nz-page-header-content></nz-page-header-content>
 </nz-page-header>
 
-<div class="land-region-list-toolbar">
+<div class="land-micro-con-list-toolbar">
   <form nz-form [formGroup]="form" class="login-form" style="width: 60%">
     <nz-form-item>
       <nz-form-control>
@@ -32,7 +32,7 @@
 <nz-table
   #mcTable
   [nzData]="data"
-  class="land-region-list-content"
+  class="land-micro-con-list-content"
   [nzPageSize]="form.controls['N'].value"
   [nzPageIndex]="form.controls['Page'].value"
   (nzPageIndexChange)="changePageIndex($event)"

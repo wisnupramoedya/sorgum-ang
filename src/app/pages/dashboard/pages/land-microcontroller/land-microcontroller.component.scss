@@ -1,0 +1,33 @@
+.land-micro-con-list-toolbar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.land-micro-con-list-content{
+    margin-top: 1rem;
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    overflow-y: auto;
+    // // max-height: 70vh;
+    // margin-bottom: 1rem;
+
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    // nz-card{
+    //     margin: 0.5rem;
+    //     width: 400px;
+    //     // flex-basis: auto;
+    //     // flex-grow: 0;
+    //     // flex-shrink: 0;
+    // }
+}
+
+.land-micro-con-table{
+    width: 100%;
+}

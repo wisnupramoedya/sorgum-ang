@@ -30,3 +30,8 @@ export class UpdateParameter{
     Ids!:number[];
     GroupName!:string;
 }
+
+export class DeleteParameter{
+    Ids!:number[];
+
+}

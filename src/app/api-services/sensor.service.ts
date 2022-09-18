@@ -40,7 +40,7 @@ export class SensorService  implements SensorServiceInterface{
     const params = new HttpParams({
       fromObject: {...data}
     });
-    return this.http.get<SensorSearchResponse>('/api/SensorCrud/Search'+(land_id===null?'':'/'+land_id),{params: params});
+    return this.http.get<SensorSearchResponse>('/api/SensorCrud/Search'+(land_id===undefined?'':'/'+land_id),{params: params});
   }
   add(data: AddSensorDto): Observable<number> {
     return this.http.post<number>('/api/SensorCrud/AddSensor',data);

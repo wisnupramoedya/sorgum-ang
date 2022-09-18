@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateDescriptionParameter, CreateParameter, UpdateDescriptionParameter, UpdateParameter } from '../common/PlantParameter.model';
+import { CreateDescriptionParameter, CreateParameter, DeleteParameter, UpdateDescriptionParameter, UpdateParameter } from '../common/PlantParameter.model';
 import { PlantParameterMockService } from '../mock-services/plant-parameter-mock.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -33,22 +33,25 @@ export class PlantParameterService implements PlantParameterServiceInterface{
     private utilityService: UtilityService
   ) { }
   create(data: CreateDescriptionParameter): Observable<number> {
-    throw new Error('Method not implemented.');
+    return this.http.post<number>('/api/Param/CreateDescriptionParam',data);
   }
   createGroup(data: CreateParameter): Observable<number[]> {
-    throw new Error('Method not implemented.');
+    return this.http.post<number[]>('/api/Param/CreateParam',data);
   }
   delete(id: number): Observable<void> {
-    throw new Error('Method not implemented.');
+    return this.http.delete<void>('/api/Param/DeleteDescriptionParam/'+id);
   }
   deleteGroup(idPlant: number, ids: number[]): Observable<void> {
-    throw new Error('Method not implemented.');
+    const temp:DeleteParameter={
+      Ids:ids
+    };
+    return this.http.delete<void>('/api/Param/DeleteParam/'+idPlant,{body:temp});
   }
   update(id: number, data: UpdateDescriptionParameter): Observable<void> {
-    throw new Error('Method not implemented.');
+    return this.http.put<void>('/api/Param/UpdateDescriptionParam/'+id,data);
   }
   updateGroup(idPlant: number, data: UpdateParameter): Observable<void> {
-    throw new Error('Method not implemented.');
+    return this.http.put<void>('/api/Param/UpdateParam/'+idPlant,data);
   }
   
 }

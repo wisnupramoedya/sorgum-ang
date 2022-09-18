@@ -49,6 +49,6 @@ export class MicrocontrollerService implements MicrocontrollerServiceInterface{
     const params = new HttpParams({
       fromObject: {...data}
     });
-    return this.http.get<MicrocontrollerSearchResponse>('/api/MikroCrud/Search'+(land_id===null?'':'/'+land_id),{params: params});
+    return this.http.get<MicrocontrollerSearchResponse>('/api/MikroCrud/Search'+(land_id===undefined?'':'/'+land_id),{params: params});
   }
 }

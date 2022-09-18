@@ -1,71 +1,91 @@
-<p>create-land-sensor works!</p>
-<form nz-form [formGroup]="form" class="login-form" >
-    <div *nzModalTitle>
-      <h3 nz-typography>Tambah Microcontroller Lahan</h3>
-    </div>
-    <div>
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Masukkan nama microcontroller anda!">
-          <nz-input-group nzPrefixIcon="bank">
-            <input
-              type="text"
-              nz-input
-              formControlName="Name"
-              placeholder="Nama Microcontroller"
-            />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Masukkan deskripsi anda!">
-          <nz-input-group nzPrefixIcon="compass">
-            <input
-              type="text"
-              nz-input
-              formControlName="Description"
-              placeholder="Deskripsi microcontroller"
-            />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Masukkan microcontroller anda!">
-          <nz-input-group nzPrefixIcon="compass">
-            <nz-select formControlName="MicroId" nzPlaceHolder="Microcontroller">
-              <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of micros"></nz-option>
-            </nz-select>
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Masukkan jenis sensor anda!">
-          <nz-input-group nzPrefixIcon="compass">
-            <nz-select formControlName="Type" nzPlaceHolder="Jenis sensor">
-              <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of sensorTypes"></nz-option>
-            </nz-select>
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div *nzModalFooter style="display: flex; flex-direction: row;">
-      <button nz-button nzType="default" nzDanger type="button" (click)="delete()">
-          Hapus
-      </button>
-    <div style="display: flex; flex-direction: row;">
+<form nz-form [formGroup]="form" class="login-form">
+  <div *nzModalTitle>
+    <h3 nz-typography>Tambah Microcontroller Lahan</h3>
+  </div>
+  <div>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan nama microcontroller anda!">
+        <nz-input-group nzPrefixIcon="bank">
+          <input
+            type="text"
+            nz-input
+            formControlName="Name"
+            placeholder="Nama Microcontroller"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan deskripsi anda!">
+        <nz-input-group nzPrefixIcon="compass">
+          <input
+            type="text"
+            nz-input
+            formControlName="Description"
+            placeholder="Deskripsi microcontroller"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan microcontroller anda!">
+        <nz-input-group nzPrefixIcon="compass">
+          <nz-select formControlName="MicroId" nzPlaceHolder="Microcontroller">
+            <nz-option
+              [nzValue]="item.Id"
+              [nzLabel]="item.Name"
+              *ngFor="let item of micros"
+            ></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan jenis sensor anda!">
+        <nz-input-group nzPrefixIcon="compass">
+          <nz-select formControlName="Type" nzPlaceHolder="Jenis sensor">
+            <nz-option
+              [nzValue]="item.Id"
+              [nzLabel]="item.Name"
+              *ngFor="let item of sensorTypes"
+            ></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div
+    *nzModalFooter
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    "
+  >
+    <button
+      nz-button
+      nzType="default"
+      nzDanger
+      type="button"
+      (click)="delete()"
+    >
+      Hapus
+    </button>
+    <div style="display: flex; flex-direction: row">
       <button nz-button nzType="default" type="button" (click)="destroyModal()">
-          Cancel
-        </button>
-        <button
-          nz-button
-          nzType="primary"
-          type="submit"
-          [disabled]="form.invalid"
-          [nzLoading]="isSubmitLoading"
-          (click)="submitForm()"
-        >
-          Update
-        </button>
+        Cancel
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="form.invalid"
+        [nzLoading]="isSubmitLoading"
+        (click)="submitForm()"
+      >
+        Update
+      </button>
     </div>
   </div>
-  </form>
-  
+</form>
