@@ -80,8 +80,8 @@ export class GreenhouseMockService implements GreenHouseServiceInterface {
       },
     ];
     const resp: GreenHouseSearchResponse = {
-      data: dataresponse,
-      nTotal: dataresponse.length,
+      Data: dataresponse,
+      NTotal: dataresponse.length,
     };
     return of(resp);
   }

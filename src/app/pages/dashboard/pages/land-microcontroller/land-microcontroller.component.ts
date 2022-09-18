@@ -10,7 +10,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { MicroItemDto } from 'src/app/common/microcontroller.model';
 import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CreateLandMicrocontrollerComponent } from './create-land-microcontroller/create-land-microcontroller.component';
 import { UpdateLandMicrocontrollerComponent } from './update-land-microcontroller/update-land-microcontroller.component';
@@ -33,6 +33,7 @@ import { UpdateLandMicrocontrollerComponent } from './update-land-microcontrolle
 })
 export class LandMicrocontrollerComponent implements OnInit {
   data: MicroItemDto[] = [];
+  landId!:number;
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
@@ -44,10 +45,14 @@ export class LandMicrocontrollerComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NzModalService,
     private microconService: MicrocontrollerService,
-    private router: Router
+    private router: Router,
+    private acRoute:ActivatedRoute
+
   ) { }
 
   ngOnInit(): void {
+    this.landId = this.acRoute.snapshot.params['landId'];
+    console.log(this.landId);
     this.form.valueChanges.pipe(
       startWith(
         this.form.value
@@ -58,8 +63,8 @@ export class LandMicrocontrollerComponent implements OnInit {
     ).subscribe(
       (res: any)=>{
         console.log(res);
-        this.data = res.data;
-        this.dataTotal=res.nTotal;
+        this.data = res.Data;
+        this.dataTotal=res.NTotal;
       }
     );
   }
@@ -72,6 +77,9 @@ export class LandMicrocontrollerComponent implements OnInit {
   showModalCreate():void{
     this.modalService.create({
       nzContent:CreateLandMicrocontrollerComponent,
+      nzComponentParams:{
+        land_id:this.landId
+      }
     }).afterClose.subscribe(id=>{
       this.form.updateValueAndValidity();
     });

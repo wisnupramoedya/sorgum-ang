@@ -79,12 +79,12 @@ export class SensorMockService implements SensorServiceInterface {
       }
     ];
     const res: SensorSearchResponse={
-      data:items,
-      nTotal:items.length
+      Data:items,
+      NTotal:items.length
     }
     return of(res).pipe(map(x=>{
-      x.data = x.data.filter(y=>y.Name.includes(data.Search) || y.RegionName.includes(data.Search) || y.LandName.includes(data.Search));
-      x.nTotal = x.data.length;
+      x.Data = x.Data.filter(y=>y.Name.includes(data.Search) || y.RegionName.includes(data.Search) || y.LandName.includes(data.Search));
+      x.NTotal = x.Data.length;
       return x;
     }));
   }

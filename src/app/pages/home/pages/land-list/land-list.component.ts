@@ -77,8 +77,8 @@ export class LandListComponent implements OnInit {
     ).subscribe(
       (res: any)=>{
         console.log(res);
-        this.data = res.data;
-        this.dataTotal=res.nTotal;
+        this.data = res.Data;
+        this.dataTotal=res.NTotal;
       }
     );
   }
@@ -96,19 +96,22 @@ export class LandListComponent implements OnInit {
     this.form.controls['N'].setValue(event);
   }
   submitFormSearch():void{
-
+    
   }
-  // gotoDashboard(id:number):void{
-  //   this.currentGreenHouse.chosedGreenHouse.next(id);
-  //   this.router.navigate(["dashboard",id]);
-  // }
+  loadData():void{
+    this.landService.search(this.form.value).subscribe((res: any)=>{
+      console.log(res);
+      this.data = res.Data;
+      this.dataTotal=res.NTotal;
+    });
+  }
   showModalCreate():void{
     this.modalService.create({
       nzContent:CreateLandComponent,
     }).afterClose.subscribe(id=>{
       console.log(id);
       if(!!id){
-        // this.gotoDashboard(id);
+        this.loadData();
       }
     })
   }

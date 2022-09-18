@@ -10,7 +10,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { CreateLandSensorComponent } from './create-land-sensor/create-land-sensor.component';
 import { UpdateLandSensorComponent } from './update-land-sensor/update-land-sensor.component';
 import { SensorService } from 'src/app/api-services/sensor.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { SensorItemDto } from 'src/app/common/sensor.model';
@@ -33,7 +33,7 @@ import { SensorItemDto } from 'src/app/common/sensor.model';
 })
 export class LandSensorComponent implements OnInit {
   data: SensorItemDto[] = [];
-
+  landId!:number;
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
     Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),
@@ -44,10 +44,14 @@ export class LandSensorComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NzModalService,
     private sensorService: SensorService,
-    private router: Router
+    private router: Router,
+    private acRoute:ActivatedRoute
+
   ) { }
 
   ngOnInit(): void {
+    this.landId = this.acRoute.snapshot.params['landId'];
+    console.log(this.landId);
     this.form.valueChanges.pipe(
       startWith(
         this.form.value
@@ -58,8 +62,8 @@ export class LandSensorComponent implements OnInit {
     ).subscribe(
       (res: any)=>{
         console.log(res);
-        this.data = res.data;
-        this.dataTotal=res.nTotal;
+        this.data = res.Data;
+        this.dataTotal=res.NTotal;
       }
     );
   }
@@ -72,6 +76,9 @@ export class LandSensorComponent implements OnInit {
   showModalCreate():void{
     this.modalService.create({
       nzContent:CreateLandSensorComponent,
+      nzComponentParams:{
+        land_id:this.landId
+      }
     }).afterClose.subscribe(id=>{
       this.form.updateValueAndValidity();
     });
@@ -81,11 +88,11 @@ export class LandSensorComponent implements OnInit {
     this.modalService.create({
       nzContent:UpdateLandSensorComponent,
       nzComponentParams:{
-        data: dt
+        data: dt,
+        land_id:this.landId
       }
     }).afterClose.subscribe(id=>{
       this.form.updateValueAndValidity();
     });
   }
-
 }

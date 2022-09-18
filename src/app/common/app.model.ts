@@ -21,6 +21,6 @@ export class SearchRequest
 }
 export class SearchResponse<T>
 {
-    data!:T[];
-    nTotal!:number;
+    Data!:T[];
+    NTotal!:number;
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -61,8 +61,8 @@ export class PlantListComponent implements OnInit {
     ).subscribe(
       (res: any)=>{
         console.log(res);
-        this.data = res.data;
-        this.dataTotal=res.nTotal;
+        this.data = res.Data;
+        this.dataTotal=res.NTotal;
       }
     );
   }
@@ -80,9 +80,16 @@ export class PlantListComponent implements OnInit {
     }).afterClose.subscribe(id=>{
       console.log(id);
       if(!!id){
-        // this.gotoDashboard(id);
+        this.loadData();
       }
     })
+  }
+  loadData():void{
+    this.plantService.search(this.form.value).subscribe((res: any)=>{
+      console.log(res);
+      this.data = res.Data;
+      this.dataTotal=res.NTotal;
+    });
   }
 
   showModalUpdate(id:number):void{
@@ -96,9 +103,13 @@ export class PlantListComponent implements OnInit {
     }).afterClose.subscribe(id=>{
       console.log(id);
       if(!!id){
-        // this.gotoDashboard(id);
+        this.loadData();
       }
     })
   }
-
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params);
+    const { pageSize, pageIndex, sort, filter } = params;
+    this.changePageIndex(pageIndex);
+  }
 }

@@ -211,6 +211,7 @@ export class UpdatePlantComponent implements OnInit {
   }
 
   saveParameter(idx_parameter:number):void{
+    
     const param = this.Paramete.at(idx_parameter);
     const newDesc = this.Paramete.controls[idx_parameter].get('Descriptions')
     const isAllNew = this.isAllNewDescriptionParameter(newDesc);
@@ -255,8 +256,9 @@ export class UpdatePlantComponent implements OnInit {
           descParam.get('Id')?.setValue(x);
           descParam.updateValueAndValidity();
         }
-      });
+      param.markAsPristine();
 
+      });
 
     }else{
       console.log("jika update hanya groupname");
@@ -279,6 +281,7 @@ export class UpdatePlantComponent implements OnInit {
           'Pembaharuan grup parameter tanaman berhasil.'
         )))
       .subscribe(x=>{
+        this.Paramete.controls[idx_parameter].get('GroupName')?.markAsPristine();
       });
     }
   }
@@ -351,6 +354,10 @@ export class UpdatePlantComponent implements OnInit {
 
   deleteParameter(i:number):void{
     const d = (this.Paramete.at(i) as FormGroup);
+    if(this.isAllNewDescriptionParameter(this.Paramete.at(i).get('Descriptions'))){
+      this.Paramete.removeAt(i);
+      return;
+    }
     this.modalService.confirm({
       nzTitle: 'Anda yakin ingin menghapus parameter ini?',
       nzOkText: 'Yes',
@@ -387,6 +394,10 @@ export class UpdatePlantComponent implements OnInit {
   }
   deleteDescParameter(i:number, j:number):void{
     const d = (this.DescParamete(i).controls[j] as FormGroup);
+    if(d.controls['Id'].value ===0){
+      this.removeDescriptionParameter(i,j);
+      return;
+    }
     this.modalService.confirm({
       nzTitle: 'Anda yakin ingin menghapus deskripsi parameter ini?',
       nzOkText: 'Yes',
@@ -448,7 +459,7 @@ export class UpdatePlantComponent implements OnInit {
       ))
     )
     .subscribe(x=>{
-      
+      this.modal.close(this.data.Id);
     });
   }
 

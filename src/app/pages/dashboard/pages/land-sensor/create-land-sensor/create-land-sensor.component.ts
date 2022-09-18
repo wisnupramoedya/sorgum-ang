@@ -76,7 +76,7 @@ export class CreateLandSensorComponent implements OnInit {
     console.log(this.form.valid, this.form.value);
     
     if(this.form.valid){
-      this.microService.add(this.form.value)
+      this.sensorService.add(this.form.value)
       .pipe(
         tap(()=>this.notification.create(
           'success',

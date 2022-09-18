@@ -67,7 +67,13 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
   ]
 })
 export class OverviewComponent implements OnInit, OnDestroy {
+  landId!:number;
+  constructor(
+    private acRoute:ActivatedRoute
+  ){}
   ngOnInit(): void {
+    this.landId = this.acRoute.snapshot.params['landId'];
+    console.log(this.landId);
     
   }
   ngOnDestroy(): void {

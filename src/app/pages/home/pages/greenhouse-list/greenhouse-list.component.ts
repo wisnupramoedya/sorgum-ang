@@ -71,8 +71,8 @@ export class GreenhouseListComponent implements OnInit {
     ).subscribe(
       (res: GreenHouseSearchResponse)=>{
         console.log(res);
-        this.data = res.data;
-        this.dataTotal=res.nTotal;
+        this.data = res.Data;
+        this.dataTotal=res.NTotal;
       }
     )
   }

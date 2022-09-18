@@ -22,9 +22,9 @@
   #mcTable
   [nzData]="data"
   class="microcontroller-list-content"
-  [nzPageSize]="form.controls['N'].value"
-  [nzPageIndex]="form.controls['Page'].value"
-  (nzPageIndexChange)="changePageIndex($event)"
+  [nzFrontPagination]="false"
+  [nzTotal]="dataTotal"
+  (nzQueryParams)="onQueryParamsChange($event)"
 >
   <thead>
     <tr>

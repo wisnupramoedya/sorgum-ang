@@ -64,12 +64,12 @@ export class LandMockService implements LandServiceInterface{
     ];
 
     const res: LandSearchResponse={
-      data:items,
-      nTotal:items.length
+      Data:items,
+      NTotal:items.length
     }
     return of(res).pipe(map(x=>{
-      x.data = x.data.filter(y=>y.Name.includes(data.Search) || y.Code.includes(data.Search));
-      x.nTotal = x.data.length;
+      x.Data = x.Data.filter(y=>y.Name.includes(data.Search) || y.Code.includes(data.Search));
+      x.NTotal = x.Data.length;
       return x;
     }));
   }

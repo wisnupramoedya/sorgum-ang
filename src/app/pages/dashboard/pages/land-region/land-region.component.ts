@@ -10,7 +10,7 @@ import { ReadPlantDto } from 'src/app/common/plant.model';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { RegionsItemDto } from 'src/app/common/region.model';
 import { RegionService } from 'src/app/api-services/region.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
 import { CreateLandRegionComponent } from './create-land-region/create-land-region.component';
@@ -34,6 +34,7 @@ import { UpdateLandRegionComponent } from './update-land-region/update-land-regi
 })
 export class LandRegionComponent implements OnInit {
   data: RegionsItemDto[] = [];
+  landId!:number;
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
@@ -45,10 +46,14 @@ export class LandRegionComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NzModalService,
     private regionService: RegionService,
-    private router: Router
+    private router: Router,
+    private acRoute:ActivatedRoute
+
   ) { }
 
   ngOnInit(): void {
+    this.landId = this.acRoute.snapshot.params['landId'];
+    console.log(this.landId);
     this.form.valueChanges.pipe(
       startWith(
         this.form.value
@@ -59,8 +64,8 @@ export class LandRegionComponent implements OnInit {
     ).subscribe(
       (res: any)=>{
         console.log(res);
-        this.data = res.data;
-        this.dataTotal=res.nTotal;
+        this.data = res.Data;
+        this.dataTotal=res.NTotal;
       }
     );
   }
@@ -73,6 +78,9 @@ export class LandRegionComponent implements OnInit {
   showModalCreate():void{
     this.modalService.create({
       nzContent:CreateLandRegionComponent,
+      nzComponentParams:{
+        land_id:this.landId
+      }
     }).afterClose.subscribe(id=>{
       this.form.updateValueAndValidity();
     });

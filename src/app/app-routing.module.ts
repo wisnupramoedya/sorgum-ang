@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { AuthorizeGuard } from './guards/authorize.guard';
 import { GreenhouseDetailOverviewResolver } from './pages/dashboard/resolvers/greenhouse-detail-overview.resolver';
+import { SensorTypeListResolver } from './resolvers/sensor-type-list.resolver';
 
 const routes: Routes = [
   {
@@ -59,6 +60,13 @@ const routes: Routes = [
         loadComponent: ()=>import('./pages/home/pages/microcontroller-list/microcontroller-list.component').then(x=>x.MicrocontrollerListComponent)
       },
       {
+        path:'sensor',
+        loadComponent: ()=>import('./pages/home/pages/sensor-list/sensor-list.component').then(x=>x.SensorListComponent),
+        resolve:{
+          sensorTypesData:SensorTypeListResolver
+        }
+      },
+      {
         path:'plant',
         loadComponent: ()=>import('./pages/home/pages/plant-list/plant-list.component').then(x=>x.PlantListComponent)
       },
@@ -66,7 +74,7 @@ const routes: Routes = [
     ]
   },
   { 
-    path: 'dashboard/:ghId', 
+    path: 'dashboard/:landId', 
     // loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) ,
     // canActivate:[AuthorizeGuard]
     loadComponent: () => import('./pages/dashboard/dashboard.component').then(x=>x.DashboardComponent),
@@ -80,7 +88,7 @@ const routes: Routes = [
         path:'overview',
         loadComponent: ()=>import('./pages/dashboard/pages/overview/overview.component').then(x=>x.OverviewComponent),
         resolve:{
-          data:GreenhouseDetailOverviewResolver
+          sensorTypesData:SensorTypeListResolver
         }
       },
       {

@@ -78,6 +78,7 @@ export class UpdateLandSensorComponent implements OnInit {
       Name:this.data.Name,
       Type:this.data.Type
     };
+    this.form.patchValue(temp);
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);

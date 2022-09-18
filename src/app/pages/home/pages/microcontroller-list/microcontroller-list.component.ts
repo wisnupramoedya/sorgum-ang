@@ -23,7 +23,7 @@ import {
   switchMap,
   tap
 } from 'rxjs/operators';
-import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MicroItemDto } from 'src/app/common/microcontroller.model';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
 @Component({
@@ -78,8 +78,8 @@ export class MicrocontrollerListComponent implements OnInit {
     ).subscribe(
       (res: any)=>{
         console.log(res);
-        this.data = res.data;
-        this.dataTotal=res.nTotal;
+        this.data = res.Data;
+        this.dataTotal=res.NTotal;
       }
     );
   }
@@ -88,5 +88,10 @@ export class MicrocontrollerListComponent implements OnInit {
   }
   changePageSize(event:number):void{
     this.form.controls['N'].setValue(event);
+  }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params);
+    const { pageSize, pageIndex, sort, filter } = params;
+    this.changePageIndex(pageIndex);
   }
 }

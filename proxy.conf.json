@@ -1,7 +1,7 @@
 {
   "/api": {
-    "target": "https://727c-140-0-40-217.ap.ngrok.io",
-    "secure": true,
+    "target": "https://localhost:7219",
+    "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
   }

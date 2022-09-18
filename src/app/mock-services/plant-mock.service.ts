@@ -58,11 +58,11 @@ export class PlantMockService implements PlantServiceInterface{
       }
     ];
     return of({
-      data: temp,
-      nTotal: temp.length
+      Data: temp,
+      NTotal: temp.length
     }).pipe(map(x=>{
-      x.data = x.data.filter(y=>y.Name.toLowerCase().includes(data.Search.toLowerCase()) || y.LatinName.toLowerCase().includes(data.Search.toLowerCase()));
-      x.nTotal = x.data.length;
+      x.Data = x.Data.filter(y=>y.Name.toLowerCase().includes(data.Search.toLowerCase()) || y.LatinName.toLowerCase().includes(data.Search.toLowerCase()));
+      x.NTotal = x.Data.length;
       return x;
     }));
   }
