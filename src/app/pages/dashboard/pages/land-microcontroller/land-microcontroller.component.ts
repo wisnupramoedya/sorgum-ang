@@ -51,7 +51,8 @@ export class LandMicrocontrollerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.landId = this.acRoute.snapshot.params['landId'];
+    this.landId = this.acRoute.snapshot.data['landId'];
+    // this.acRoute.params.subscribe(x=>this.landId =x['landId']);
     console.log(this.landId);
     this.form.valueChanges.pipe(
       startWith(
@@ -89,7 +90,8 @@ export class LandMicrocontrollerComponent implements OnInit {
     this.modalService.create({
       nzContent:UpdateLandMicrocontrollerComponent,
       nzComponentParams:{
-        data: dt
+        data: dt,
+        land_id:this.landId
       }
     }).afterClose.subscribe(id=>{
       this.form.updateValueAndValidity();

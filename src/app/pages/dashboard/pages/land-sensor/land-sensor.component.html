@@ -33,14 +33,16 @@
   #mcTable
   [nzData]="data"
   class="land-sensor-list-content"
-  [nzPageSize]="form.controls['N'].value"
-  [nzPageIndex]="form.controls['Page'].value"
-  (nzPageIndexChange)="changePageIndex($event)"
+  [nzFrontPagination]="false"
+  [nzTotal]="dataTotal"
+  (nzQueryParams)="onQueryParamsChange($event)"
 >
   <thead>
     <tr>
       <th>Id</th>
       <th>Nama</th>
+      <!-- <th>Jenis</th> -->
+      <th>Region</th>
       <th>Deskripsi</th>
       <th>Micro Controller</th>
       <th>Region</th>
@@ -51,6 +53,7 @@
     <tr *ngFor="let item of mcTable.data">
       <td>{{ item.Id }}</td>
       <td>{{ item.Name }}</td>
+      <!-- <td>{{ item.TypeName }}</td> -->
       <td>{{ item.Description }}</td>
       <td>{{ item.MicroName }}</td>
       <td>{{ item.RegionName }}</td>

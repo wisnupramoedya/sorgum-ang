@@ -1,3 +1,5 @@
+import { ParameterReadPlantDto } from './plant.model';
+
 export class DescriptionCreateParameter{
     Description!:string;
     MinValue!:number;
@@ -34,4 +36,17 @@ export class UpdateParameter{
 export class DeleteParameter{
     Ids!:number[];
 
+}
+
+
+export class ParamOverv{
+    Ids!:number[]
+    GNames!:string[]
+}
+
+export class ParamOverview extends ParameterReadPlantDto{
+    PlantId !:number;
+    PlantName!:string;
+    MicroId !:number;
+    Value!:number;
 }

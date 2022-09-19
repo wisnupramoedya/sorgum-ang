@@ -15,6 +15,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
 import { CreateLandRegionComponent } from './create-land-region/create-land-region.component';
 import { UpdateLandRegionComponent } from './update-land-region/update-land-region.component';
+import { PlantService } from 'src/app/api-services/plant.service';
 
 @Component({
   selector: 'app-land-region',
@@ -35,7 +36,7 @@ import { UpdateLandRegionComponent } from './update-land-region/update-land-regi
 export class LandRegionComponent implements OnInit {
   data: RegionsItemDto[] = [];
   landId!:number;
-
+  
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
     Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),
@@ -47,12 +48,16 @@ export class LandRegionComponent implements OnInit {
     private modalService: NzModalService,
     private regionService: RegionService,
     private router: Router,
+    private plantService:PlantService,
     private acRoute:ActivatedRoute
 
   ) { }
 
   ngOnInit(): void {
-    this.landId = this.acRoute.snapshot.params['landId'];
+    console.log(this.acRoute.snapshot.data);
+    
+    this.landId = this.acRoute.snapshot.data['landId'];
+    // this.acRoute.params.subscribe(x=>this.landId =x['landId']);
     console.log(this.landId);
     this.form.valueChanges.pipe(
       startWith(

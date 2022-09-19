@@ -16,6 +16,8 @@ export class MicroItemDto{
     LandId!:number;
     LandName!:string;
     Status!:boolean;
+    PlantId!:number;
+    PlantName!:string;
 }
 
 export class MicrocontrollerSearchResponse extends SearchResponse<MicroItemDto>{}
@@ -29,4 +31,7 @@ export class UpdateMicroDto{
     Name!:string;
     Description!:string;
     RegionId!:number;
+}
+export class MicrosIdenity{
+    Ids!:number[];
 }

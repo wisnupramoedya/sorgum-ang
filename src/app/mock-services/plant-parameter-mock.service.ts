@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { PlantParameterServiceInterface } from '../api-services/plant-parameter.service';
-import { CreateDescriptionParameter, CreateParameter, UpdateDescriptionParameter, UpdateParameter } from '../common/PlantParameter.model';
+import { CreateDescriptionParameter, CreateParameter, ParamOverv, ParamOverview, UpdateDescriptionParameter, UpdateParameter } from '../common/PlantParameter.model';
 
 @Injectable()
 export class PlantParameterMockService implements PlantParameterServiceInterface{
 
   constructor() { }
+  showParamOverview(land_id: number, data: ParamOverv): Observable<ParamOverview[]> {
+    throw new Error('Method not implemented.');
+  }
+  showMinimalParam(land_id: number): Observable<string[]> {
+    return of(['ph','kelembaban tanah', 'suhu udara']);
+  }
   create(data: CreateDescriptionParameter): Observable<number> {
     return of(100);
   }

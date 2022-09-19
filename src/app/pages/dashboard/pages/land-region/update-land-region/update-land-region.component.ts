@@ -13,6 +13,9 @@ import { RegionsItemDto, UpdateRegionDto } from 'src/app/common/region.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { RegionService } from 'src/app/api-services/region.service';
 import { filter, switchMap, tap } from 'rxjs';
+import { PlantService } from 'src/app/api-services/plant.service';
+import { ReadPlantDto } from 'src/app/common/plant.model';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'app-update-land-region',
@@ -29,7 +32,8 @@ import { filter, switchMap, tap } from 'rxjs';
     NzGridModule,
     NzIconModule,
     NzListModule,
-    NzNotificationModule
+    NzNotificationModule,
+    NzSelectModule
   ],
 })
 export class UpdateLandRegionComponent implements OnInit {
@@ -42,24 +46,30 @@ export class UpdateLandRegionComponent implements OnInit {
       validators: [Validators.required],
     }),
     CordinateRegion: this.fb.nonNullable.control(''),
+    PlantId: this.fb.nonNullable.control(0,{validators:[Validators.required]}),
+
   });
   isSubmitLoading = false;
+  plants:ReadPlantDto[]=[];
 
   constructor(
     private modal: NzModalRef,
     private fb: UntypedFormBuilder,
     private modalService: NzModalService,
-
+    private plantService:PlantService,
     private msg: NzMessageService,
     private regionService:RegionService,
     private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
+    this.plantService.showPlants().subscribe(x=>this.plants=x);
+
     const dt: UpdateRegionDto={
       CordinateRegion:this.region.CordinateRegion,
       Name:this.region.Name,
-      RegionDescription:this.region.RegionDescription
+      RegionDescription:this.region.RegionDescription,
+      PlantId:this.region.PlantId
     };
     this.form.patchValue(dt);
   }

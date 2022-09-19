@@ -10,6 +10,18 @@ import { CreatePlantDto, ParameterReadPlantDto, PlantSearchResponse, ReadPlantDt
 export class PlantMockService implements PlantServiceInterface{
 
   constructor() { }
+  showPlants(): Observable<ReadPlantDto[]> {
+    const p:ReadPlantDto[]=[
+      {
+        Description:'-',
+        Id:1,
+        LatinName:'-',
+        Name:'ansa',
+        Parameters:[]
+      },
+    ];
+    return of(p)
+  }
   add(data: CreatePlantDto): Observable<number> {
     return of(1);
   }

@@ -12,6 +12,9 @@ import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notif
 import { RegionService } from 'src/app/api-services/region.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { tap } from 'rxjs';
+import { PlantService } from 'src/app/api-services/plant.service';
+import { ReadPlantDto } from 'src/app/common/plant.model';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'app-create-land-region',
@@ -28,11 +31,13 @@ import { tap } from 'rxjs';
     NzGridModule,
     NzIconModule,
     NzListModule,
-    NzNotificationModule
+    NzNotificationModule,
+    NzSelectModule
   ],
 })
 export class CreateLandRegionComponent implements OnInit {
   @Input() land_id!:number;
+  plants:ReadPlantDto[]=[];
   form: FormGroup = this.fb.nonNullable.group({
     Name: this.fb.nonNullable.control('', {
       validators: [Validators.required],
@@ -42,6 +47,7 @@ export class CreateLandRegionComponent implements OnInit {
     }),
     CordinateRegion: this.fb.nonNullable.control(''),
     LandId: this.fb.nonNullable.control(0),
+    PlantId: this.fb.nonNullable.control(0,{validators:[Validators.required]}),
   });
   isSubmitLoading = false;
   constructor(
@@ -49,10 +55,12 @@ export class CreateLandRegionComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
     private regionService:RegionService,
+    private plantService:PlantService,
     private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
+    this.plantService.showPlants().subscribe(x=>this.plants=x);
     this.form.controls['LandId'].setValue(this.land_id);
   }
   submitForm(): void {

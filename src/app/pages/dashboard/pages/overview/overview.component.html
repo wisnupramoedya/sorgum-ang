@@ -6,18 +6,18 @@
     <button nz-button >
       <span nz-icon nzType="check"></span>
     </button>
-    <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomLeft">DropDown</button>
+    <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomLeft">Microcontroller/MiniPc</button>
     <nz-dropdown-menu #menu2="nzDropdownMenu">
       <div nz-menu style="padding: 1em;overflow-y:auto;max-height: 400px;"> 
         <label
         nz-checkbox
-        [(ngModel)]="allChecked"
-        (ngModelChange)="updateAllChecked()"
-        [nzIndeterminate]="indeterminate"
+        [(ngModel)]="allCheckedMc"
+        (ngModelChange)="updateAllCheckedMc()"
+        [nzIndeterminate]="indeterminateMc"
       >
         Check all
       </label>
-      <nz-checkbox-group class="checkbox-group-vertical" [(ngModel)]="checkOptionsOne" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+      <nz-checkbox-group class="checkbox-group-vertical" [(ngModel)]="checkOptionsMc" (ngModelChange)="updateSingleCheckedMc()"></nz-checkbox-group>
       </div>
     </nz-dropdown-menu>
   </nz-button-group>
@@ -25,40 +25,29 @@
     <button nz-button >
       <span nz-icon nzType="check"></span>
     </button>
-    <button nz-button nz-dropdown [nzDropdownMenu]="menu3" nzPlacement="bottomLeft">DropDown</button>
+    <button nz-button nz-dropdown [nzDropdownMenu]="menu3" nzPlacement="bottomLeft">Sensor</button>
     <nz-dropdown-menu #menu3="nzDropdownMenu" style="">
       <div nz-menu style="padding: 1em;overflow-y:auto;max-height: 400px;"> 
         <label
         nz-checkbox
-        [(ngModel)]="allChecked"
-        (ngModelChange)="updateAllChecked()"
-        [nzIndeterminate]="indeterminate"
+        [(ngModel)]="allCheckedPp"
+        (ngModelChange)="updateAllCheckedPp()"
+        [nzIndeterminate]="indeterminatePp"
       >
         Check all
       </label>
-      <nz-checkbox-group class="checkbox-group-vertical" [(ngModel)]="checkOptionsOne" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+      <nz-checkbox-group class="checkbox-group-vertical" [(ngModel)]="checkOptionsPp" (ngModelChange)="updateSingleCheckedPp()"></nz-checkbox-group>
       </div>
       
     </nz-dropdown-menu>
   </nz-button-group>
 </div>
 <div style="white-space: nowrap; display: table;width: max-content;border-collapse: collapse;">
-  <div style="display: table-row; border-top: 1px solid grey;border-bottom: 1px solid grey;">
-    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+  <div style="display: table-row; border-top: 1px solid grey;border-bottom: 1px solid grey;" *ngFor="let item of mcppData">
+    <app-mc-card [mc_name]="item.Name" [region_name]="item.RegionName" [plant_name]="item.PlantName " style="display: table-cell;padding:1em;"></app-mc-card>
+    <app-param-card [group_name]="itdes.GroupName" [value]="itdes.Value" [desc]="itdes.Descriptions" style="display: table-cell;padding:1em;" *ngFor="let itdes of item.data_sensor"></app-param-card>
   </div>
-  <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
-    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-  </div>
-
-  <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
+  <!-- <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
     <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
     <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
     <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
@@ -73,4 +62,12 @@
     <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
     <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
   </div>
+
+  <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
+    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
+  </div> -->
 </div>

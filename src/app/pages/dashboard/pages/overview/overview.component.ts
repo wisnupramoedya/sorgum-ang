@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as echart from 'echarts';
@@ -28,11 +37,17 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { GreenHouseService } from 'src/app/api-services/green-house.service';
 import { HubService } from 'src/app/api-services/hub.service';
 import { HubAPI } from 'src/app/apis/hub.api';
-import { GreenHouseDetailDto, GreenHouseParameterOptionDto, IoTChangeStatusDto, IoTSubmitBroadcast, PlantsConditionDto } from 'src/app/common/greenhouse.model';
+import {
+  GreenHouseDetailDto,
+  GreenHouseParameterOptionDto,
+  IoTChangeStatusDto,
+  IoTSubmitBroadcast,
+  PlantsConditionDto,
+} from 'src/app/common/greenhouse.model';
 import { CommandIotComponent } from './components/command-iot/command-iot.component';
 import { InitDataFormComponent } from './components/init-data-form/init-data-form.component';
 import * as signalR from '@microsoft/signalr';
@@ -43,11 +58,30 @@ import { McCardComponent } from './components/mc-card/mc-card.component';
 import { ParamCardComponent } from './components/param-card/param-card.component';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
+import {
+  MicroItemDto,
+  MicroItemMinimalDto,
+  MicrosIdenity,
+} from 'src/app/common/microcontroller.model';
+import { PlantParameterService } from 'src/app/api-services/plant-parameter.service';
+import { ParamOverv, ParamOverview } from 'src/app/common/PlantParameter.model';
+
+export class CheckSelect {
+  label!: string;
+  value!: any;
+  checked!: boolean;
+}
+
+export class MicroItemDtoModified extends MicroItemDto {
+  data_sensor!: ParamOverview[];
+}
+
 @Component({
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
-  standalone:true,
-  imports:[
+  standalone: true,
+  imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
@@ -55,7 +89,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     RouterModule,
     NzCardModule,
     NzButtonModule,
-    NzTypographyModule ,
+    NzTypographyModule,
     NzIconModule,
     NzInputNumberModule,
     NzNotificationModule,
@@ -63,63 +97,178 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     McCardComponent,
     ParamCardComponent,
     NzCheckboxModule,
-    NzDropDownModule
-  ]
+    NzDropDownModule,
+  ],
 })
 export class OverviewComponent implements OnInit, OnDestroy {
-  landId!:number;
+  landId!: number;
+  mcs: MicroItemMinimalDto[] = [];
+  pps: string[] = [];
+
+  mcDataTemp: MicroItemDto[] = [];
+  ppDataTemp: ParamOverview[] = [];
+  mcppData: MicroItemDtoModified[] = [];
   constructor(
-    private acRoute:ActivatedRoute
-  ){}
+    private acRoute: ActivatedRoute,
+    private mcService: MicrocontrollerService,
+    private plantParamService: PlantParameterService
+  ) {}
   ngOnInit(): void {
     this.landId = this.acRoute.snapshot.params['landId'];
     console.log(this.landId);
-    
+    this.mcService.showMinimal(this.landId).subscribe((x) => {
+      this.mcs = x;
+      this.checkOptionsMc = x.map((y) => {
+        const temp: CheckSelect = {
+          checked: true,
+          label: y.Name,
+          value: y.Id,
+        };
+        return temp;
+      });
+    });
+    this.plantParamService.showMinimalParam(this.landId).subscribe((x) => {
+      this.pps = x;
+      this.checkOptionsPp = x.map((y) => {
+        const temp: CheckSelect = {
+          checked: true,
+          label: y,
+          value: y,
+        };
+        return temp;
+      });
+      console.log(this.checkOptionsPp);
+    });
+    setTimeout(()=>{
+      this.loadMcs();
+    },1000);
   }
-  ngOnDestroy(): void {
-    
-  }
-  allChecked = false;
-  indeterminate = true;
-  checkOptionsOne = [
-    { label: 'Apple', value: 'Apple', checked: true },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false }
-  ];
+  ngOnDestroy(): void {}
+  allCheckedMc = false;
+  indeterminateMc = true;
+  allCheckedPp = false;
+  indeterminatePp = true;
+  checkOptionsMc: CheckSelect[] = [];
+  checkOptionsPp: CheckSelect[] = [];
 
-  updateAllChecked(): void {
-    this.indeterminate = false;
-    if (this.allChecked) {
-      this.checkOptionsOne = this.checkOptionsOne.map(item => ({
+  updateAllCheckedMc(): void {
+    this.indeterminateMc = false;
+    if (this.allCheckedMc) {
+      this.checkOptionsMc = this.checkOptionsMc.map((item) => ({
         ...item,
-        checked: true
+        checked: true,
       }));
     } else {
-      this.checkOptionsOne = this.checkOptionsOne.map(item => ({
+      this.checkOptionsMc = this.checkOptionsMc.map((item) => ({
         ...item,
-        checked: false
+        checked: false,
       }));
     }
+    this.loadMcs();
+  }
+  updateAllCheckedPp(): void {
+    this.indeterminatePp = false;
+    if (this.allCheckedPp) {
+      this.checkOptionsPp = this.checkOptionsPp.map((item) => ({
+        ...item,
+        checked: true,
+      }));
+    } else {
+      this.checkOptionsPp = this.checkOptionsPp.map((item) => ({
+        ...item,
+        checked: false,
+      }));
+    }
+    this.loadPps();
   }
 
-  updateSingleChecked(): void {
-    if (this.checkOptionsOne.every(item => !item.checked)) {
-      this.allChecked = false;
-      this.indeterminate = false;
-    } else if (this.checkOptionsOne.every(item => item.checked)) {
-      this.allChecked = true;
-      this.indeterminate = false;
+  loadMcs(): void {
+    const temp: MicrosIdenity = {
+      Ids: this.checkOptionsMc.filter((x) => x.checked).map((x) => x.value),
+    };
+    this.mcService.showOverviewMicro(this.landId, temp)
+    
+    .subscribe((x) => {
+      this.mcDataTemp = x;
+      this.formatLoad();
+
+    });
+  }
+  // loadMcs2():void{
+  //   const temp: MicrosIdenity = {
+  //     Ids: this.checkOptionsMc.filter((x) => x.checked).map((x) => x.value),
+  //   };
+  //   this.mcService.showOverviewMicro(this.landId, temp).subscribe((x) => {
+  //     this.mcDataTemp = x;
+      
+  //   });
+  // }
+  loadPps(): void {
+    this.loadMcs();
+    // const temp: ParamOverv={
+    //   Ids:this.checkOptionsMc.filter(x=>x.checked).map(x=>x.value),
+    //   GNames:this.checkOptionsPp.filter(x=>x.checked).map(x=>x.value)
+    // };
+    // this.plantParamService.showParamOverview(this.landId, temp).subscribe(x=>this.ppDataTemp = x);
+  }
+  formatLoad(): void {
+    const temp: ParamOverv = {
+      Ids: this.checkOptionsMc.filter((x) => x.checked).map((x) => x.value),
+      GNames: this.checkOptionsPp.filter((x) => x.checked).map((x) => x.value),
+    };
+    this.plantParamService
+      .showParamOverview(this.landId, temp)
+      .subscribe((x) => {
+        console.log(x);
+        this.ppDataTemp = x;
+        const temp: MicroItemDtoModified[] = this.mcDataTemp.map((x) => {
+          const yy: MicroItemDtoModified = {
+            Description: x.Description,
+            Id: x.Id,
+            LandId: x.LandId,
+            LandName: x.LandName,
+            Name: x.Name,
+            RegionId: x.RegionId,
+            RegionName: x.RegionName,
+            Status: x.Status,
+            data_sensor: this.ppDataTemp.filter((y) => y.MicroId === x.Id),
+            PlantId:x.PlantId,
+            PlantName:x.PlantName
+          };
+          // console.log(yy);
+          
+          return yy;
+        });
+        this.mcppData = temp;
+
+        
+        console.log(this.mcppData);
+        // console.log(this.mcppData[0].data_sensor);
+      });
+  }
+  updateSingleCheckedMc(): void {
+    if (this.checkOptionsMc.every((item) => !item.checked)) {
+      this.allCheckedMc = false;
+      this.indeterminateMc = false;
+    } else if (this.checkOptionsMc.every((item) => item.checked)) {
+      this.allCheckedMc = true;
+      this.indeterminateMc = false;
     } else {
-      this.indeterminate = true;
+      this.indeterminateMc = true;
     }
+    this.loadMcs();
+  }
+  updateSingleCheckedPp(): void {
+    if (this.checkOptionsPp.every((item) => !item.checked)) {
+      this.allCheckedPp = false;
+      this.indeterminatePp = false;
+    } else if (this.checkOptionsPp.every((item) => item.checked)) {
+      this.allCheckedPp = true;
+      this.indeterminatePp = false;
+    } else {
+      this.indeterminatePp = true;
+    }
+    this.loadPps();
   }
   // linkGraph = "";
   // isModalConditionVisible=false;
@@ -146,7 +295,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   //   // 'P':{init:undefined,merged:undefined},
   //   // 'K':{init:undefined,merged:undefined},
   // };
-  
+
   // chartData:{[key:string]:any}={
   //   // 'SpH':[],
   //   // 'AT':[],
@@ -186,8 +335,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   // ) { }
 
-  
-  
   // ngOnDestroy(): void {
   //   this.hubCon.invoke("LeaveRoom", this.greenhouseData.id.toString());
   // }
@@ -242,7 +389,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   //       nzKeyboard:false,
   //       nzWidth:'80vw'
   //     }).afterClose.pipe(switchMap(x=>this.greenHouseService.getGreenHouseById(this.greenhouseData.id)))
-        
+
   //       .subscribe(x=>this.greenhouseData=x);
   //   }
   //   this.hubCon = this.hubService.buildHub(HubAPI.Overview);
@@ -281,7 +428,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   //           name: dtDataTS,
   //           value:[
   //             dtDataTS,
-  //             Math.round((element.value + Number.EPSILON) * 100) / 100 
+  //             Math.round((element.value + Number.EPSILON) * 100) / 100
   //           ]
   //         });
   //         this.chartOptions[key].merged = {
@@ -294,7 +441,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   //   });
   // }
-  
+
   // supplyDemo():void{
   //   for(const p of this.listOfParams){
   //       console.log(this.chartData,p)
@@ -338,14 +485,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
   //           data: this.chartData[p.code]
   //         }]
   //       };
-      
+
   //   }
-    
-
-
-    
 
   // }
-
-  
 }

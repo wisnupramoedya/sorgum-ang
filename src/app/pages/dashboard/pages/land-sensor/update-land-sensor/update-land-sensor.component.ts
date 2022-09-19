@@ -72,19 +72,31 @@ export class UpdateLandSensorComponent implements OnInit {
     .subscribe(x=>this.micros=x);
     this.sensorService.getSensorTypes()
     .subscribe(x=>this.sensorTypes=x);
-    const temp:UpdateSensorDto={
-      Description:this.data.Description,
-      MicroId:this.data.MicroId,
-      Name:this.data.Name,
-      Type:this.data.Type
-    };
-    this.form.patchValue(temp);
+
+    this.microService.showMinimal(this.land_id)
+    .pipe(
+      tap(x=>this.micros=x),
+      switchMap(()=>this.sensorService.getSensorTypes()),
+      tap(x=>this.sensorTypes=x)
+    )
+    
+    .subscribe(x=>{
+      const temp:UpdateSensorDto={
+        Description:this.data.Description,
+        MicroId:this.data.MicroId,
+        Name:this.data.Name,
+        Type:this.data.Type
+      };
+      this.form.patchValue(temp);
+
+    });
+    
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);
     
     if(this.form.valid){
-      this.microService.update(this.data.Id,this.form.value)
+      this.sensorService.update(this.data.Id,this.form.value)
       .pipe(
         tap(()=>this.notification.create(
           'success',

@@ -6,7 +6,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { CreateLandSensorComponent } from './create-land-sensor/create-land-sensor.component';
 import { UpdateLandSensorComponent } from './update-land-sensor/update-land-sensor.component';
 import { SensorService } from 'src/app/api-services/sensor.service';
@@ -50,7 +50,8 @@ export class LandSensorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.landId = this.acRoute.snapshot.params['landId'];
+    this.landId = this.acRoute.snapshot.data['landId'];
+    // this.acRoute.params.subscribe(x=>console.log(x));
     console.log(this.landId);
     this.form.valueChanges.pipe(
       startWith(
@@ -94,5 +95,10 @@ export class LandSensorComponent implements OnInit {
     }).afterClose.subscribe(id=>{
       this.form.updateValueAndValidity();
     });
+  }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params);
+    const { pageSize, pageIndex, sort, filter } = params;
+    this.changePageIndex(pageIndex);
   }
 }

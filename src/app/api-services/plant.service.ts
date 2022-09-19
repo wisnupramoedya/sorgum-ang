@@ -2,12 +2,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchRequest } from '../common/app.model';
-import { CreatePlantDto, PlantSearchResponse, UpatePlantDto } from '../common/plant.model';
+import { CreatePlantDto, PlantSearchResponse, ReadPlantDto, UpatePlantDto } from '../common/plant.model';
 import { PlantMockService } from '../mock-services/plant-mock.service';
 import { UtilityService } from '../services/utility.service';
 
 export interface PlantServiceInterface {
   // create(data: GreenHouseCreateForm): Observable<CreateResponse<number>>;
+  showPlants():Observable<ReadPlantDto[]>;
   search(data: SearchRequest): Observable<PlantSearchResponse>;
   add(data: CreatePlantDto):Observable<number>;
   update(id:number,data:UpatePlantDto):Observable<void>;
@@ -46,5 +47,9 @@ export class PlantService implements PlantServiceInterface{
       fromObject: {...data}
     });
     return this.http.get<PlantSearchResponse>('api/PlantCrud/Search',{params:params});
+  }
+  showPlants():Observable<ReadPlantDto[]>{
+    return this.http.get<ReadPlantDto[]>('api/PlantCrud/ShowPlants');
+
   }
 }

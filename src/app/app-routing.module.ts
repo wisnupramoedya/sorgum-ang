@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { AuthorizeGuard } from './guards/authorize.guard';
 import { GreenhouseDetailOverviewResolver } from './pages/dashboard/resolvers/greenhouse-detail-overview.resolver';
+import { LandIdResolver } from './pages/dashboard/resolvers/land-id.resolver';
 import { SensorTypeListResolver } from './resolvers/sensor-type-list.resolver';
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'auth',
+    redirectTo:'home',
     pathMatch:'full'
   },
   { 
@@ -63,7 +64,7 @@ const routes: Routes = [
         path:'sensor',
         loadComponent: ()=>import('./pages/home/pages/sensor-list/sensor-list.component').then(x=>x.SensorListComponent),
         resolve:{
-          sensorTypesData:SensorTypeListResolver
+          sensorTypesData:SensorTypeListResolver,
         }
       },
       {
@@ -93,15 +94,24 @@ const routes: Routes = [
       },
       {
         path:'region',
-        loadComponent: ()=>import('./pages/dashboard/pages/land-region/land-region.component').then(x=>x.LandRegionComponent)
+        loadComponent: ()=>import('./pages/dashboard/pages/land-region/land-region.component').then(x=>x.LandRegionComponent),
+        resolve:{
+          landId:LandIdResolver
+        }
       },
       {
         path:'microcontroller',
-        loadComponent: ()=>import('./pages/dashboard/pages/land-microcontroller/land-microcontroller.component').then(x=>x.LandMicrocontrollerComponent)
+        loadComponent: ()=>import('./pages/dashboard/pages/land-microcontroller/land-microcontroller.component').then(x=>x.LandMicrocontrollerComponent),
+        resolve:{
+          landId:LandIdResolver
+        }
       },
       {
         path:'sensor',
-        loadComponent: ()=>import('./pages/dashboard/pages/land-sensor/land-sensor.component').then(x=>x.LandSensorComponent)
+        loadComponent: ()=>import('./pages/dashboard/pages/land-sensor/land-sensor.component').then(x=>x.LandSensorComponent),
+        resolve:{
+          landId:LandIdResolver
+        }
       },
       {
         path:'parameter',

@@ -40,6 +40,7 @@
   <thead>
     <tr>
       <th>Nama</th>
+      <th>Tanaman</th>
       <th>Deskripsi</th>
       <th>Jumlah Micro controller</th>
       <th>Detail</th>
@@ -48,6 +49,7 @@
   <tbody>
     <tr *ngFor="let item of mcTable.data">
       <td>{{ item.Name }}</td>
+      <td>{{ item.PlantName }}</td>
       <td>{{ item.RegionDescription }}</td>
       <td>{{ item.NMicrocontroller }}</td>
       <td>

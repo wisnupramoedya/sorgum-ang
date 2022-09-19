@@ -14,13 +14,17 @@ export class RegionMockService implements RegionServiceInterface {
         Id:1,
         LandId:2,
         Name:'regional',
-        RegionDescription:'desc region'
+        RegionDescription:'desc region',
+        PlantId:4,
+        PlantName:'sorgum'
       },
       {
         Id:2,
         LandId:2,
         Name:'regional 2',
-        RegionDescription:'desc region 2'
+        RegionDescription:'desc region 2',
+        PlantId:4,
+        PlantName:'sorgum'
       },
     ];
     return of(d);
@@ -34,7 +38,9 @@ export class RegionMockService implements RegionServiceInterface {
         NMicrocontroller:4,
         RegionDescription:'region dari 1',
         LandId:4,
-        LandName:'lahan pariwisata'
+        LandName:'lahan pariwisata',
+        PlantId:4,
+        PlantName:'sorgum'
       },
       {
         CordinateRegion:JSON.stringify([{x:20,y:40},{x:50,y:90},{x:20,y:80}]),
@@ -43,7 +49,9 @@ export class RegionMockService implements RegionServiceInterface {
         NMicrocontroller:4,
         RegionDescription:'region dari 1',
         LandId:4,
-        LandName:'lahan tempe'
+        LandName:'lahan tempe',
+        PlantId:4,
+        PlantName:'sorgum'
       },
       {
         CordinateRegion:JSON.stringify([{x:20,y:40},{x:50,y:90},{x:20,y:80}]),
@@ -52,7 +60,9 @@ export class RegionMockService implements RegionServiceInterface {
         NMicrocontroller:4,
         RegionDescription:'region dari 1',
         LandId:4,
-        LandName:'lahan tahu'
+        LandName:'lahan tahu',
+        PlantId:4,
+        PlantName:'sorgum'
       }
     ];
     const res: RegionSearchResponse ={

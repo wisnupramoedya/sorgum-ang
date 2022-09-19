@@ -1,10 +1,10 @@
 
-<nz-ribbon nzText="Connected" nzColor="green">
+<nz-ribbon [nzText]="status?'Connected':'Disconnected'" [nzColor]="status?'green':'red'">
     <nz-card style="width: 450px;min-height: 9em;">
-        <nz-card-meta nzTitle="ESP 1"></nz-card-meta>
+        <nz-card-meta [nzTitle]="mc_name"></nz-card-meta>
         <nz-descriptions nzTitle="" style="margin-top: 1em;">
-            <nz-descriptions-item nzTitle="Region">1</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Tanaman">Sorgum Cisanak</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Region">{{region_name}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Tanaman">{{plant_name}}</nz-descriptions-item>
         </nz-descriptions>
       </nz-card>
   </nz-ribbon>

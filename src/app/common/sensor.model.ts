@@ -16,6 +16,7 @@ export class SensorItemDto{
     LandId!:number;
     LandName!:string;
     Type!:number;
+    TypeName?:string;
 }
 
 export class SensorSearchResponse extends SearchResponse<SensorItemDto>{}

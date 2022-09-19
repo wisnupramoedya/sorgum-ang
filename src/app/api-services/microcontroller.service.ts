@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchRequest } from '../common/app.model';
-import { AddMicroDto, MicrocontrollerSearchResponse, MicroItemMinimalDto, UpdateMicroDto } from '../common/microcontroller.model';
+import { AddMicroDto, MicrocontrollerSearchResponse, MicroItemDto, MicroItemMinimalDto, MicrosIdenity, UpdateMicroDto } from '../common/microcontroller.model';
 import { MicrocontrollerMockService } from '../mock-services/microcontroller-mock.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -12,6 +12,7 @@ export interface MicrocontrollerServiceInterface {
   update(id:number,data:UpdateMicroDto):Observable<void>;
   delete(id:number):Observable<void>;
   showMinimal(land_id:number):Observable<MicroItemMinimalDto[]>;
+  showOverviewMicro(land_id:number, data:MicrosIdenity):Observable<MicroItemDto[]>;
 }
 
 
@@ -33,6 +34,13 @@ export class MicrocontrollerService implements MicrocontrollerServiceInterface{
     private http: HttpClient,
     private utilityService: UtilityService
   ) {}
+  showOverviewMicro(land_id: number, data: MicrosIdenity): Observable<MicroItemDto[]> {
+    const params = new HttpParams({
+      fromObject: {...data}
+    });
+    return this.http.get<MicroItemDto[]>('/api/MikroCrud/ShowOverviewMicro/'+land_id, {params:params});
+
+  }
   add(data: AddMicroDto): Observable<number> {
     return this.http.post<number>('/api/MikroCrud/AddMicro',data);
   }
