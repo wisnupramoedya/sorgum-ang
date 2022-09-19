@@ -92,11 +92,12 @@ export class ParameterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.form.controls['GreenhouseId'].setValue(this.currentGhService.getId())
-    this.greenhouseService.getAllParameters().subscribe(x=>{
-      this.listOfParams = x
-    });
-    this.linkDashboard = "/dashboard/"+this.currentGhService.chosedGreenHouse.value;
+    // this.form.controls['GreenhouseId'].setValue(this.currentGhService.getId())
+    // this.greenhouseService.getAllParameters().subscribe(x=>{
+    //   this.listOfParams = x
+    // });
+    // this.linkDashboard = "/dashboard/"+this.currentGhService.chosedGreenHouse.value;
+    // this.currentGhService.chosedGreenHouse.subscribe(x=>this.)
   }
   submitForm():void{
     this.isLoading=true;

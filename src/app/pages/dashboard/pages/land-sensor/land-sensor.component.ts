@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { SensorItemDto } from 'src/app/common/sensor.model';
+import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 
 @Component({
   selector: 'app-land-sensor',
@@ -45,13 +46,19 @@ export class LandSensorComponent implements OnInit {
     private modalService: NzModalService,
     private sensorService: SensorService,
     private router: Router,
-    private acRoute:ActivatedRoute
+    private acRoute:ActivatedRoute,
+    private curGh:CurrentGreenHouseService
 
-  ) { }
+  ) { 
+    // this.landId = this.acRoute.snapshot.data['landId'];
+    // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
+  }
 
   ngOnInit(): void {
-    this.landId = this.acRoute.snapshot.data['landId'];
     // this.acRoute.params.subscribe(x=>console.log(x));
+    // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
+    this.curGh.chosedGreenHouse.subscribe(x=>this.landId=x);
+
     console.log(this.landId);
     this.form.valueChanges.pipe(
       startWith(

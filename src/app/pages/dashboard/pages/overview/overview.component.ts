@@ -66,6 +66,7 @@ import {
 } from 'src/app/common/microcontroller.model';
 import { PlantParameterService } from 'src/app/api-services/plant-parameter.service';
 import { ParamOverv, ParamOverview } from 'src/app/common/PlantParameter.model';
+import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 
 export class CheckSelect {
   label!: string;
@@ -111,11 +112,18 @@ export class OverviewComponent implements OnInit, OnDestroy {
   constructor(
     private acRoute: ActivatedRoute,
     private mcService: MicrocontrollerService,
-    private plantParamService: PlantParameterService
-  ) {}
+    private plantParamService: PlantParameterService,
+    private curGh: CurrentGreenHouseService
+  ) {
+    // this.landId = this.acRoute.snapshot.params['landId'];
+    // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
+  }
   ngOnInit(): void {
-    this.landId = this.acRoute.snapshot.params['landId'];
     console.log(this.landId);
+    // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
+    
+    this.curGh.chosedGreenHouse.subscribe(x=>this.landId=x);
+
     this.mcService.showMinimal(this.landId).subscribe((x) => {
       this.mcs = x;
       this.checkOptionsMc = x.map((y) => {

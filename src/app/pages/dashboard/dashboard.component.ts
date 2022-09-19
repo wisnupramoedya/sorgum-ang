@@ -51,16 +51,16 @@ export class DashboardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
-      const id = parseInt(paramMap.get('ghId')!!);
+      const id = parseInt(paramMap.get('landId')!!);
       this.currentGHService.chosedGreenHouse.next(id);
     })
     this.addSubscriptionNotification();
   }
   addSubscriptionNotification():void{
     if (!this.swPush.isEnabled) {
-      this.nzNotifService.create('warning','Notification Dimatikan/Diblock!', 'Harap hidupkan notifikasi untuk aplikasi ini untuk menerima notifikasi.', {
-        nzDuration: 2000,
-      });
+      // this.nzNotifService.create('warning','Notification Dimatikan/Diblock!', 'Harap hidupkan notifikasi untuk aplikasi ini untuk menerima notifikasi.', {
+      //   nzDuration: 2000,
+      // });
       return;
     }
     this.swPush.requestSubscription({

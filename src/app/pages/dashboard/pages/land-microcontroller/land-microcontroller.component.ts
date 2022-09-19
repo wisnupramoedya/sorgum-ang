@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CreateLandMicrocontrollerComponent } from './create-land-microcontroller/create-land-microcontroller.component';
 import { UpdateLandMicrocontrollerComponent } from './update-land-microcontroller/update-land-microcontroller.component';
+import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 
 @Component({
   selector: 'app-land-microcontroller',
@@ -46,13 +47,17 @@ export class LandMicrocontrollerComponent implements OnInit {
     private modalService: NzModalService,
     private microconService: MicrocontrollerService,
     private router: Router,
-    private acRoute:ActivatedRoute
-
-  ) { }
+    private acRoute:ActivatedRoute,
+    private curGh:CurrentGreenHouseService
+  ) { 
+    // this.landId = this.acRoute.snapshot.data['landId'];
+    // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
+  }
 
   ngOnInit(): void {
-    this.landId = this.acRoute.snapshot.data['landId'];
     // this.acRoute.params.subscribe(x=>this.landId =x['landId']);
+    // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
+    this.curGh.chosedGreenHouse.subscribe(x=>this.landId=x);
     console.log(this.landId);
     this.form.valueChanges.pipe(
       startWith(
