@@ -5,6 +5,7 @@ import { AuthorizeGuard } from './guards/authorize.guard';
 import { GreenhouseDetailOverviewResolver } from './pages/dashboard/resolvers/greenhouse-detail-overview.resolver';
 import { LandIdResolver } from './pages/dashboard/resolvers/land-id.resolver';
 import { SensorTypeListResolver } from './resolvers/sensor-type-list.resolver';
+import {LandMiniPcComponent} from "./pages/dashboard/pages/land-minipc/land-mini-pc.component";
 
 const routes: Routes = [
   {
@@ -12,8 +13,8 @@ const routes: Routes = [
     redirectTo:'home',
     pathMatch:'full'
   },
-  { 
-    path: 'auth', 
+  {
+    path: 'auth',
     // loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule),
     canActivate:[AnonymousGuard ],
     loadComponent: ()=>import('./pages/auth/auth.component').then(x=>x.AuthComponent),
@@ -41,8 +42,8 @@ const routes: Routes = [
       },
     ]
   },
-  { 
-    path: 'home', 
+  {
+    path: 'home',
     // loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) ,
     // canActivate:[AuthorizeGuard]
     loadComponent:()=>import('./pages/home/home.component').then(x=>x.HomeComponent),
@@ -71,11 +72,11 @@ const routes: Routes = [
         path:'plant',
         loadComponent: ()=>import('./pages/home/pages/plant-list/plant-list.component').then(x=>x.PlantListComponent)
       },
-      
+
     ]
   },
-  { 
-    path: 'dashboard/:landId', 
+  {
+    path: 'dashboard/:landId',
     // loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) ,
     // canActivate:[AuthorizeGuard]
     loadComponent: () => import('./pages/dashboard/dashboard.component').then(x=>x.DashboardComponent),
@@ -95,6 +96,13 @@ const routes: Routes = [
       {
         path:'region',
         loadComponent: ()=>import('./pages/dashboard/pages/land-region/land-region.component').then(x=>x.LandRegionComponent),
+        resolve:{
+          landId:LandIdResolver
+        }
+      },
+      {
+        path:'minipc',
+        loadComponent: ()=>import('./pages/dashboard/pages/land-minipc/land-mini-pc.component').then(x=>x.LandMiniPcComponent),
         resolve:{
           landId:LandIdResolver
         }
@@ -127,7 +135,7 @@ const routes: Routes = [
       }
     ]
   },
-  
+
 ];
 
 @NgModule({
