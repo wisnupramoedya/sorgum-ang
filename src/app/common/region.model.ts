@@ -1,14 +1,19 @@
 import { SearchResponse } from './app.model';
 
+export class RegionType {
+    Id!: number;
+    Name!: string;
+}
 export class RegionsItemDto {
     Id!:number;
     Name!:string;
     RegionDescription!:string;
     CordinateRegion!:string;
+    NMiniPc!:number;
     NMicrocontroller!:number;
     LandId!:number;
     LandName!:string;
-    PlantId!:number;   
+    PlantId!:number;
     PlantName!:string;
 }
 export class RegionsItemMinimalDto {
@@ -16,7 +21,7 @@ export class RegionsItemMinimalDto {
     Name!:string;
     RegionDescription!:string;
     LandId!:number;
-    PlantId!:number;                  
+    PlantId!:number;
     PlantName!:string;
 
 }

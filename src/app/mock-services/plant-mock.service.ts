@@ -11,12 +11,26 @@ export class PlantMockService implements PlantServiceInterface{
 
   constructor() { }
   showPlants(): Observable<ReadPlantDto[]> {
-    const p:ReadPlantDto[]=[
+    const p: ReadPlantDto[] = [
       {
         Description:'-',
         Id:1,
         LatinName:'-',
-        Name:'ansa',
+        Name:'Mangga',
+        Parameters:[]
+      },
+      {
+        Description:'-',
+        Id:2,
+        LatinName:'-',
+        Name:'Pisang',
+        Parameters:[]
+      },
+      {
+        Description:'-',
+        Id:3,
+        LatinName:'-',
+        Name:'Jeruk',
         Parameters:[]
       },
     ];

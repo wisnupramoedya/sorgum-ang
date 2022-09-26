@@ -30,7 +30,6 @@
       <nz-select formControlName="PlantId" nzPlaceHolder="Tanaman" style="width: 100%;">
         <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of plants"></nz-option>
       </nz-select>
-     
     </div>
     <div *nzModalFooter style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
         <button nz-button nzType="default" nzDanger type="button" (click)="delete()">
@@ -53,4 +52,3 @@
       </div>
     </div>
   </form>
-  

@@ -42,7 +42,8 @@
       <th>Nama</th>
       <th>Tanaman</th>
       <th>Deskripsi</th>
-      <th>Jumlah Micro controller</th>
+      <th>Jumlah Mini PC</th>
+      <th>Jumlah Microcontroller</th>
       <th>Detail</th>
     </tr>
   </thead>
@@ -51,6 +52,7 @@
       <td>{{ item.Name }}</td>
       <td>{{ item.PlantName }}</td>
       <td>{{ item.RegionDescription }}</td>
+      <td>{{ item.NMiniPc }}</td>
       <td>{{ item.NMicrocontroller }}</td>
       <td>
         <button nz-button nzType="primary" (click)="showModalUpdate(item.Id)">

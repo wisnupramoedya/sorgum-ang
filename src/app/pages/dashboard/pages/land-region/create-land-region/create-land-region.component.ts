@@ -65,7 +65,7 @@ export class CreateLandRegionComponent implements OnInit {
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);
-    
+
     if(this.form.valid){
       this.regionService.add(this.form.value)
       .pipe(

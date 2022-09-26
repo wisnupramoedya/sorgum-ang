@@ -66,16 +66,16 @@ export class UpdateLandRegionComponent implements OnInit {
     this.plantService.showPlants().subscribe(x=>this.plants=x);
 
     const dt: UpdateRegionDto={
-      CordinateRegion:this.region.CordinateRegion,
-      Name:this.region.Name,
-      RegionDescription:this.region.RegionDescription,
-      PlantId:this.region.PlantId
+      CordinateRegion: this.region.CordinateRegion,
+      Name: this.region.Name,
+      RegionDescription: this.region.RegionDescription,
+      PlantId: this.region.PlantId
     };
     this.form.patchValue(dt);
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);
-    
+
     if(this.form.valid){
       this.regionService.update(this.region.Id,this.form.value)
       .pipe(
@@ -93,7 +93,7 @@ export class UpdateLandRegionComponent implements OnInit {
   }
   delete():void{
     console.log('menghapus region dengan id', this.region.Id);
-    
+
     this.modalService.confirm({
       nzTitle: 'Anda yakin ingin menghapus region ini?',
       nzOkText: 'Yes',
@@ -112,7 +112,7 @@ export class UpdateLandRegionComponent implements OnInit {
     .afterClose
     .pipe(
       filter(x=>x!==-1),
-      switchMap(x=>{        
+      switchMap(x=>{
           return this.regionService.delete(x);
       }),
       tap(()=>this.notification.create(

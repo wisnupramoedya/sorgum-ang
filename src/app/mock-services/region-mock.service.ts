@@ -35,33 +35,36 @@ export class RegionMockService implements RegionServiceInterface {
         CordinateRegion:JSON.stringify([{x:20,y:40},{x:50,y:90},{x:20,y:80}]),
         Id:1,
         Name:'Region 1',
+        NMiniPc:1,
         NMicrocontroller:4,
         RegionDescription:'region dari 1',
         LandId:4,
         LandName:'lahan pariwisata',
-        PlantId:4,
+        PlantId:2,
         PlantName:'sorgum'
       },
       {
         CordinateRegion:JSON.stringify([{x:20,y:40},{x:50,y:90},{x:20,y:80}]),
         Id:3,
         Name:'Region 2',
+        NMiniPc:3,
         NMicrocontroller:4,
         RegionDescription:'region dari 1',
         LandId:4,
         LandName:'lahan tempe',
-        PlantId:4,
+        PlantId:2,
         PlantName:'sorgum'
       },
       {
         CordinateRegion:JSON.stringify([{x:20,y:40},{x:50,y:90},{x:20,y:80}]),
         Id:7,
         Name:'Region 3',
+        NMiniPc:2,
         NMicrocontroller:4,
         RegionDescription:'region dari 1',
         LandId:4,
         LandName:'lahan tahu',
-        PlantId:4,
+        PlantId:1,
         PlantName:'sorgum'
       }
     ];

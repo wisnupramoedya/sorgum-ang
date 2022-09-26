@@ -37,7 +37,7 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
 export class LandRegionComponent implements OnInit {
   data: RegionsItemDto[] = [];
   landId!:number;
-  
+
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
     Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),
@@ -53,14 +53,14 @@ export class LandRegionComponent implements OnInit {
     private acRoute:ActivatedRoute,
     private curGh:CurrentGreenHouseService
 
-  ) { 
+  ) {
     // this.landId = this.acRoute.snapshot.data['landId'];
     // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
   }
 
   ngOnInit(): void {
     console.log(this.acRoute.snapshot.data);
-    
+
     // this.acRoute.params.subscribe(x=>this.landId =x['landId']);
     // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
     this.curGh.chosedGreenHouse.subscribe(x=>this.landId=x);
@@ -99,7 +99,7 @@ export class LandRegionComponent implements OnInit {
   showModalUpdate(id:number):void{
     const dt = this.data.filter(x=>x.Id === id )[0];
     this.modalService.create({
-      nzContent:UpdateLandRegionComponent,
+      nzContent: UpdateLandRegionComponent,
       nzComponentParams:{
         region: dt
       }
@@ -107,5 +107,5 @@ export class LandRegionComponent implements OnInit {
       this.form.updateValueAndValidity();
     });
   }
-  
+
 }
