@@ -1,0 +1,20 @@
+.land-micro-con-list-toolbar{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.land-micro-con-list-content{
+  margin-top: 1rem;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  overflow-y: auto;
+}
+
+.land-micro-con-table{
+  width: 100%;
+}
