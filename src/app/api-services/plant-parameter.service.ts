@@ -1,7 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateDescriptionParameter, CreateParameter, DeleteParameter, ParamOverv, ParamOverview, UpdateDescriptionParameter, UpdateParameter } from '../common/PlantParameter.model';
+import {
+  CreateDescriptionParameter,
+  CreateParameter,
+  DeleteParameter,
+  ParamOverv,
+  ParamOverview,
+  ParamSelectItem,
+  UpdateDescriptionParameter,
+  UpdateParameter
+} from '../common/PlantParameter.model';
 import { PlantParameterMockService } from '../mock-services/plant-parameter-mock.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -15,6 +24,7 @@ export interface PlantParameterServiceInterface{
   updateGroup(idPlant:number, data: UpdateParameter):Observable<void>;
   showMinimalParam(land_id:number):Observable<string[]>;
   showParamOverview(land_id:number, data:ParamOverv):Observable<ParamOverview[]>;
+  showAllParam():Observable<ParamSelectItem[]>;
 }
 
 @Injectable({
@@ -64,5 +74,9 @@ export class PlantParameterService implements PlantParameterServiceInterface{
   updateGroup(idPlant: number, data: UpdateParameter): Observable<void> {
     return this.http.put<void>('/api/Param/UpdateParam/'+idPlant,data);
   }
-  
+
+  showAllParam(): Observable<ParamSelectItem[]> {
+    return this.http.get<ParamSelectItem[]>('/api/Param/ShowParentParams');
+  }
+
 }

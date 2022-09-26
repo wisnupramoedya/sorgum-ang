@@ -32,7 +32,7 @@ export class PlantMockService implements PlantServiceInterface{
     return of(void 0);
   }
   search(data: SearchRequest): Observable<PlantSearchResponse> {
-    
+
     const temp: ReadPlantDto[]=[
       {
         Name:'Sorghum citayam',
@@ -41,7 +41,8 @@ export class PlantMockService implements PlantServiceInterface{
         Id:1,
         Parameters:[
           {
-            GroupName:'PH',
+            Id:1,
+            ParentTypeId:1,
             Descriptions:[
               {
                 Description:'Terlalu asam',

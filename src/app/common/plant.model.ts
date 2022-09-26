@@ -8,7 +8,7 @@ export class DescriptionPlantParameterDto{
     Color!:string;
 }
 export class PlantParameterDto{
-    GroupName!:string;
+    ParentTypeId!:number;
     Descriptions!:DescriptionPlantParameterDto[];
 }
 export class CreatePlantDto{
@@ -27,7 +27,8 @@ export class DescriptionReadParameterPlantDto{
     Color!:string;
 }
 export class ParameterReadPlantDto{
-    GroupName!:string;
+    Id!:number;
+    ParentTypeId!:number;
     Descriptions!:DescriptionReadParameterPlantDto[];
 }
 export class ReadPlantDto{

@@ -23,11 +23,19 @@ import {
   DescriptionReadParameterPlantDto,
   ReadPlantDto,
 } from 'src/app/common/plant.model';
-import { CreateDescriptionParameter, CreateParameter, DescriptionCreateParameter, UpdateDescriptionParameter, UpdateParameter } from 'src/app/common/PlantParameter.model';
+import {
+  CreateDescriptionParameter,
+  CreateParameter,
+  DescriptionCreateParameter,
+  ParamSelectItem,
+  UpdateDescriptionParameter,
+  UpdateParameter
+} from 'src/app/common/PlantParameter.model';
 import { PlantService } from 'src/app/api-services/plant.service';
 import { filter, switchMap, tap } from 'rxjs';
 import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notification';
 import { PlantParameterService } from 'src/app/api-services/plant-parameter.service';
+import {NzSelectModule} from "ng-zorro-antd/select";
 
 @Component({
   selector: 'app-update-plant',
@@ -44,6 +52,7 @@ import { PlantParameterService } from 'src/app/api-services/plant-parameter.serv
     NzGridModule,
     NzIconModule,
     NzListModule,
+    NzSelectModule,
     NzNotificationModule
   ],
 })
@@ -64,6 +73,7 @@ export class UpdatePlantComponent implements OnInit {
   formParameter: FormGroup = this.fb.nonNullable.group({
     Parameters: this.fb.nonNullable.array([]),
   })
+  parameterItems: ParamSelectItem[] = [];
   get Paramete(): FormArray {
     return this.formParameter.controls['Parameters'] as FormArray;
   }
@@ -81,11 +91,14 @@ export class UpdatePlantComponent implements OnInit {
     private http: HttpClient,
     private notification: NzNotificationService,
     private plantService: PlantService,
-    private plantParameterService: PlantParameterService
+    private plantParameterService: PlantParameterService,
   ) {}
 
   ngOnInit(): void {
     this.insertDataToForm();
+    this.plantParameterService.showAllParam()
+      .subscribe(x => this.parameterItems = x);
+
   }
 
   insertDataToForm(): void {
@@ -99,7 +112,10 @@ export class UpdatePlantComponent implements OnInit {
     for (let index = 0; index < this.data.Parameters.length; index++) {
       const element = this.data.Parameters[index];
       const tempF: FormGroup = this.fb.nonNullable.group({
-        GroupName: this.fb.nonNullable.control(element.GroupName, {
+        Id: this.fb.nonNullable.control(element.Id, {
+          validators: [Validators.required],
+        }),
+        ParentTypeId: this.fb.nonNullable.control(element.ParentTypeId, {
           validators: [Validators.required],
         }),
         Descriptions: this.insertDataDescriptionParameterToForm(element.Descriptions)
@@ -139,7 +155,7 @@ export class UpdatePlantComponent implements OnInit {
 
   updatePlant():void{
     console.log(this.form.valid, this.form.value);
-    
+
     if(this.form.valid){
       this.plantService.update(this.form.controls['Id'].value, {
         Description: this.form.controls['Description'].value,
@@ -154,11 +170,12 @@ export class UpdatePlantComponent implements OnInit {
       )
       .subscribe(x=>{});
     }
-    
+
   }
   newParameter(): FormGroup {
     return this.fb.nonNullable.group({
-      GroupName: this.fb.nonNullable.control('', {
+      Id: this.fb.nonNullable.control(0),
+      ParentTypeId: this.fb.nonNullable.control(0, {
         validators: [Validators.required],
       }),
       Descriptions: this.fb.nonNullable.array(
@@ -211,14 +228,14 @@ export class UpdatePlantComponent implements OnInit {
   }
 
   saveParameter(idx_parameter:number):void{
-    
+
     const param = this.Paramete.at(idx_parameter);
     const newDesc = this.Paramete.controls[idx_parameter].get('Descriptions')
     const isAllNew = this.isAllNewDescriptionParameter(newDesc);
 
     if(isAllNew){
       console.log("Buat group plant parameter baru");
-      
+
       const descs:DescriptionCreateParameter[]=[];
       const tempArr = newDesc as FormArray;
       for (let index = 0; index < tempArr.length; index++) {
@@ -231,18 +248,18 @@ export class UpdatePlantComponent implements OnInit {
         };
         descs.push(temp);
       }
-      // jika allnew 
+      // jika allnew
       console.log("allnew");
-      
+
       const obj:CreateParameter={
         PlantId: this.data.Id,
-        GroupName:param.get('GroupName')?.value,
+        ParentTypeId:param.get('ParentTypeId')?.value,
         Descriptions:descs
       }
       console.log(obj);
       this.plantParameterService.createGroup(obj)
       .pipe(
-        
+
         tap(()=>this.notification.create(
           'success',
           'Sukses',
@@ -261,16 +278,16 @@ export class UpdatePlantComponent implements OnInit {
       });
 
     }else{
-      console.log("jika update hanya groupname");
-      // jika update hanya groupname
-      const ids:number[]=[];
-      for (let index = 0; index < (newDesc as FormArray).length; index++) {
-        const element = (newDesc as FormArray).at(index);
-        ids.push(element.get('Id')?.value)
-      }
+      console.log("jika update hanya ParentTypeId");
+      // jika update hanya ParentTypeId
+      // const ids:number[]=[];
+      // for (let index = 0; index < (newDesc as FormArray).length; index++) {
+      //   const element = (newDesc as FormArray).at(index);
+      //   ids.push(element.get('Id')?.value)
+      // }
       const obj:UpdateParameter={
-        GroupName:param.get('GroupName')?.value,
-        Ids: ids,
+        Id:param.get('Id')?.value,
+        ParentTypeId:param.get('ParentTypeId')?.value
       }
       console.log(obj);
       this.plantParameterService.updateGroup(this.data.Id,obj)
@@ -281,7 +298,7 @@ export class UpdatePlantComponent implements OnInit {
           'Pembaharuan grup parameter tanaman berhasil.'
         )))
       .subscribe(x=>{
-        this.Paramete.controls[idx_parameter].get('GroupName')?.markAsPristine();
+        this.Paramete.controls[idx_parameter].get('ParentTypeId')?.markAsPristine();
       });
     }
   }
@@ -301,7 +318,7 @@ export class UpdatePlantComponent implements OnInit {
   saveDescriptionParameter(idx_parameter:number,idx_desc_parameter: number):void{
     const param = this.Paramete.at(idx_parameter);
     const descParam = (this.Paramete.at(idx_parameter).get('Descriptions') as FormArray).at(idx_desc_parameter);
-    
+
     if(descParam.get('Id')?.value !== 0){
       // update
       console.log("update DescriptionParameter");
@@ -328,11 +345,11 @@ export class UpdatePlantComponent implements OnInit {
       console.log("create new DescriptionParameter");
       const obj: CreateDescriptionParameter={
         PlantId: this.data.Id,
-        GroupName:param.get('GroupName')?.value,
+        Id: param.get('Id')?.value,
         Description: descParam.get('Description')?.value,
         MaxValue: descParam.get('MaxValue')?.value,
         MinValue: descParam.get('MinValue')?.value,
-        Color:descParam.get('Color')?.value,
+        Color: descParam.get('Color')?.value,
 
       }
       console.log(obj);
@@ -348,7 +365,7 @@ export class UpdatePlantComponent implements OnInit {
         descParam.get('Id')?.setValue(x);
         descParam.updateValueAndValidity();
       });
-      
+
     }
   }
 
@@ -364,11 +381,12 @@ export class UpdatePlantComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        console.log('OK');
-        return {
-          Ids: (d.controls['Descriptions'] as FormArray).value.map((x:DescriptionReadParameterPlantDto)=>x.Id),
+        const parameter = {
+          Id: d.controls['Id'].value,
           PlantId: this.data.Id
-        };
+        }
+        console.log("Delete: " + JSON.stringify(parameter));
+        return parameter;
       },
       nzCancelText: 'No',
       nzOnCancel: () => {
@@ -416,7 +434,7 @@ export class UpdatePlantComponent implements OnInit {
     .pipe(
       filter(x=>x!==-1),
       switchMap(x=>this.plantParameterService.delete(x)),
-      
+
       tap(()=>this.notification.create(
         'success',
         'Sukses',
@@ -424,13 +442,13 @@ export class UpdatePlantComponent implements OnInit {
       ))
     )
     .subscribe(x=>{
-        this.removeDescriptionParameter(i,j);     
+        this.removeDescriptionParameter(i,j);
     });
   }
 
   deletePlant():void{
     console.log('menghapus tanaman dengan id', this.data.Id);
-    
+
     this.modalService.confirm({
       nzTitle: 'Anda yakin ingin menghapus tanaman ini?',
       nzOkText: 'Yes',
@@ -449,7 +467,7 @@ export class UpdatePlantComponent implements OnInit {
     .afterClose
     .pipe(
       filter(x=>x!==-1),
-      switchMap(x=>{        
+      switchMap(x=>{
           return this.plantService.delete(x);
       }),
       tap(()=>this.notification.create(

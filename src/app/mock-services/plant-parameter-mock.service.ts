@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { PlantParameterServiceInterface } from '../api-services/plant-parameter.service';
-import { CreateDescriptionParameter, CreateParameter, ParamOverv, ParamOverview, UpdateDescriptionParameter, UpdateParameter } from '../common/PlantParameter.model';
+import {
+  CreateDescriptionParameter,
+  CreateParameter,
+  ParamOverv,
+  ParamOverview,
+  ParamSelectItem,
+  UpdateDescriptionParameter,
+  UpdateParameter
+} from '../common/PlantParameter.model';
 
 @Injectable()
 export class PlantParameterMockService implements PlantParameterServiceInterface{
@@ -36,5 +44,14 @@ export class PlantParameterMockService implements PlantParameterServiceInterface
   updateGroup(idPlant: number, data: UpdateParameter): Observable<void> {
     return of(void 0);
   }
- 
+
+  showAllParam(): Observable<ParamSelectItem[]> {
+    const paramItems: ParamSelectItem[] = [
+      {Id: 1, Name: "Ph"},
+      {Id: 2, Name: "Kelembapan"},
+      {Id: 3, Name: "Suhu Tanah"},
+    ]
+    return of(paramItems);
+  }
+
 }

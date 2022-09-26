@@ -41,14 +41,13 @@
     </nz-form-item>
 
     <nz-list nzItemLayout="vertical" class="land-list-content"  formArrayName="Parameters">
-      <nz-list-item *ngFor="let par of Paramete.controls; let i=index"> 
+      <nz-list-item *ngFor="let par of Paramete.controls; let i=index">
         <div [formGroupName]="i" style="width: 100%;">
           <div nz-row >
             <div nz-col nzSpan="6">
-              <nz-input-group >
-                <input type="text" nz-input placeholder="Parameter. contoh: pH tanah" formControlName="GroupName"/>
-              </nz-input-group>
-              
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a parameter" formControlName="ParentTypeId" style="width: 100%;">
+                <nz-option [nzLabel]="item.Name" [nzValue]="item.Id" *ngFor="let item of parameterItems"></nz-option>
+              </nz-select>
             </div>
             <div nz-col nzSpan="2">
               <button nz-button nzType="primary" nzDanger  type="button" (click)="removeParameter(i)" >
@@ -115,20 +114,20 @@
     </nz-list>
 
     <!-- <nz-list nzItemLayout="horizontal"  >
-      <nz-list-item  > 
+      <nz-list-item  >
         <div style="width: 100%;">
           <div nz-row >
             <div nz-col nzSpan="6">
               <nz-input-group >
                 <input type="text" nz-input placeholder="Parameter" />
               </nz-input-group>
-              
+
             </div>
             <div nz-col nzSpan="2">
               <button nz-button nzType="primary" nzDanger  type="button" >
                 <i nz-icon nzType="delete"></i>
               </button>
-              
+
             </div>
           </div>
           <div nz-row>
@@ -166,7 +165,7 @@
             </div>
           </div>
         </div>
-        
+
       </nz-list-item>
       <nz-list-item>
         <div>

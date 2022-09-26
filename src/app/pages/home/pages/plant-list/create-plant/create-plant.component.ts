@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  FormArray, FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  Validators
+} from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -15,6 +23,9 @@ import { TitleStrategy } from '@angular/router';
 import { PlantService } from 'src/app/api-services/plant.service';
 import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notification';
 import { tap } from 'rxjs';
+import {NzSelectModule} from "ng-zorro-antd/select";
+import {ParamSelectItem} from "../../../../../common/PlantParameter.model";
+import {PlantParameterService} from "../../../../../api-services/plant-parameter.service";
 @Component({
   selector: 'app-create-plant',
   standalone: true,
@@ -23,17 +34,20 @@ import { tap } from 'rxjs';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     NzFormModule,
     NzInputModule,
     NzButtonModule,
     NzModalModule,
     NzGridModule,
     NzIconModule,
+    NzSelectModule,
     NzListModule,
     NzNotificationModule
   ],
 })
 export class CreatePlantComponent implements OnInit {
+  parameterItems: ParamSelectItem[] = [];
   form:FormGroup = this.fb.nonNullable.group({
     // Id: this.fb.nonNullable.control(0),
     Name: this.fb.nonNullable.control('', {validators:[Validators.required]}),
@@ -50,18 +64,21 @@ export class CreatePlantComponent implements OnInit {
   isSubmitLoading=false;
   constructor(
     private modal: NzModalRef,
-    private fb:UntypedFormBuilder,
+    private fb:FormBuilder,
     private msg: NzMessageService,
     private http: HttpClient,
     private plantService: PlantService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private plantParameterService: PlantParameterService,
   ) { }
   ngOnInit(): void {
+    this.plantParameterService.showAllParam()
+      .subscribe(x=>this.parameterItems=x)
   }
   newParameter():FormGroup{
     return this.fb.nonNullable.group({
       // Id: this.fb.nonNullable.control(0),
-      GroupName: this.fb.nonNullable.control('',{validators:[Validators.required]}),
+      ParentTypeId: this.fb.nonNullable.control(0,{validators:[Validators.required]}),
       Descriptions:this.fb.nonNullable.array([
         this.newDescriptionParameter()
       ], {validators:[Validators.required]})

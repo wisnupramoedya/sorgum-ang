@@ -9,13 +9,13 @@ export class DescriptionCreateParameter{
 
 export class CreateParameter{
     PlantId!:number;
-    GroupName!:string;
+    ParentTypeId!:number;
     Descriptions!:DescriptionCreateParameter[];
 }
 
 export class CreateDescriptionParameter{
     PlantId!:number;
-    GroupName!:string;
+    Id!:number;
     Description!:string;
     MinValue!:number;
     MaxValue!:number;
@@ -29,8 +29,8 @@ export class UpdateDescriptionParameter{
     Color!:string;
 }
 export class UpdateParameter{
-    Ids!:number[];
-    GroupName!:string;
+    Id!:number;
+    ParentTypeId!:number;
 }
 
 export class DeleteParameter{
@@ -49,4 +49,9 @@ export class ParamOverview extends ParameterReadPlantDto{
     PlantName!:string;
     MicroId !:number;
     Value!:number;
+}
+
+export class ParamSelectItem{
+    Id!: number;
+    Name!: string;
 }

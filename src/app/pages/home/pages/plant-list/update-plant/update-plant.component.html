@@ -1,5 +1,5 @@
 <div *nzModalTitle>
-  <h3 nz-typography>Tambah Tanaman</h3>
+  <h3 nz-typography>Edit Tanaman</h3>
 </div>
 <div>
   <form nz-form [formGroup]="form" class="login-form">
@@ -62,14 +62,9 @@
         <div [formGroupName]="i" style="width: 100%">
           <div nz-row>
             <div nz-col nzSpan="6">
-              <nz-input-group>
-                <input
-                  type="text"
-                  nz-input
-                  placeholder="Parameter. contoh: pH tanah"
-                  formControlName="GroupName"
-                />
-              </nz-input-group>
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a parameter" formControlName="ParentTypeId" style="width: 100%;">
+                <nz-option [nzLabel]="item.Name" [nzValue]="item.Id" *ngFor="let item of parameterItems"></nz-option>
+              </nz-select>
             </div>
             <div nz-col nzSpan="1">
               <button
@@ -90,7 +85,7 @@
                 type="button"
                 (click)="saveParameter(i)"
                 [disabled]="
-                  Paramete.controls[i].get('GroupName')?.pristine ||
+                  Paramete.controls[i].get('ParentTypeId')?.pristine ||
                   (isAllNewDescriptionParameter(
                     Paramete.controls[i].get('Descriptions')
                   ) &&
@@ -158,7 +153,7 @@
                     type="number"
                   />
                 </nz-input-group>
-                
+
               </div>
               <div nz-col nzSpan="3">
                 <nz-input-group >
