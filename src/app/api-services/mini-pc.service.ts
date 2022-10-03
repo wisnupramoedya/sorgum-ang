@@ -11,6 +11,7 @@ import {
 import {HttpClient} from "@angular/common/http";
 import {UtilityService} from "../services/utility.service";
 import {MiniPcMockService} from "../mock-services/mini-pc-mock.service";
+import { MiniPcItem2DTO } from '../common/minipc.model';
 
 export interface MiniPcServiceInterface {
   search(data: SearchRequest, land_id?:number): Observable<MiniPcSearchResponse>;
@@ -19,15 +20,6 @@ export interface MiniPcServiceInterface {
   delete(id:number):Observable<void>;
   showMinimal(land_id:number):Observable<MiniPcItemMinimalDto[]>;
   showOverviewMiniPc(land_id:number, data:MiniPcsIdentity):Observable<MiniPcItemDto[]>;
-
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { MiniPcItem2DTO } from '../common/minipc.model';
-import { MiniPcMockingService } from '../mock-services/mini-pc-mocking.service';
-import { UtilityService } from '../services/utility.service';
-
-export interface MiniPcServiceInterface {
   showMiniPcInALand(land_id:number): Observable<MiniPcItem2DTO[]>;
 }
 
@@ -36,15 +28,11 @@ export interface MiniPcServiceInterface {
   useFactory: (p: any[], h: HttpClient, u: UtilityService) => {
     if (p[0] === true) {
       return new MiniPcMockService();
-      return new MiniPcMockingService();
     } else {
       return new MiniPcService(h, u);
     }
   },
   deps: ['mocking', HttpClient, UtilityService]
-})
-export class MiniPcService implements MiniPcServiceInterface {
-  deps: ['mocking', HttpClient, UtilityService],
 })
 export class MiniPcService implements MiniPcServiceInterface{
 
@@ -55,8 +43,6 @@ export class MiniPcService implements MiniPcServiceInterface{
   showMiniPcInALand(land_id: number): Observable<MiniPcItem2DTO[]> {
     return this.http.get<MiniPcItem2DTO[]>('/api/MiniPcsCrud/ShowMiniPcInALand/'+land_id);
   }
-
-
 
   add(data: AddMiniPcDto): Observable<number> {
     return this.http.post<number>('/api/MiniPCsCrud/AddMiniPc',data);

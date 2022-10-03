@@ -18,7 +18,7 @@ import { CardNComponent } from 'src/app/components/card-n/card-n.component';
 import { FarmingHubService } from 'src/app/api-services/farming-hub.service';
 import { NegotiatingRTCPCDto, NegotiatingRTCPCWithIdDto } from 'src/app/common/camera.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
-import { MiniPcItem2DTO, MiniPcItemDTO } from 'src/app/common/minipc.model';
+import { MiniPcItem2DTO } from 'src/app/common/minipc.model';
 import { MiniPcService } from 'src/app/api-services/mini-pc.service';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 
