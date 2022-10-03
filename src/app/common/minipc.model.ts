@@ -44,3 +44,16 @@ export class UpdateMiniPcDto{
 export class MiniPcsIdentity{
   Ids!:number[];
 }
+
+export class MiniPcItem2DTO{
+  Id!:number;
+  Name!:string;
+  RegionId!:number;
+  RegionName!:string;
+  Description!:string;
+  LandId!:number;
+  LandName!:string;
+  Status!:boolean;
+  PlantId!:number;
+  PlantName!:string;
+}
