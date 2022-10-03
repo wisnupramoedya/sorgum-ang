@@ -9,23 +9,31 @@ export class RegionMockService implements RegionServiceInterface {
 
   constructor() { }
   showMinimal(land_id: number): Observable<RegionsItemMinimalDto[]> {
-    const d: RegionsItemMinimalDto[]=[
+    const d: RegionsItemMinimalDto[] = [
       {
         Id:1,
-        LandId:2,
-        Name:'regional',
-        RegionDescription:'desc region',
-        PlantId:4,
+        Name:'Region 1',
+        RegionDescription:'region dari 1',
+        LandId:4,
+        PlantId:2,
         PlantName:'sorgum'
       },
       {
-        Id:2,
-        LandId:2,
-        Name:'regional 2',
-        RegionDescription:'desc region 2',
-        PlantId:4,
+        Id:3,
+        Name:'Region 2',
+        RegionDescription:'region dari 1',
+        LandId:4,
+        PlantId:2,
         PlantName:'sorgum'
       },
+      {
+        Id:7,
+        Name:'Region 3',
+        RegionDescription:'region dari 1',
+        LandId:4,
+        PlantId:1,
+        PlantName:'sorgum'
+      }
     ];
     return of(d);
   }

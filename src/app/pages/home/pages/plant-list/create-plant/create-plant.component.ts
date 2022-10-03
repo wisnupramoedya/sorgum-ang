@@ -24,7 +24,7 @@ import { PlantService } from 'src/app/api-services/plant.service';
 import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notification';
 import { tap } from 'rxjs';
 import {NzSelectModule} from "ng-zorro-antd/select";
-import {ParamSelectItem} from "../../../../../common/PlantParameter.model";
+import {ParamSelectItem} from "../../../../../common/plantparameter.model";
 import {PlantParameterService} from "../../../../../api-services/plant-parameter.service";
 @Component({
   selector: 'app-create-plant',

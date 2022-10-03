@@ -52,7 +52,7 @@ export class UpdateLandSensorComponent implements OnInit {
     MicroId: this.fb.nonNullable.control(0,{
       validators: [Validators.required],
     }),
-    Type: this.fb.nonNullable.control(0,{
+    TypeId: this.fb.nonNullable.control(0,{
       validators: [Validators.required],
     }),
   });
@@ -63,8 +63,7 @@ export class UpdateLandSensorComponent implements OnInit {
     private modalService:NzModalService,
     private sensorService:SensorService,
     private microService:MicrocontrollerService,
-    private notification: NzNotificationService,
-    private microcontrollerService:MicrocontrollerService
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -79,22 +78,22 @@ export class UpdateLandSensorComponent implements OnInit {
       switchMap(()=>this.sensorService.getSensorTypes()),
       tap(x=>this.sensorTypes=x)
     )
-    
     .subscribe(x=>{
+      console.log(this.data);
       const temp:UpdateSensorDto={
         Description:this.data.Description,
         MicroId:this.data.MicroId,
         Name:this.data.Name,
-        Type:this.data.Type
+        TypeId:this.data.TypeId
       };
       this.form.patchValue(temp);
 
     });
-    
+
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);
-    
+
     if(this.form.valid){
       this.sensorService.update(this.data.Id,this.form.value)
       .pipe(
@@ -112,7 +111,7 @@ export class UpdateLandSensorComponent implements OnInit {
   }
   delete():void{
     console.log('menghapus microcontroller dengan id', this.data.Id);
-    
+
     this.modalService.confirm({
       nzTitle: 'Anda yakin ingin menghapus microcontroller ini?',
       nzOkText: 'Yes',
@@ -131,7 +130,7 @@ export class UpdateLandSensorComponent implements OnInit {
     .afterClose
     .pipe(
       filter(x=>x!==-1),
-      switchMap(x=>{        
+      switchMap(x=>{
           return this.microService.delete(x);
       }),
       tap(()=>this.notification.create(

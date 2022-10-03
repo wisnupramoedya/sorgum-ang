@@ -68,7 +68,7 @@ export class SensorListComponent implements OnInit {
   ngOnInit(): void {
     this.sensorTypesData = this.route.snapshot.data['sensorTypesData'];
     console.log(this.sensorTypesData);
-    
+
     this.form.valueChanges.pipe(
       startWith(
         this.form.value
@@ -80,8 +80,8 @@ export class SensorListComponent implements OnInit {
         x.Data = x.Data.map(y=>{
           const temp:SensorItemDtoModified={
             ...y,
-            TypeSensorName:this.sensorTypesData.find(z=>z.Id==y.Type)?.Name!
-          } 
+            TypeSensorName:this.sensorTypesData.find(z=>z.Id==y.TypeId)?.Name!
+          }
           return temp;
         })
         return x;

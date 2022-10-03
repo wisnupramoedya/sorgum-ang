@@ -66,7 +66,7 @@ export class LandCameraComponent implements OnInit {
   }
   checkColor():void{
     console.log(this.cc);
-    
+
   }
 
 

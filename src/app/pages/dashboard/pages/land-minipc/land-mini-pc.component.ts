@@ -7,14 +7,14 @@ import {NzTableModule} from "ng-zorro-antd/table";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzPageHeaderModule} from "ng-zorro-antd/page-header";
-import {MiniPcItemDTO} from "../../../../common/minipc.model";
+import {MiniPcItemDto} from "../../../../common/minipc.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CurrentGreenHouseService} from "../../../../services/current-green-house.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {debounceTime, distinctUntilChanged, startWith, switchMap} from "rxjs";
-import {MicrocontrollerService} from "../../../../api-services/microcontroller.service";
 import {CreateLandMiniPcComponent} from "./create-land-mini-pc/create-land-mini-pc.component";
 import {UpdateLandMiniPcComponent} from "./update-land-mini-pc/update-land-mini-pc.component";
+import {MiniPcService} from "../../../../api-services/mini-pc.service";
 
 @Component({
   selector: 'app-land-minipc',
@@ -34,7 +34,7 @@ import {UpdateLandMiniPcComponent} from "./update-land-mini-pc/update-land-mini-
 })
 export class LandMiniPcComponent implements OnInit {
   landId!: number;
-  data: MiniPcItemDTO[] = [];
+  data: MiniPcItemDto[] = [];
   dataTotal = 0;
   form: FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
@@ -45,7 +45,7 @@ export class LandMiniPcComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NzModalService,
-    private miniPcService: MicrocontrollerService,
+    private miniPcService: MiniPcService,
     private router: Router,
     private acRoute: ActivatedRoute,
     private curGh: CurrentGreenHouseService
@@ -53,7 +53,7 @@ export class LandMiniPcComponent implements OnInit {
 
   ngOnInit(): void {
     this.curGh.chosedGreenHouse.subscribe(x=>this.landId=x);
-    console.log(this.landId);
+
     this.form.valueChanges.pipe(
       startWith(
         this.form.value
@@ -82,9 +82,9 @@ export class LandMiniPcComponent implements OnInit {
     this.modalService.create({
       nzContent: CreateLandMiniPcComponent,
       nzComponentParams: {
-        land_id:this.landId
+        land_id: this.landId
       }
-    }).afterClose.subscribe(id=>{
+    }).afterClose.subscribe(()=>{
       this.form.updateValueAndValidity();
     });
   }
@@ -97,7 +97,7 @@ export class LandMiniPcComponent implements OnInit {
         data: dt,
         land_id:this.landId
       }
-    }).afterClose.subscribe(id=>{
+    }).afterClose.subscribe(()=>{
       this.form.updateValueAndValidity();
     });
   }

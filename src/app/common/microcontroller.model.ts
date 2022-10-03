@@ -4,12 +4,14 @@ export class MicroItemMinimalDto{
     Id!:number;
     Name!:string;
     Description!:string;
-    RegionId!:number;
-    RegionName!:string;
+    MiniPcId!:number;
+    MiniPcName!:string;
 }
 export class MicroItemDto{
     Id!:number;
     Name!:string;
+    MiniPcId!:number;
+    MiniPcName!:string;
     RegionId!:number;
     RegionName!:string;
     Description!:string;
@@ -25,12 +27,12 @@ export class MicrocontrollerSearchResponse extends SearchResponse<MicroItemDto>{
 export class AddMicroDto{
     Name!:string;
     Description!:string;
-    RegionId!:number;
+    MiniPcId!:number;
 }
 export class UpdateMicroDto{
     Name!:string;
     Description!:string;
-    RegionId!:number;
+    MiniPcId!:number;
 }
 export class MicrosIdenity{
     Ids!:number[];

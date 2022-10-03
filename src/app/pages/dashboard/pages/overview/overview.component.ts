@@ -65,7 +65,7 @@ import {
   MicrosIdenity,
 } from 'src/app/common/microcontroller.model';
 import { PlantParameterService } from 'src/app/api-services/plant-parameter.service';
-import { ParamOverv, ParamOverview } from 'src/app/common/PlantParameter.model';
+import { ParamOverv, ParamOverview } from 'src/app/common/plantparameter.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 
 export class CheckSelect {
@@ -121,7 +121,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.log(this.landId);
     // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
-    
+
     this.curGh.chosedGreenHouse.subscribe(x=>this.landId=x);
 
     this.mcService.showMinimal(this.landId).subscribe((x) => {
@@ -195,7 +195,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
       Ids: this.checkOptionsMc.filter((x) => x.checked).map((x) => x.value),
     };
     this.mcService.showOverviewMicro(this.landId, temp)
-    
+
     .subscribe((x) => {
       this.mcDataTemp = x;
       this.formatLoad();
@@ -208,7 +208,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   //   };
   //   this.mcService.showOverviewMicro(this.landId, temp).subscribe((x) => {
   //     this.mcDataTemp = x;
-      
+
   //   });
   // }
   loadPps(): void {
@@ -235,6 +235,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
             Id: x.Id,
             LandId: x.LandId,
             LandName: x.LandName,
+            MiniPcId: x.MiniPcId,
+            MiniPcName: x.MiniPcName,
             Name: x.Name,
             RegionId: x.RegionId,
             RegionName: x.RegionName,
@@ -244,12 +246,12 @@ export class OverviewComponent implements OnInit, OnDestroy {
             PlantName:x.PlantName
           };
           // console.log(yy);
-          
+
           return yy;
         });
         this.mcppData = temp;
 
-        
+
         console.log(this.mcppData);
         // console.log(this.mcppData[0].data_sensor);
       });

@@ -10,7 +10,7 @@ import {
   ParamSelectItem,
   UpdateDescriptionParameter,
   UpdateParameter
-} from '../common/PlantParameter.model';
+} from '../common/plantparameter.model';
 import { PlantParameterMockService } from '../mock-services/plant-parameter-mock.service';
 import { UtilityService } from '../services/utility.service';
 

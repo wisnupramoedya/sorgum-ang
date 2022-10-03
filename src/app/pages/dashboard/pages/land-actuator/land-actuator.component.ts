@@ -14,7 +14,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   templateUrl: './land-actuator.component.html',
   styleUrls: ['./land-actuator.component.scss'],
   imports: [
-    CommonModule, 
+    CommonModule,
     NzPageHeaderModule,
     FormsModule,
     NzButtonModule,
@@ -32,6 +32,9 @@ export class LandActuatorComponent implements OnInit {
   }
   allChecked = false;
   indeterminate = true;
+  checkOptionsActuator = [
+
+  ];
   checkOptionsOne = [
     { label: 'Apple', value: 'Apple', checked: true },
     { label: 'Pear', value: 'Pear', checked: false },

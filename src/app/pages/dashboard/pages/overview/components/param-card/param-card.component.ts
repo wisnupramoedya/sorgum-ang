@@ -12,7 +12,7 @@ import { DescriptionReadParameterPlantDto } from 'src/app/common/plant.model';
 })
 export class ParamCardComponent implements OnInit {
 
-  @Input() group_name!:string;
+  @Input() group_name!:number;
   @Input() value!:number;
   @Input() desc!:DescriptionReadParameterPlantDto[];
   constructor() { }

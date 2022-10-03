@@ -42,6 +42,7 @@
           <nz-input-group nzPrefixIcon="compass">
             <nz-select formControlName="Type" nzPlaceHolder="Jenis sensor">
               <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of sensorTypes"></nz-option>
+<!--              <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of sensorTypes"></nz-option>-->
             </nz-select>
           </nz-input-group>
         </nz-form-control>
@@ -63,4 +64,3 @@
       </button>
     </div>
   </form>
-  

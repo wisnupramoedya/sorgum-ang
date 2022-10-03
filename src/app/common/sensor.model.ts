@@ -15,7 +15,7 @@ export class SensorItemDto{
     RegionName!:string;
     LandId!:number;
     LandName!:string;
-    Type!:number;
+    TypeId!:number;
     TypeName?:string;
 }
 
@@ -31,5 +31,5 @@ export class UpdateSensorDto{
     Name!:string;
     Description!:string;
     MicroId!:number;
-    Type!:number;
+    TypeId!:number;
 }

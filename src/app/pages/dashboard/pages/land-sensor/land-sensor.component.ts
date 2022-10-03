@@ -49,7 +49,7 @@ export class LandSensorComponent implements OnInit {
     private acRoute:ActivatedRoute,
     private curGh:CurrentGreenHouseService
 
-  ) { 
+  ) {
     // this.landId = this.acRoute.snapshot.data['landId'];
     // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
   }

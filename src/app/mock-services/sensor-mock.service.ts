@@ -16,23 +16,23 @@ export class SensorMockService implements SensorServiceInterface {
   getSensorTypes(): Observable<SensorType[]> {
     const temp:SensorType[]=[
         {
-          Id:0,
+          Id:1,
           Name:'ph'
         },
         {
-          Id:1,
+          Id:2,
           Name:'Soilmoisture'
         },
         {
-          Id:2,
+          Id:3,
           Name:'Airmoisture'
         },
         {
-          Id:3,
+          Id:4,
           Name:'Soiltemperature'
         },
         {
-          Id:4,
+          Id:5,
           Name:'AirTemperature'
         },
     ];
@@ -63,7 +63,7 @@ export class SensorMockService implements SensorServiceInterface {
         Name:'DHT22',
         MicroId:1,
         MicroName:'ESP 3',
-        Type:2
+        TypeId:1
       },
       {
         Id:1,
@@ -75,7 +75,7 @@ export class SensorMockService implements SensorServiceInterface {
         Name:'pH Tanah',
         MicroId:1,
         MicroName:'ESP 3',
-        Type:1
+        TypeId:1
       }
     ];
     const res: SensorSearchResponse={

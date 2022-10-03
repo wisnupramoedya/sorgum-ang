@@ -33,6 +33,13 @@ import { GreenHouseService } from 'src/app/api-services/green-house.service';
 import { GreenHouseGraphParameterDto, GreenHouseGraphParameterDtoWithLocal, GreenHouseParameterOptionDto } from 'src/app/common/greenhouse.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import {SensorService} from "../../../../api-services/sensor.service";
+import {debounceTime, distinctUntilChanged, startWith, switchMap} from "rxjs";
+import {SensorItemDto} from "../../../../common/sensor.model";
+import {MicroItemDto} from "../../../../common/microcontroller.model";
+import {RegionsItemMinimalDto} from "../../../../common/region.model";
+import {RegionService} from "../../../../api-services/region.service";
+
 @Component({
   selector: 'app-parameter',
   templateUrl: './parameter.component.html',
@@ -53,16 +60,24 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
   ]
 })
 export class ParameterComponent implements OnInit {
-  isLoading=false;
-  radioValue='s';
-  dateValue:any=new Date();
+  landId!: number;
+  isLoading = false;
+  radioValue = 's';
+  dateValue: Date = new Date();
+
+  regionOptions: RegionsItemMinimalDto[] = [];
+
   linkDashboard = "";
+
   form = this.fb.group({
     GreenhouseId:[null, Validators.required],
     ChosenDate:[null, Validators.required],
     ChosenParameterIds:[null, Validators.required]
   });
-  listOfParams:GreenHouseParameterOptionDto[]=[];
+
+  listOfFirstParams: (SensorItemDto | MicroItemDto)[] = [];
+  listOfSecondParams: (SensorItemDto | MicroItemDto)[] = [];
+
   chartOptions:{[key:string]:any}={
     // 'SpH':{init:undefined,merged:undefined},
     // 'AT':{init:undefined,merged:undefined},
@@ -88,16 +103,21 @@ export class ParameterComponent implements OnInit {
   constructor(
     private greenhouseService: GreenHouseService,
     private fb: UntypedFormBuilder,
-    private currentGhService:CurrentGreenHouseService
+    private currentGreenHouseService:CurrentGreenHouseService,
+    private sensorService: SensorService,
+    private regionService: RegionService
   ) { }
 
   ngOnInit(): void {
-    // this.form.controls['GreenhouseId'].setValue(this.currentGhService.getId())
+    this.currentGreenHouseService.chosedGreenHouse.subscribe(x => this.landId = x);
+    this.regionService.showMinimal(this.landId).subscribe(x => this.regionOptions = x);
+
+    // this.form.controls['GreenhouseId'].setValue(this.currentGreenHouseService.getId())
     // this.greenhouseService.getAllParameters().subscribe(x=>{
     //   this.listOfParams = x
     // });
-    // this.linkDashboard = "/dashboard/"+this.currentGhService.chosedGreenHouse.value;
-    // this.currentGhService.chosedGreenHouse.subscribe(x=>this.)
+    // this.linkDashboard = "/dashboard/"+this.currentGreenHouseService.chosedGreenHouse.value;
+    // this.currentGreenHouseService.chosedGreenHouse.subscribe(x=>this.)
   }
   submitForm():void{
     this.isLoading=true;
@@ -109,18 +129,14 @@ export class ParameterComponent implements OnInit {
     this.chartData={};
   }
   setChart(data:GreenHouseGraphParameterDto[]):void{
-    
     this.resetChart();
     const chosenParam = this.form.controls['ChosenParameterIds'].value;
-    
     for (let index = 0; index < chosenParam.length; index++) {
       const element = chosenParam[index];
-      
-      const opt = this.listOfParams.find(x=>x.value===element);
+      // const opt = this.listOfParams.find(x=>x.value===element);
 
-      this.supplyChartData(opt!!,data);
-      this.supplyChart(opt!!);
-      
+      // this.supplyChartData(opt!!,data);
+      // this.supplyChart(opt!!);
     }
   }
   supplyChartData(param:GreenHouseParameterOptionDto, data:GreenHouseGraphParameterDto[]){

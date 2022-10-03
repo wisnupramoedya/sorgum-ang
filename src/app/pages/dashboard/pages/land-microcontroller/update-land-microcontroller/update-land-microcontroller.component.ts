@@ -16,6 +16,8 @@ import { filter, switchMap, tap } from 'rxjs';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
 import { RegionService } from 'src/app/api-services/region.service';
 import { RegionsItemMinimalDto } from 'src/app/common/region.model';
+import {MiniPcService} from "../../../../../api-services/mini-pc.service";
+import {MiniPcItemMinimalDto} from "../../../../../common/minipc.model";
 
 @Component({
   selector: 'app-update-land-microcontroller',
@@ -46,36 +48,36 @@ export class UpdateLandMicrocontrollerComponent implements OnInit {
     Description: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
-    RegionId: this.fb.nonNullable.control(0,{
+    MiniPcId: this.fb.nonNullable.control(0,{
       validators: [Validators.required],
     }),
   });
   isSubmitLoading = false;
-  regions:RegionsItemMinimalDto[]=[];
+  miniPcs: MiniPcItemMinimalDto[]=[];
   constructor(
     private modal: NzModalRef,
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
     private modalService:NzModalService,
-    private regionService:RegionService,
+    private miniPcService:MiniPcService,
     private microService:MicrocontrollerService,
     private notification: NzNotificationService,
     private microcontrollerService:MicrocontrollerService
   ) { }
 
   ngOnInit(): void {
-    this.regionService.showMinimal(this.land_id)
-    .subscribe(x=>this.regions=x);
+    this.miniPcService.showMinimal(this.land_id)
+    .subscribe(x=>this.miniPcs=x);
     const temp: UpdateMicroDto={
-      Description:this.data.Description,
       Name:this.data.Name,
-      RegionId:this.data.RegionId
+      Description:this.data.Description,
+      MiniPcId:this.data.MiniPcId
     };
     this.form.patchValue(temp);
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);
-    
+
     if(this.form.valid){
       this.microService.update(this.data.Id,this.form.value)
       .pipe(
@@ -93,7 +95,7 @@ export class UpdateLandMicrocontrollerComponent implements OnInit {
   }
   delete():void{
     console.log('menghapus microcontroller dengan id', this.data.Id);
-    
+
     this.modalService.confirm({
       nzTitle: 'Anda yakin ingin menghapus microcontroller ini?',
       nzOkText: 'Yes',
@@ -112,7 +114,7 @@ export class UpdateLandMicrocontrollerComponent implements OnInit {
     .afterClose
     .pipe(
       filter(x=>x!==-1),
-      switchMap(x=>{        
+      switchMap(x=>{
           return this.microService.delete(x);
       }),
       tap(()=>this.notification.create(

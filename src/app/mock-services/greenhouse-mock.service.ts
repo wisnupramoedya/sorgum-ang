@@ -40,7 +40,7 @@ export class GreenhouseMockService implements GreenHouseServiceInterface {
   }
   getAllPlants(): Observable<GreenHousePlantOptionDto[]> {
     throw new Error('Method not implemented.');
-    
+
   }
   getAllParameters(): Observable<GreenHouseParameterOptionDto[]> {
     const t:GreenHouseParameterOptionDto[]=[
@@ -67,7 +67,29 @@ export class GreenhouseMockService implements GreenHouseServiceInterface {
   getGraphParamater(
     data: GreenHouseGraphParameterRequest
   ): Observable<GreenHouseGraphParameterDto[]> {
-    throw new Error('Method not implemented.');
+    const dataGreenHouseGraphParameter: GreenHouseGraphParameterDto[] = [
+      {
+        parameterId: 1,
+        value: 10,
+        createdAt: data.ChosenDate
+      },
+      {
+        parameterId: 1,
+        value: 12,
+        createdAt: data.ChosenDate
+      },
+      {
+        parameterId: 1,
+        value: 15,
+        createdAt: data.ChosenDate
+      },
+      {
+        parameterId: 1,
+        value: 10,
+        createdAt: data.ChosenDate
+      },
+    ];
+    return of(dataGreenHouseGraphParameter);
   }
   search(data: SearchRequest): Observable<GreenHouseSearchResponse> {
     const dataresponse: GreenHouseDto[] = [

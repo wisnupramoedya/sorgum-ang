@@ -28,6 +28,38 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan Kode Mini PC!">
+        <nz-input-group nzPrefixIcon="compass">
+          <input
+            type="text"
+            nz-input
+            formControlName="MiniPcCode"
+            placeholder="Masukkan Kode Mini PC"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan Password Mini PC!">
+        <nz-input-group nzSearch nzPrefixIcon="compass" [nzAddOnAfter]="suffixIconButton">
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            formControlName="MiniPcSecret"
+            placeholder="Masukkan Password Mini PC" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzSearch>
+            <span
+              nz-icon
+              [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+              (click)="passwordVisible = !passwordVisible"></span>
+          </button>
+          <button nz-button nzType="primary" nzSearch (click)="generateRandom()"><span nz-icon nzType="reload" nzTheme="outline"></span></button>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
       <nz-form-control nzErrorTip="Masukkan region anda!">
         <nz-input-group nzPrefixIcon="compass">
           <nz-select formControlName="RegionId" nzPlaceHolder="Region">

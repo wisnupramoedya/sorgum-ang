@@ -10,13 +10,13 @@ import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzListModule} from "ng-zorro-antd/list";
 import {NzNotificationModule, NzNotificationService} from "ng-zorro-antd/notification";
 import {NzSelectModule} from "ng-zorro-antd/select";
-import {MicroItemDto, UpdateMicroDto} from "../../../../../common/microcontroller.model";
 import {RegionsItemMinimalDto} from "../../../../../common/region.model";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {RegionService} from "../../../../../api-services/region.service";
 import {MicrocontrollerService} from "../../../../../api-services/microcontroller.service";
 import {filter, switchMap, tap} from "rxjs";
-import {MiniPcItemDTO} from "../../../../../common/minipc.model";
+import {MiniPcItemDto, UpdateMiniPcDto} from "../../../../../common/minipc.model";
+import {PasswordService} from "../../../../../services/password.service";
 
 @Component({
   selector: 'app-update-land-mini-pc',
@@ -39,8 +39,9 @@ import {MiniPcItemDTO} from "../../../../../common/minipc.model";
 })
 export class UpdateLandMiniPcComponent implements OnInit {
   @Input() land_id!:number;
-  @Input() data!: MiniPcItemDTO;
+  @Input() data!: MiniPcItemDto;
   isSubmitLoading = false;
+  passwordVisible = false;
   regions:RegionsItemMinimalDto[]=[];
 
   form: FormGroup = this.fb.nonNullable.group({
@@ -48,6 +49,12 @@ export class UpdateLandMiniPcComponent implements OnInit {
       validators: [Validators.required],
     }),
     Description: this.fb.nonNullable.control('', {
+      validators: [Validators.required],
+    }),
+    MiniPcCode: this.fb.nonNullable.control('', {
+      validators: [Validators.required],
+    }),
+    MiniPcSecret: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
     RegionId: this.fb.nonNullable.control(0,{
@@ -63,15 +70,18 @@ export class UpdateLandMiniPcComponent implements OnInit {
     private regionService: RegionService,
     private miniPcService: MicrocontrollerService,
     private notification: NzNotificationService,
+    private passwordService: PasswordService,
   ) { }
 
   ngOnInit(): void {
     this.regionService.showMinimal(this.land_id)
       .subscribe(x=>this.regions=x);
-    const temp: UpdateMicroDto={
-      Description:this.data.Description,
-      Name:this.data.Name,
-      RegionId:this.data.RegionId
+    const temp: UpdateMiniPcDto = {
+      Name: this.data.Name,
+      Description: this.data.Description,
+      MiniPcCode: this.data.MiniPcCode,
+      MiniPcSecret: this.data.MiniPcSecret,
+      RegionId: this.data.RegionId
     };
     this.form.patchValue(temp);
   }
@@ -126,5 +136,8 @@ export class UpdateLandMiniPcComponent implements OnInit {
       .subscribe(x=>{
         this.modal.close(this.data.Id);
       });
+  }
+  generateRandom(): void {
+    this.form.controls['MiniPcSecret'].setValue(this.passwordService.generateRandomString(8));
   }
 }

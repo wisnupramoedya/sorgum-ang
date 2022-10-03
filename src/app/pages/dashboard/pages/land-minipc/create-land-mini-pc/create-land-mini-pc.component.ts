@@ -15,6 +15,7 @@ import {NzMessageService} from "ng-zorro-antd/message";
 import {RegionService} from "../../../../../api-services/region.service";
 import {MicrocontrollerService} from "../../../../../api-services/microcontroller.service";
 import {tap} from "rxjs";
+import {PasswordService} from "../../../../../services/password.service";
 
 @Component({
   selector: 'app-create-land-mini-pc',
@@ -38,6 +39,7 @@ import {tap} from "rxjs";
 export class CreateLandMiniPcComponent implements OnInit {
   @Input() land_id!:number;
   isSubmitLoading = false;
+  passwordVisible = false;
   regions:RegionsItemMinimalDto[]=[];
 
   form: FormGroup = this.fb.nonNullable.group({
@@ -47,9 +49,16 @@ export class CreateLandMiniPcComponent implements OnInit {
     Description: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
+    MiniPcCode: this.fb.nonNullable.control('', {
+      validators: [Validators.required],
+    }),
+    MiniPcSecret: this.fb.nonNullable.control('', {
+      validators: [Validators.required],
+    }),
     RegionId: this.fb.nonNullable.control(0,{
       validators: [Validators.required],
     }),
+
   });
 
   constructor(
@@ -58,7 +67,8 @@ export class CreateLandMiniPcComponent implements OnInit {
     private msg: NzMessageService,
     private regionService:RegionService,
     private miniPcService:MicrocontrollerService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private passwordService: PasswordService
   ) { }
 
   ngOnInit(): void {
@@ -82,5 +92,8 @@ export class CreateLandMiniPcComponent implements OnInit {
   }
   destroyModal(): void {
     this.modal.close();
+  }
+  generateRandom(): void {
+    this.form.controls['MiniPcSecret'].setValue(this.passwordService.generateRandomString(8));
   }
 }

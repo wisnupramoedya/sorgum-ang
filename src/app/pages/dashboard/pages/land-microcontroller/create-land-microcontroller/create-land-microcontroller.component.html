@@ -28,15 +28,15 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Masukkan region anda!">
+        <nz-form-control nzErrorTip="Masukkan Mini PC Anda!">
           <nz-input-group nzPrefixIcon="compass">
-            <nz-select formControlName="RegionId" nzPlaceHolder="Region">
-              <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of regions"></nz-option>
+            <nz-select formControlName="MiniPcId" nzPlaceHolder="Mini PC">
+              <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of miniPcs"></nz-option>
             </nz-select>
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
-     
+
     </div>
     <div *nzModalFooter>
       <button nz-button nzType="default" type="button" (click)="destroyModal()">
@@ -54,4 +54,3 @@
       </button>
     </div>
   </form>
-  

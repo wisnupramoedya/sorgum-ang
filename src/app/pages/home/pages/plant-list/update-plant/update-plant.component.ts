@@ -30,7 +30,7 @@ import {
   ParamSelectItem,
   UpdateDescriptionParameter,
   UpdateParameter
-} from 'src/app/common/PlantParameter.model';
+} from 'src/app/common/plantparameter.model';
 import { PlantService } from 'src/app/api-services/plant.service';
 import { filter, switchMap, tap } from 'rxjs';
 import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notification';

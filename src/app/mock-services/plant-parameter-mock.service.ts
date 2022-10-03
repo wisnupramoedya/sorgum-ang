@@ -9,14 +9,33 @@ import {
   ParamSelectItem,
   UpdateDescriptionParameter,
   UpdateParameter
-} from '../common/PlantParameter.model';
+} from '../common/plantparameter.model';
 
 @Injectable()
 export class PlantParameterMockService implements PlantParameterServiceInterface{
 
   constructor() { }
   showParamOverview(land_id: number, data: ParamOverv): Observable<ParamOverview[]> {
-    throw new Error('Method not implemented.');
+    const po: ParamOverview[] = [
+      {
+        Id: 1,
+        ParentTypeId: 1,
+        Descriptions: [
+          {
+            Description:'Terlalu asam',
+            Id:2,
+            MaxValue:1,
+            MinValue:4,
+            Color:"#005322"
+          },
+        ],
+        PlantId: 1,
+        PlantName: 'Sorgum Citayam',
+        MicroId: 2,
+        Value: 100
+      }
+    ];
+    return of(po);
   }
   showMinimalParam(land_id: number): Observable<string[]> {
     return of(['ph','kelembaban tanah', 'suhu udara']);

@@ -2,30 +2,43 @@
   class="site-page-header"
   nzTitle="Parameter"
   nzSubtitle="Nama Lahan | Code Lahan"
-  
+
 >
   <nz-page-header-content></nz-page-header-content>
 </nz-page-header>
-<div style="display: flex;flex-direction: row;align-items: center;margin:1.5em 0em;">
-  <nz-date-picker
-    [(ngModel)]="dateValue"
-    nzMode="date"
-    [nzFormat]="'dd/MM/yyyy'"
-  ></nz-date-picker>
-  <nz-radio-group [(ngModel)]="radioValue" style="margin-left:16px;">
-    <label nz-radio nzValue="m">Mode Microcontroller</label>
-    <label nz-radio nzValue="s">Mode Sensor</label>
-  </nz-radio-group>
-</div>
 
 <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
+  <div style="display: flex;flex-direction: row;align-items: center; margin:1.5em 0em;">
+    <nz-date-picker
+      [(ngModel)]="dateValue"
+      nzMode="date"
+      [nzFormat]="'dd/MM/yyyy'"
+      nzPlaceHolder="Masukkan Tanggal"
+    ></nz-date-picker>
+
+    <nz-select nzAllowClear nzShowSearch style="margin-left:16px;" nzPlaceHolder="Masukkan Region Anda">
+      <nz-option
+        *ngFor="let option of regionOptions"
+        [nzLabel]="option.Name + ' - ' + option.PlantName"
+        [nzValue]="option.Id"
+      ></nz-option>
+    </nz-select>
+
+    <nz-radio-group [(ngModel)]="radioValue" style="margin-left:16px;">
+      <label nz-radio nzValue="m">Mode Microcontroller</label>
+      <label nz-radio nzValue="s">Mode Sensor</label>
+    </nz-radio-group>
+  </div>
+
   <nz-form-item>
     <nz-form-control>
-        <nz-select >
-            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-          </nz-select>
+        <nz-select formControlName="">
+          <nz-option
+            *ngFor="let option of listOfFirstParams"
+            [nzLabel]="option.Name"
+            [nzValue]="option.Name"
+          ></nz-option>
+        </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -37,9 +50,9 @@
         style="min-width: 200px"
       >
         <nz-option
-          *ngFor="let option of listOfParams"
-          [nzLabel]="option.display"
-          [nzValue]="option.value"
+          *ngFor="let option of listOfSecondParams"
+          [nzLabel]="option.Name"
+          [nzValue]="option.Name"
         ></nz-option>
       </nz-select>
     </nz-form-control>

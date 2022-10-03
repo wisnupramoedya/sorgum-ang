@@ -15,6 +15,8 @@ import { RegionService } from 'src/app/api-services/region.service';
 import { tap } from 'rxjs';
 import { RegionsItemMinimalDto } from 'src/app/common/region.model';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import {MiniPcService} from "../../../../../api-services/mini-pc.service";
+import {MiniPcItemMinimalDto} from "../../../../../common/minipc.model";
 
 @Component({
   selector: 'app-create-land-microcontroller',
@@ -37,7 +39,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 })
 export class CreateLandMicrocontrollerComponent implements OnInit {
   @Input() land_id!:number;
-  
+
   form: FormGroup = this.fb.nonNullable.group({
     Name: this.fb.nonNullable.control('', {
       validators: [Validators.required],
@@ -50,24 +52,25 @@ export class CreateLandMicrocontrollerComponent implements OnInit {
     }),
   });
   isSubmitLoading = false;
-  regions:RegionsItemMinimalDto[]=[];
+  miniPcs: MiniPcItemMinimalDto[] = [];
+
   constructor(
     private modal: NzModalRef,
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
-    private regionService:RegionService,
+    private miniPcService: MiniPcService,
     private microService:MicrocontrollerService,
     private notification: NzNotificationService,
     private microcontrollerService:MicrocontrollerService
   ) { }
 
   ngOnInit(): void {
-    this.regionService.showMinimal(this.land_id)
-    .subscribe(x=>this.regions=x)
+    this.miniPcService.showMinimal(this.land_id)
+    .subscribe(x=>this.miniPcs=x)
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);
-    
+
     if(this.form.valid){
       this.microService.add(this.form.value)
       .pipe(
@@ -83,5 +86,5 @@ export class CreateLandMicrocontrollerComponent implements OnInit {
   destroyModal(): void {
     this.modal.close();
   }
-  
+
 }

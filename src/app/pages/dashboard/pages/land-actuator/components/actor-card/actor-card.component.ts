@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -9,9 +9,9 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
   selector: 'app-actor-card',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    NzCardModule, 
+    CommonModule,
+    FormsModule,
+    NzCardModule,
     NzSwitchModule,
     NzDescriptionsModule
   ],
@@ -19,6 +19,8 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
   styleUrls: ['./actor-card.component.scss'],
 })
 export class ActorCardComponent implements OnInit {
+  @Input() title?: string;
+
   constructor() {}
 
   ngOnInit(): void {}

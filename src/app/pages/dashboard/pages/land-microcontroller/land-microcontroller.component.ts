@@ -49,7 +49,7 @@ export class LandMicrocontrollerComponent implements OnInit {
     private router: Router,
     private acRoute:ActivatedRoute,
     private curGh:CurrentGreenHouseService
-  ) { 
+  ) {
     // this.landId = this.acRoute.snapshot.data['landId'];
     // this.acRoute.params.subscribe(x=>this.landId = x['landId']);
   }
@@ -65,7 +65,10 @@ export class LandMicrocontrollerComponent implements OnInit {
         ),
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap(x=>this.microconService.search(x))
+      switchMap(x=> {
+
+        return this.microconService.search(x, this.landId);
+      })
     ).subscribe(
       (res: any)=>{
         console.log(res);
@@ -92,6 +95,7 @@ export class LandMicrocontrollerComponent implements OnInit {
   }
   showModalUpdate(id:number):void{
     const dt = this.data.filter(x=>x.Id === id )[0];
+    console.log(dt ,id);
     this.modalService.create({
       nzContent:UpdateLandMicrocontrollerComponent,
       nzComponentParams:{

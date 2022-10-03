@@ -16,6 +16,7 @@ export class RegionsItemDto {
     PlantId!:number;
     PlantName!:string;
 }
+
 export class RegionsItemMinimalDto {
     Id!:number;
     Name!:string;
@@ -23,8 +24,8 @@ export class RegionsItemMinimalDto {
     LandId!:number;
     PlantId!:number;
     PlantName!:string;
-
 }
+
 export class RegionSearchResponse extends SearchResponse<RegionsItemDto>{
 
 }
