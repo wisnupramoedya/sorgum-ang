@@ -12,7 +12,8 @@
 <div *ngIf="!isPinnedView else pinnedViewBlock;" style="white-space: nowrap; display: table;width: max-content;border-collapse: collapse;">
     <div style="display: table-row;">
         <div style="display: table-cell; padding:1em;">
-            <img width="480px" height="320px" [src]="'./assets/land-default2.jpg'" />
+            <!-- <img width="480px" height="320px" [src]="'./assets/land-default2.jpg'" /> -->
+            <video id="remote" controls autoplay="true" playsinline="true" #remote ></video>
             <div style="text-align: center;">Region 2</div>
         </div>
         <div style="display: table-cell; padding:1em;">
