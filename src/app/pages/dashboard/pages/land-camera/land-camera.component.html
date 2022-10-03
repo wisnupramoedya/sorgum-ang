@@ -5,6 +5,11 @@
 >
   <nz-page-header-content>
     <button nz-button type="button" (click)="pinCamera()">toggle</button>
+    <form  [formGroup]="formMiniPc">
+      <nz-select formControlName="IdMiniPc" >
+        <nz-option [nzValue]="item.Id" [nzLabel]="item.Name + ' - ' + item.RegionName + ': '+item.PlantName" *ngFor="let item of miniPCs"></nz-option>
+      </nz-select>
+    </form>
   </nz-page-header-content>
 </nz-page-header>
 

@@ -18,7 +18,9 @@ import { CardNComponent } from 'src/app/components/card-n/card-n.component';
 import { FarmingHubService } from 'src/app/api-services/farming-hub.service';
 import { NegotiatingRTCPCDto, NegotiatingRTCPCWithIdDto } from 'src/app/common/camera.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
-import { MiniPcItemDTO } from 'src/app/common/minipc.model';
+import { MiniPcItem2DTO, MiniPcItemDTO } from 'src/app/common/minipc.model';
+import { MiniPcService } from 'src/app/api-services/mini-pc.service';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'app-land-camera',
@@ -43,7 +45,8 @@ import { MiniPcItemDTO } from 'src/app/common/minipc.model';
     FormsModule,
     ReactiveFormsModule,
     NzPageHeaderModule,
-    NzFormModule
+    NzFormModule,
+    NzSelectModule
   ],
 })
 export class LandCameraComponent implements OnInit, OnDestroy {
@@ -53,8 +56,11 @@ export class LandCameraComponent implements OnInit, OnDestroy {
     Horizontal: this.fb.nonNullable.control(50),
     Zoom: this.fb.nonNullable.control(0)
   });
+  formMiniPc:FormGroup= this.fb.nonNullable.group({
+    IdMiniPc: this.fb.nonNullable.control(0, {validators:[Validators.required]})
+  });
   landId!:number;
-  miniPCs: MiniPcItemDTO[]=[];
+  miniPCs: MiniPcItem2DTO[]=[];
   slider1 = 0;
   slider2 = 0;
   slider3 = 0;
@@ -69,12 +75,26 @@ export class LandCameraComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private farmingHubService: FarmingHubService,
-    private curGh:CurrentGreenHouseService
-
+    private curGh:CurrentGreenHouseService,
+    private miniPcService:MiniPcService
   ) { }
 
   ngOnInit(): void {
     this.curGh.chosedGreenHouse.subscribe(x=>this.landId=x);
+    this.miniPcService.showMiniPcInALand(this.landId)
+        .subscribe(x=>{
+          this.miniPCs=x;
+          this.startHubConnection();
+        })
+    this.formMiniPc.controls['IdMiniPc'].valueChanges
+    .subscribe(x=>{
+      this.hangup();
+      this.selectedMiniPc = x;
+      this.farmingHubService.hubCon.invoke("UserRegionJoinRoom", x);
+      this.setupWebRtc();
+    });
+  }
+  startHubConnection():void{
     this.farmingHubService.buildHub('/FarmingHub')
     this.farmingHubService.hubCon.start()
                           .then(x=>{
@@ -85,7 +105,6 @@ export class LandCameraComponent implements OnInit, OnDestroy {
     this.farmingHubService.hubCon.on('AnswerReqActivatingCamera', (data:RTCSessionDescriptionInit)=>{
         this.pc.setRemoteDescription(data)
     });
-    this.setupWebRtc();
   }
   pinCamera():void{
     this.isPinnedView = !this.isPinnedView;
@@ -112,7 +131,10 @@ export class LandCameraComponent implements OnInit, OnDestroy {
       this.pc = new RTCPeerConnection(config);
     }
     const dataDescription: NegotiatingRTCPCWithIdDto ={
-      Data: this.pc.remoteDescription,
+      Data: {
+        sdp: this.pc.remoteDescription?.sdp!,
+        type: this.pc.remoteDescription?.type!
+      },
       Id: this.selectedMiniPc
     }
     this.farmingHubService.hubCon.invoke("ReqCamera",dataDescription );
@@ -121,8 +143,10 @@ export class LandCameraComponent implements OnInit, OnDestroy {
   }
 
   hangup() {
-    this.pc.close();
-    this.callActive = false;
+    if(this.pc){
+      this.pc.close();
+      this.callActive = false;
+    }
   }
 
 }

@@ -4,6 +4,6 @@ export class NegotiatingRTCPCDto{
 }
 
 export class NegotiatingRTCPCWithIdDto{
-    Data!:NegotiatingRTCPC;
+    Data!:NegotiatingRTCPCDto;
     Id!:number;
 }
