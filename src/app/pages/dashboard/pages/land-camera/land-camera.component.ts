@@ -67,7 +67,7 @@ export class LandCameraComponent implements OnInit, OnDestroy {
   slider4 = 0;
   cc=null;
   isPinnedView =  false;
-  selectedMiniPc:number = 0;
+  selectedMiniPc:number = 1;
   callActive: boolean = false;
   pc!: RTCPeerConnection;
   @ViewChild("remote", {static:true}) remote!: ElementRef<HTMLVideoElement>;
@@ -89,20 +89,24 @@ export class LandCameraComponent implements OnInit, OnDestroy {
     this.formMiniPc.controls['IdMiniPc'].valueChanges
     .subscribe(x=>{
       this.hangup();
+      console.log(x,"dddddddd");
+      
       this.selectedMiniPc = x;
-      this.farmingHubService.hubCon.invoke("UserRegionJoinRoom", x);
+      this.farmingHubService.hubCon.invoke("UserRegionJoinRoom", x+"_USERREGION").then(x=>console.log("afeter invoke",x));
       this.setupWebRtc();
     });
   }
   startHubConnection():void{
-    this.farmingHubService.buildHub('/FarmingHub')
+    this.farmingHubService.buildHub('https://localhost:7219/FarmingHub')
     this.farmingHubService.hubCon.start()
                           .then(x=>{
                             console.log("farming hub is connected");
-                            this.farmingHubService.hubCon.invoke("UserRegionJoinRoom", this.selectedMiniPc);
+                            // this.farmingHubService.hubCon.invoke("UserRegionJoinRoom", this.selectedMiniPc+"_USERREGION");
                           })
                         .catch(e => console.log("farming hub is not connected",e));
     this.farmingHubService.hubCon.on('AnswerReqActivatingCamera', (data:RTCSessionDescriptionInit)=>{
+      console.log("respons AnswerReqActivatingCamera",data);
+      
         this.pc.setRemoteDescription(data)
     });
   }
@@ -117,7 +121,7 @@ export class LandCameraComponent implements OnInit, OnDestroy {
     this.hangup();
   }
 
-  setupWebRtc() {
+  async setupWebRtc() {
     const config:RTCConfiguration ={
       iceServers:[
         { urls: "stun:stun.services.mozilla.com" },
@@ -130,16 +134,63 @@ export class LandCameraComponent implements OnInit, OnDestroy {
       console.log(error);
       this.pc = new RTCPeerConnection(config);
     }
-    const dataDescription: NegotiatingRTCPCWithIdDto ={
-      Data: {
-        sdp: this.pc.remoteDescription?.sdp!,
-        type: this.pc.remoteDescription?.type!
-      },
-      Id: this.selectedMiniPc
-    }
-    this.farmingHubService.hubCon.invoke("ReqCamera",dataDescription );
-    this.pc.ontrack = event =>
-      (this.remote.nativeElement.srcObject = event.streams[0]); // use ontrack
+    console.log(this.pc);
+    
+    // this.pc.ontrack = (event:any) =>{
+    //   (this.remote.nativeElement.srcObject = event.streams[0]); // use ontrack
+    // }
+
+    this.pc.addEventListener('track', function(evt) {
+      if (evt.track.kind == 'video') {
+          (document.getElementById('remote')! as any).srcObject = evt.streams[0];
+      } 
+      // else {
+      //     document.getElementById('audio').srcObject = evt.streams[0];
+      // }
+  });
+
+    // negotiating
+    this.pc.addTransceiver('video', {direction: 'recvonly'});
+    this.pc.createOffer()
+            .then(pc_offer=>{
+              return this.pc.setLocalDescription(pc_offer)
+            })
+            .then(()=>{
+              return new Promise<void>((resolve)=> {
+                if (this.pc.iceGatheringState === 'complete') {
+                    resolve();
+                } else {
+                    const checkState:any = ()=> {
+                        if (this.pc.iceGatheringState === 'complete') {
+                            this.pc.removeEventListener('icegatheringstatechange', checkState);
+                            resolve();
+                        }
+                    }
+                    this.pc.addEventListener('icegatheringstatechange', checkState);
+                }
+            });
+            })
+            .then(
+              () => {
+                // var offer = this.pc.localDescription;
+                const dataDescription: NegotiatingRTCPCWithIdDto ={
+                  sdp: this.pc.localDescription?.sdp!,
+                  type: this.pc.localDescription?.type!,
+                  Id: this.selectedMiniPc
+                };
+                console.log(dataDescription);
+                this.farmingHubService.hubCon.invoke("ReqCamera",dataDescription );
+
+              }
+            )
+    
+    // end negotiating
+
+    
+    
+   
+
+
   }
 
   hangup() {
