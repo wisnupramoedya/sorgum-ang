@@ -5,7 +5,7 @@
 >
   <nz-page-header-content></nz-page-header-content>
 </nz-page-header>
-<div style="display: flex; flex-direction: row; margin-bottom: 1em">
+<div class="flex flex-col" style="margin-bottom: 1em">
   <nz-button-group style="margin: 0px 1em">
     <button nz-button>
       <span nz-icon nzType="check"></span>
@@ -48,7 +48,7 @@
     >
       Region
     </button>
-    <nz-dropdown-menu #menu3="nzDropdownMenu" style="">
+    <nz-dropdown-menu #menu3="nzDropdownMenu">
       <div nz-menu style="padding: 1em; overflow-y: auto; max-height: 400px">
         <label
           nz-checkbox
