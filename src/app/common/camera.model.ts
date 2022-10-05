@@ -4,6 +4,7 @@ export class NegotiatingRTCPCDto{
 }
 
 export class NegotiatingRTCPCWithIdDto{
-    Data!:NegotiatingRTCPCDto;
+    sdp!:string;
+    type!:string;
     Id!:number;
 }
