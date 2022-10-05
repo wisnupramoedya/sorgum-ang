@@ -8,10 +8,11 @@ import {
   MiniPcSearchResponse, MiniPcsIdentity,
   UpdateMiniPcDto
 } from "../common/minipc.model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {UtilityService} from "../services/utility.service";
 import {MiniPcMockService} from "../mock-services/mini-pc-mock.service";
 import { MiniPcItem2DTO } from '../common/minipc.model';
+import {MicrocontrollerSearchResponse} from "../common/microcontroller.model";
 
 export interface MiniPcServiceInterface {
   search(data: SearchRequest, land_id?:number): Observable<MiniPcSearchResponse>;
@@ -45,15 +46,19 @@ export class MiniPcService implements MiniPcServiceInterface{
   }
 
   add(data: AddMiniPcDto): Observable<number> {
-    return this.http.post<number>('/api/MiniPCsCrud/AddMiniPc',data);
+    return this.http.post<number>('/api/MiniPCsCrud/AddMini', data);
   }
 
   delete(id: number): Observable<void> {
-    throw new Error("not implemented");
+    return this.http.delete<void>('/api/MiniPCsCrud/DeleteMiniPc/'+id);
   }
 
   search(data: SearchRequest, land_id?: number): Observable<MiniPcSearchResponse> {
-    throw new Error("not implemented");
+    const params = new HttpParams({
+      fromObject: {...data}
+    });
+    console.log('/api/MiniPCsCrud/Search'+(land_id===undefined?'':'/'+land_id));
+    return this.http.get<MiniPcSearchResponse>('/api/MiniPcsCrud/Search'+(land_id===undefined?'':'/'+land_id),{params: params});
   }
 
   showMinimal(land_id: number): Observable<MiniPcItemMinimalDto[]> {
@@ -65,6 +70,6 @@ export class MiniPcService implements MiniPcServiceInterface{
   }
 
   update(id: number, data: UpdateMiniPcDto): Observable<void> {
-    throw new Error("not implemented");
+    return this.http.put<void>('/api/MiniPcsCrud/UpdateMiniPc/'+id,data);
   }
 }

@@ -13,9 +13,9 @@ import {NzSelectModule} from "ng-zorro-antd/select";
 import {RegionsItemMinimalDto} from "../../../../../common/region.model";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {RegionService} from "../../../../../api-services/region.service";
-import {MicrocontrollerService} from "../../../../../api-services/microcontroller.service";
 import {tap} from "rxjs";
 import {PasswordService} from "../../../../../services/password.service";
+import {MiniPcService} from "../../../../../api-services/mini-pc.service";
 
 @Component({
   selector: 'app-create-land-mini-pc',
@@ -66,7 +66,7 @@ export class CreateLandMiniPcComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
     private regionService:RegionService,
-    private miniPcService:MicrocontrollerService,
+    private miniPcService: MiniPcService,
     private notification: NzNotificationService,
     private passwordService: PasswordService
   ) { }
