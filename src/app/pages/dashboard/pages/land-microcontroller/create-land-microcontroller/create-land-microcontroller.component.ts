@@ -11,12 +11,10 @@ import { NzModalModule, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notification';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { RegionService } from 'src/app/api-services/region.service';
 import { tap } from 'rxjs';
-import { RegionsItemMinimalDto } from 'src/app/common/region.model';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import {MiniPcService} from "../../../../../api-services/mini-pc.service";
-import {MiniPcItemMinimalDto} from "../../../../../common/minipc.model";
+import {MiniPcItem2DTO, MiniPcItemMinimalDto} from "../../../../../common/minipc.model";
 
 @Component({
   selector: 'app-create-land-microcontroller',
@@ -47,12 +45,12 @@ export class CreateLandMicrocontrollerComponent implements OnInit {
     Description: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
-    RegionId: this.fb.nonNullable.control(0,{
+    MiniPcId: this.fb.nonNullable.control(0,{
       validators: [Validators.required],
     }),
   });
   isSubmitLoading = false;
-  miniPcs: MiniPcItemMinimalDto[] = [];
+  miniPcs: MiniPcItem2DTO[] = [];
 
   constructor(
     private modal: NzModalRef,
@@ -60,12 +58,11 @@ export class CreateLandMicrocontrollerComponent implements OnInit {
     private msg: NzMessageService,
     private miniPcService: MiniPcService,
     private microService:MicrocontrollerService,
-    private notification: NzNotificationService,
-    private microcontrollerService:MicrocontrollerService
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
-    this.miniPcService.showMinimal(this.land_id)
+    this.miniPcService.showMiniPcInALand(this.land_id)
     .subscribe(x=>this.miniPcs=x)
   }
   submitForm(): void {

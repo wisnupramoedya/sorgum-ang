@@ -17,7 +17,7 @@ import { MicrocontrollerService } from 'src/app/api-services/microcontroller.ser
 import { RegionService } from 'src/app/api-services/region.service';
 import { RegionsItemMinimalDto } from 'src/app/common/region.model';
 import {MiniPcService} from "../../../../../api-services/mini-pc.service";
-import {MiniPcItemMinimalDto} from "../../../../../common/minipc.model";
+import {MiniPcItem2DTO, MiniPcItemMinimalDto} from "../../../../../common/minipc.model";
 
 @Component({
   selector: 'app-update-land-microcontroller',
@@ -53,7 +53,7 @@ export class UpdateLandMicrocontrollerComponent implements OnInit {
     }),
   });
   isSubmitLoading = false;
-  miniPcs: MiniPcItemMinimalDto[]=[];
+  miniPcs: MiniPcItem2DTO[]=[];
   constructor(
     private modal: NzModalRef,
     private fb: UntypedFormBuilder,
@@ -61,12 +61,11 @@ export class UpdateLandMicrocontrollerComponent implements OnInit {
     private modalService:NzModalService,
     private miniPcService:MiniPcService,
     private microService:MicrocontrollerService,
-    private notification: NzNotificationService,
-    private microcontrollerService:MicrocontrollerService
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
-    this.miniPcService.showMinimal(this.land_id)
+    this.miniPcService.showMiniPcInALand(this.land_id)
     .subscribe(x=>this.miniPcs=x);
     const temp: UpdateMicroDto={
       Name:this.data.Name,

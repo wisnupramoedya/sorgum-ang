@@ -12,7 +12,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {UtilityService} from "../services/utility.service";
 import {MiniPcMockService} from "../mock-services/mini-pc-mock.service";
 import { MiniPcItem2DTO } from '../common/minipc.model';
-import {MicrocontrollerSearchResponse} from "../common/microcontroller.model";
+import {MicrocontrollerSearchResponse, MicroItemMinimalDto} from "../common/microcontroller.model";
 
 export interface MiniPcServiceInterface {
   search(data: SearchRequest, land_id?:number): Observable<MiniPcSearchResponse>;
@@ -62,7 +62,7 @@ export class MiniPcService implements MiniPcServiceInterface{
   }
 
   showMinimal(land_id: number): Observable<MiniPcItemMinimalDto[]> {
-    throw new Error("not implemented");
+    return this.http.get<MiniPcItemMinimalDto[]>('/api/MiniPCsCrud/ShowMiniPc/'+land_id);
   }
 
   showOverviewMiniPc(land_id: number, data: MiniPcsIdentity): Observable<MiniPcItemDto[]> {
