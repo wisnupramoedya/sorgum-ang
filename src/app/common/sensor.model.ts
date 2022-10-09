@@ -5,6 +5,14 @@ export class SensorType{
     Name!:string;
 }
 
+export class SensorMinimalItemDto{
+  Id!:number;
+  Name!:string;
+  Description!:string;
+  MicroId!:number;
+  MicroName!:string;
+}
+
 export class SensorItemDto{
     Id!:number;
     Name!:string;

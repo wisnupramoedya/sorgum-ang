@@ -49,10 +49,10 @@ export class CreateLandMiniPcComponent implements OnInit {
     Description: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
-    MiniPcCode: this.fb.nonNullable.control('', {
+    Code: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
-    MiniPcSecret: this.fb.nonNullable.control('', {
+    Secret: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
     RegionId: this.fb.nonNullable.control(0,{

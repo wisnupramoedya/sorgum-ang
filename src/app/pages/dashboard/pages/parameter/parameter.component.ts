@@ -35,10 +35,11 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import {SensorService} from "../../../../api-services/sensor.service";
 import {debounceTime, distinctUntilChanged, startWith, switchMap} from "rxjs";
-import {SensorItemDto} from "../../../../common/sensor.model";
-import {MicroItemDto} from "../../../../common/microcontroller.model";
+import {SensorItemDto, SensorMinimalItemDto} from "../../../../common/sensor.model";
+import {MicroItemDto, MicroItemMinimalDto} from "../../../../common/microcontroller.model";
 import {RegionsItemMinimalDto} from "../../../../common/region.model";
 import {RegionService} from "../../../../api-services/region.service";
+import {MicrocontrollerService} from "../../../../api-services/microcontroller.service";
 
 @Component({
   selector: 'app-parameter',
@@ -65,18 +66,17 @@ export class ParameterComponent implements OnInit {
   radioValue = 's';
   dateValue: Date = new Date();
 
-  regionOptions: RegionsItemMinimalDto[] = [];
-
-  linkDashboard = "";
-
   form = this.fb.group({
-    GreenhouseId:[null, Validators.required],
-    ChosenDate:[null, Validators.required],
-    ChosenParameterIds:[null, Validators.required]
+    ChosenDate: [null, Validators.required],
+    ChosenRegion: [0, Validators.required],
+    ChosenMode: ['', Validators.required],
+    FirstParam: [null],
+    SecondParam: [null],
   });
 
-  listOfFirstParams: (SensorItemDto | MicroItemDto)[] = [];
-  listOfSecondParams: (SensorItemDto | MicroItemDto)[] = [];
+  regionOptions: RegionsItemMinimalDto[] = [];
+  listOfFirstParams: (SensorMinimalItemDto | MicroItemMinimalDto)[] = [];
+  listOfSecondParams: (SensorMinimalItemDto | MicroItemMinimalDto)[] = [];
 
   chartOptions:{[key:string]:any}={
     // 'SpH':{init:undefined,merged:undefined},
@@ -104,6 +104,7 @@ export class ParameterComponent implements OnInit {
     private greenhouseService: GreenHouseService,
     private fb: UntypedFormBuilder,
     private currentGreenHouseService:CurrentGreenHouseService,
+    private microControllerService: MicrocontrollerService,
     private sensorService: SensorService,
     private regionService: RegionService
   ) { }
@@ -124,6 +125,39 @@ export class ParameterComponent implements OnInit {
     this.greenhouseService.getGraphParamater(this.form.value)
         .subscribe(x=>{this.setChart(x);this.isLoading=false;}, err=>this.isLoading=false);
   }
+
+  setFirstParameter(): void {
+    const regionId: number = this.form.controls["ChosenRegion"].value;
+    const mode: string = this.form.controls["ChosenMode"].value;
+
+    switch (mode) {
+      case "m":
+        this.microControllerService.showMicroParameterOverRegion(regionId)
+          .subscribe(x => this.listOfFirstParams = x);
+        break;
+      case "s":
+        this.sensorService.showSensorParameterOverRegion(regionId)
+          .subscribe(x => this.listOfFirstParams = x);
+        break;
+    }
+  }
+
+  setSecondParameter(): void {
+    const mode: string = this.form.controls["ChosenMode"].value;
+    const firstParam: number = this.form.controls["FirstParam"].value;
+
+    switch (mode) {
+      case "s":
+        this.microControllerService.showMicroParameterOverSensor(firstParam)
+          .subscribe(x => this.listOfSecondParams = x);
+        break;
+      case "m":
+        this.sensorService.showSensorParameterOverMicrocontroller(firstParam)
+          .subscribe(x => this.listOfSecondParams = x);
+        break;
+    }
+  }
+
   resetChart():void{
     this.chartOptions={};
     this.chartData={};

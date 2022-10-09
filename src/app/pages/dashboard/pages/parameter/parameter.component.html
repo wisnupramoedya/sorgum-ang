@@ -9,14 +9,13 @@
 
 <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
   <div style="display: flex;flex-direction: row;align-items: center; margin:1.5em 0em;">
-    <nz-date-picker
-      [(ngModel)]="dateValue"
+    <nz-date-picker formControlName="ChosenDate"
       nzMode="date"
       [nzFormat]="'dd/MM/yyyy'"
       nzPlaceHolder="Masukkan Tanggal"
     ></nz-date-picker>
 
-    <nz-select nzAllowClear nzShowSearch style="margin-left:16px;" nzPlaceHolder="Masukkan Region Anda">
+    <nz-select nzAllowClear nzShowSearch formControlName="ChosenRegion" style="margin-left:16px;" nzPlaceHolder="Masukkan Region Anda">
       <nz-option
         *ngFor="let option of regionOptions"
         [nzLabel]="option.Name + ' - ' + option.PlantName"
@@ -24,7 +23,7 @@
       ></nz-option>
     </nz-select>
 
-    <nz-radio-group [(ngModel)]="radioValue" style="margin-left:16px;">
+    <nz-radio-group (ngModelChange)="setFirstParameter()" formControlName="ChosenMode" style="margin-left:16px;">
       <label nz-radio nzValue="m">Mode Microcontroller</label>
       <label nz-radio nzValue="s">Mode Sensor</label>
     </nz-radio-group>
@@ -32,7 +31,7 @@
 
   <nz-form-item>
     <nz-form-control>
-        <nz-select formControlName="">
+        <nz-select formControlName="FirstParam" (ngModelChange)="setSecondParameter()">
           <nz-option
             *ngFor="let option of listOfFirstParams"
             [nzLabel]="option.Name"
@@ -44,7 +43,7 @@
   <nz-form-item>
     <nz-form-control nzErrorTip="Pilih parameter">
       <nz-select
-        formControlName="ChosenParameterIds"
+        formControlName="SecondParam"
         nzMode="multiple"
         nzPlaceHolder="Please select"
         style="min-width: 200px"

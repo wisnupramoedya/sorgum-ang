@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { FormsModule } from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ActorCardComponent } from './components/actor-card/actor-card.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import {MicroItemDto} from "../../../../common/microcontroller.model";
+import {ActuatorItemDto} from "../../../../common/actuator.model";
+import {CurrentGreenHouseService} from "../../../../services/current-green-house.service";
+import {debounceTime, distinctUntilChanged, startWith, switchMap} from "rxjs";
+import {ActuatorService} from "../../../../api-services/actuator.service";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {NzInputModule} from "ng-zorro-antd/input";
 
 @Component({
   selector: 'app-land-actuator',
@@ -15,8 +22,11 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   styleUrls: ['./land-actuator.component.scss'],
   imports: [
     CommonModule,
-    NzPageHeaderModule,
+    ReactiveFormsModule,
     FormsModule,
+    NzPageHeaderModule,
+    NzFormModule,
+    NzInputModule,
     NzButtonModule,
     NzCheckboxModule,
     NzDropDownModule,
@@ -26,10 +36,42 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 })
 export class LandActuatorComponent implements OnInit {
 
-  constructor() { }
+  data: ActuatorItemDto[] = [];
+  dataTotal = 0;
+  landId!:number;
+
+  form: FormGroup = this.fb.nonNullable.group({
+    Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
+    Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),
+    N: this.fb.nonNullable.control(10,{validators:[Validators.required]})
+  });
+
+  constructor(
+    private fb: FormBuilder,
+    private currentGreenHouseService: CurrentGreenHouseService,
+    private actuatorService: ActuatorService
+  ) { }
 
   ngOnInit(): void {
+    this.currentGreenHouseService.chosedGreenHouse.subscribe(x => this.landId = x);
+    this.form.valueChanges.pipe(
+      startWith(
+        this.form.value
+      ),
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(x=> {
+        return this.actuatorService.search(x, this.landId);
+      })
+    ).subscribe(
+      (res: any)=>{
+        console.log(res);
+        this.data = res.Data;
+        this.dataTotal=res.NTotal;
+      }
+    );
   }
+
   allChecked = false;
   indeterminate = true;
   checkOptionsActuator = [

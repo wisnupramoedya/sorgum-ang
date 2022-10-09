@@ -28,8 +28,8 @@ export class MiniPcSearchResponse extends SearchResponse<MiniPcItemDto>{}
 export class AddMiniPcDto{
   Name!:string;
   Description!:string;
-  MiniPcCode!:string;
-  MiniPcSecret!:string;
+  Code!:string;
+  Secret!:string;
   RegionId!:number;
 }
 

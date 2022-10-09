@@ -145,4 +145,44 @@ export class MicrocontrollerMockService implements MicrocontrollerServiceInterfa
       return x;
     }));
   }
+
+  showMicroParameterOverRegion(region_id: number): Observable<MicroItemMinimalDto[]> {
+    const dt:MicroItemMinimalDto[]=[
+      {
+        Id:1,
+        Name:'Rpi 1',
+        Description:'faafaw',
+        MiniPcId:2,
+        MiniPcName:'Raspi 2',
+      },
+      {
+        Id:2,
+        Name:'ESP 1',
+        Description:'faafaw',
+        MiniPcId:2,
+        MiniPcName:'Raspi 2',
+      },
+    ];
+    return of(dt);
+  }
+
+  showMicroParameterOverSensor(sensor_id: number): Observable<MicroItemMinimalDto[]> {
+    const dt:MicroItemMinimalDto[]=[
+      {
+        Id:1,
+        Name:'Rpi 1',
+        Description:'faafaw',
+        MiniPcId:2,
+        MiniPcName:'Raspi 2',
+      },
+      {
+        Id:2,
+        Name:'ESP 1',
+        Description:'faafaw',
+        MiniPcId:2,
+        MiniPcName:'Raspi 2',
+      },
+    ];
+    return of(dt);
+  }
 }

@@ -7,7 +7,7 @@ import {
   AddSensorDto,
   UpdateSensorDto,
   SensorItemDto,
-  SensorType,
+  SensorType, SensorMinimalItemDto,
 } from '../common/sensor.model';
 
 @Injectable()
@@ -88,4 +88,48 @@ export class SensorMockService implements SensorServiceInterface {
       return x;
     }));
   }
+
+  showSensorParameterOverRegion(region_id: number): Observable<SensorMinimalItemDto[]> {
+    const sensors: SensorMinimalItemDto[]=[
+      {
+        Id:1,
+        Name:'DHT22',
+        Description:'faafaw',
+        MicroId:1,
+        MicroName:'ESP 3',
+      },
+      {
+        Id:1,
+        Name:'pH Tanah',
+        Description:'faafaw',
+        MicroId:1,
+        MicroName:'ESP 3',
+      }
+    ];
+
+    return of(sensors);
+  }
+
+  showSensorParameterOverMicrocontroller(microcontroller_id: number): Observable<SensorMinimalItemDto[]> {
+    const sensors: SensorMinimalItemDto[]=[
+      {
+        Id:1,
+        Name:'DHT22',
+        Description:'faafaw',
+        MicroId:1,
+        MicroName:'ESP 3',
+      },
+      {
+        Id:1,
+        Name:'pH Tanah',
+        Description:'faafaw',
+        MicroId:1,
+        MicroName:'ESP 3',
+      }
+    ];
+
+    return of(sensors);
+  }
+
+
 }

@@ -5,6 +5,28 @@
 >
   <nz-page-header-content></nz-page-header-content>
 </nz-page-header>
+
+
+<div class="land-micro-con-list-toolbar">
+  <form nz-form [formGroup]="form" class="login-form" style="width: 60%">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input
+            type="text"
+            nz-input
+            formControlName="Search"
+            placeholder="Cari aktuator berdasarkan nama atau kode"
+          />
+          <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+
 <div class="flex flex-col" style="margin-bottom: 1em">
   <nz-button-group style="margin: 0px 1em">
     <button nz-button>
@@ -82,10 +104,7 @@
       border-bottom: 1px solid grey;
     "
   >
-    <app-actor-card title="Pompa Air" style="display: table-cell; padding: 1em"></app-actor-card>
-    <app-actor-card title="Pompa Air" style="display: table-cell; padding: 1em"></app-actor-card>
-    <app-actor-card title="Pompa Air" style="display: table-cell; padding: 1em"></app-actor-card>
-    <app-actor-card title="Pompa Air" style="display: table-cell; padding: 1em"></app-actor-card>
+    <app-actor-card *ngFor="let item of data" title="{{ item.LandName}}" style="display: table-cell; padding: 1em"></app-actor-card>
   </div>
   <div
     style="

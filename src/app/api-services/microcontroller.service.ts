@@ -5,6 +5,7 @@ import { SearchRequest } from '../common/app.model';
 import { AddMicroDto, MicrocontrollerSearchResponse, MicroItemDto, MicroItemMinimalDto, MicrosIdenity, UpdateMicroDto } from '../common/microcontroller.model';
 import { MicrocontrollerMockService } from '../mock-services/microcontroller-mock.service';
 import { UtilityService } from '../services/utility.service';
+import {SensorMinimalItemDto} from "../common/sensor.model";
 
 export interface MicrocontrollerServiceInterface {
   search(data: SearchRequest, land_id?:number): Observable<MicrocontrollerSearchResponse>;
@@ -13,6 +14,8 @@ export interface MicrocontrollerServiceInterface {
   delete(id:number):Observable<void>;
   showMinimal(land_id:number):Observable<MicroItemMinimalDto[]>;
   showOverviewMicro(land_id:number, data:MicrosIdenity):Observable<MicroItemDto[]>;
+  showMicroParameterOverRegion(region_id: number): Observable<MicroItemMinimalDto[]>;
+  showMicroParameterOverSensor(sensor_id: number): Observable<MicroItemMinimalDto[]>;
 }
 
 
@@ -59,5 +62,13 @@ export class MicrocontrollerService implements MicrocontrollerServiceInterface{
     });
     console.log('/api/MikroCrud/Search'+(land_id===undefined?'':'/'+land_id));
     return this.http.get<MicrocontrollerSearchResponse>('/api/MikroCrud/Search'+(land_id===undefined?'':'/'+land_id),{params: params});
+  }
+
+  showMicroParameterOverRegion(region_id: number): Observable<MicroItemMinimalDto[]> {
+    return this.http.get<MicroItemMinimalDto[]>('/api/MikroCrud/ShowSensorParameterWithRegion/' + region_id);
+  }
+
+  showMicroParameterOverSensor(sensor_id: number): Observable<MicroItemMinimalDto[]> {
+    return this.http.get<MicroItemMinimalDto[]>('/api/MikroCrud/ShowSensorParameterWithMicrocontroller/' + sensor_id);
   }
 }

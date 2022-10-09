@@ -7,8 +7,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class CurrentGreenHouseService {
   key = 'ghc_gh_id';
 
-  chosedGreenHouse!:   BehaviorSubject<number>;;
-  constructor() { 
+  chosedGreenHouse!:   BehaviorSubject<number>;
+  constructor() {
     this.chosedGreenHouse= new BehaviorSubject<number>(this.getId())
     this.chosedGreenHouse.subscribe(x=>this.setId(x));
   }

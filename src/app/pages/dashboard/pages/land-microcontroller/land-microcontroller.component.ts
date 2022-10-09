@@ -34,6 +34,7 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
 })
 export class LandMicrocontrollerComponent implements OnInit {
   data: MicroItemDto[] = [];
+  dataTotal = 0;
   landId!:number;
 
   form:FormGroup = this.fb.nonNullable.group({
@@ -41,7 +42,7 @@ export class LandMicrocontrollerComponent implements OnInit {
     Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),
     N: this.fb.nonNullable.control(10,{validators:[Validators.required]})
   });
-  dataTotal = 0;
+
   constructor(
     private fb: FormBuilder,
     private modalService: NzModalService,
