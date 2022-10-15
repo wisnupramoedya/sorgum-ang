@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {SearchRequest} from "../common/app.model";
-import {map, Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {
   AddMiniPcDto,
   MiniPcItemDto,
@@ -12,7 +12,6 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {UtilityService} from "../services/utility.service";
 import {MiniPcMockService} from "../mock-services/mini-pc-mock.service";
 import { MiniPcItem2DTO } from '../common/minipc.model';
-import {MicrocontrollerSearchResponse, MicroItemMinimalDto} from "../common/microcontroller.model";
 
 export interface MiniPcServiceInterface {
   search(data: SearchRequest, land_id?:number): Observable<MiniPcSearchResponse>;

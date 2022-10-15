@@ -83,6 +83,7 @@ export class UpdateLandMiniPcComponent implements OnInit {
       MiniPcSecret: this.data.MiniPcSecret,
       RegionId: this.data.RegionId
     };
+    console.log(temp)
     this.form.patchValue(temp);
   }
   submitForm(): void {
