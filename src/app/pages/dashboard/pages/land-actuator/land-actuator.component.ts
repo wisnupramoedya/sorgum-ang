@@ -35,7 +35,6 @@ import {NzInputModule} from "ng-zorro-antd/input";
   ],
 })
 export class LandActuatorComponent implements OnInit {
-
   data: ActuatorItemDto[] = [];
   dataTotal = 0;
   landId!:number;
@@ -71,50 +70,42 @@ export class LandActuatorComponent implements OnInit {
       }
     );
   }
+  //
+  // allChecked = false;
+  // indeterminate = true;
+  // checkOptionsActuator = [
+  //
+  // ];
+  // checkOptionsOne = [
+  //   { label: 'Apple', value: 'Apple', checked: true },
+  //   { label: 'Pear', value: 'Pear', checked: false },
+  //   { label: 'Orange', value: 'Orange', checked: false }
+  // ];
+  //
+  // updateAllChecked(): void {
+  //   this.indeterminate = false;
+  //   if (this.allChecked) {
+  //     this.checkOptionsOne = this.checkOptionsOne.map(item => ({
+  //       ...item,
+  //       checked: true
+  //     }));
+  //   } else {
+  //     this.checkOptionsOne = this.checkOptionsOne.map(item => ({
+  //       ...item,
+  //       checked: false
+  //     }));
+  //   }
+  // }
 
-  allChecked = false;
-  indeterminate = true;
-  checkOptionsActuator = [
-
-  ];
-  checkOptionsOne = [
-    { label: 'Apple', value: 'Apple', checked: true },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false },
-    { label: 'Pear', value: 'Pear', checked: false },
-    { label: 'Orange', value: 'Orange', checked: false }
-  ];
-
-  updateAllChecked(): void {
-    this.indeterminate = false;
-    if (this.allChecked) {
-      this.checkOptionsOne = this.checkOptionsOne.map(item => ({
-        ...item,
-        checked: true
-      }));
-    } else {
-      this.checkOptionsOne = this.checkOptionsOne.map(item => ({
-        ...item,
-        checked: false
-      }));
-    }
-  }
-
-  updateSingleChecked(): void {
-    if (this.checkOptionsOne.every(item => !item.checked)) {
-      this.allChecked = false;
-      this.indeterminate = false;
-    } else if (this.checkOptionsOne.every(item => item.checked)) {
-      this.allChecked = true;
-      this.indeterminate = false;
-    } else {
-      this.indeterminate = true;
-    }
-  }
+  // updateSingleChecked(): void {
+  //   if (this.checkOptionsOne.every(item => !item.checked)) {
+  //     this.allChecked = false;
+  //     this.indeterminate = false;
+  //   } else if (this.checkOptionsOne.every(item => item.checked)) {
+  //     this.allChecked = true;
+  //     this.indeterminate = false;
+  //   } else {
+  //     this.indeterminate = true;
+  //   }
+  // }
 }

@@ -27,68 +27,68 @@
   </form>
 </div>
 
-<div class="flex flex-col" style="margin-bottom: 1em">
-  <nz-button-group style="margin: 0px 1em">
-    <button nz-button>
-      <span nz-icon nzType="check"></span>
-    </button>
-    <button
-      nz-button
-      nz-dropdown
-      [nzDropdownMenu]="menu2"
-      nzPlacement="bottomLeft"
-    >
-      Actuator
-    </button>
-    <nz-dropdown-menu #menu2="nzDropdownMenu">
-      <div nz-menu style="padding: 1em; overflow-y: auto; max-height: 400px">
-        <label
-          nz-checkbox
-          [(ngModel)]="allChecked"
-          (ngModelChange)="updateAllChecked()"
-          [nzIndeterminate]="indeterminate"
-        >
-          Check all
-        </label>
-        <nz-checkbox-group
-          class="checkbox-group-vertical"
-          [(ngModel)]="checkOptionsOne"
-          (ngModelChange)="updateSingleChecked()"
-        ></nz-checkbox-group>
-      </div>
-    </nz-dropdown-menu>
-  </nz-button-group>
-  <nz-button-group style="margin: 0px 1em">
-    <button nz-button>
-      <span nz-icon nzType="check"></span>
-    </button>
-    <button
-      nz-button
-      nz-dropdown
-      [nzDropdownMenu]="menu3"
-      nzPlacement="bottomLeft"
-    >
-      Region
-    </button>
-    <nz-dropdown-menu #menu3="nzDropdownMenu">
-      <div nz-menu style="padding: 1em; overflow-y: auto; max-height: 400px">
-        <label
-          nz-checkbox
-          [(ngModel)]="allChecked"
-          (ngModelChange)="updateAllChecked()"
-          [nzIndeterminate]="indeterminate"
-        >
-          Check all
-        </label>
-        <nz-checkbox-group
-          class="checkbox-group-vertical"
-          [(ngModel)]="checkOptionsOne"
-          (ngModelChange)="updateSingleChecked()"
-        ></nz-checkbox-group>
-      </div>
-    </nz-dropdown-menu>
-  </nz-button-group>
-</div>
+<!--<div class="tw-flex tw-flex-row" style="margin-bottom: 1em">-->
+<!--  <nz-button-group style="margin: 0px 1em">-->
+<!--    <button nz-button>-->
+<!--      <span nz-icon nzType="check"></span>-->
+<!--    </button>-->
+<!--    <button-->
+<!--      nz-button-->
+<!--      nz-dropdown-->
+<!--      [nzDropdownMenu]="menu2"-->
+<!--      nzPlacement="bottomLeft"-->
+<!--    >-->
+<!--      Actuator-->
+<!--    </button>-->
+<!--    <nz-dropdown-menu #menu2="nzDropdownMenu">-->
+<!--      <div nz-menu style="padding: 1em; overflow-y: auto; max-height: 400px">-->
+<!--        <label-->
+<!--          nz-checkbox-->
+<!--          [(ngModel)]="allChecked"-->
+<!--          (ngModelChange)="updateAllChecked()"-->
+<!--          [nzIndeterminate]="indeterminate"-->
+<!--        >-->
+<!--          Check all-->
+<!--        </label>-->
+<!--        <nz-checkbox-group-->
+<!--          class="checkbox-group-vertical"-->
+<!--          [(ngModel)]="checkOptionsOne"-->
+<!--          (ngModelChange)="updateSingleChecked()"-->
+<!--        ></nz-checkbox-group>-->
+<!--      </div>-->
+<!--    </nz-dropdown-menu>-->
+<!--  </nz-button-group>-->
+<!--  <nz-button-group style="margin: 0px 1em">-->
+<!--    <button nz-button>-->
+<!--      <span nz-icon nzType="check"></span>-->
+<!--    </button>-->
+<!--    <button-->
+<!--      nz-button-->
+<!--      nz-dropdown-->
+<!--      [nzDropdownMenu]="menu3"-->
+<!--      nzPlacement="bottomLeft"-->
+<!--    >-->
+<!--      Region-->
+<!--    </button>-->
+<!--    <nz-dropdown-menu #menu3="nzDropdownMenu">-->
+<!--      <div nz-menu style="padding: 1em; overflow-y: auto; max-height: 400px">-->
+<!--        <label-->
+<!--          nz-checkbox-->
+<!--          [(ngModel)]="allChecked"-->
+<!--          (ngModelChange)="updateAllChecked()"-->
+<!--          [nzIndeterminate]="indeterminate"-->
+<!--        >-->
+<!--          Check all-->
+<!--        </label>-->
+<!--        <nz-checkbox-group-->
+<!--          class="checkbox-group-vertical"-->
+<!--          [(ngModel)]="checkOptionsOne"-->
+<!--          (ngModelChange)="updateSingleChecked()"-->
+<!--        ></nz-checkbox-group>-->
+<!--      </div>-->
+<!--    </nz-dropdown-menu>-->
+<!--  </nz-button-group>-->
+<!--</div>-->
 <div
   style="
     white-space: nowrap;
@@ -104,17 +104,6 @@
       border-bottom: 1px solid grey;
     "
   >
-    <app-actor-card *ngFor="let item of data" title="{{ item.LandName}}" style="display: table-cell; padding: 1em"></app-actor-card>
-  </div>
-  <div
-    style="
-      display: table-row;
-      border-top: 1px solid grey;
-      border-bottom: 1px solid grey;
-    "
-  >
-    <app-actor-card title="Pengusir Burung" style="display: table-cell; padding: 1em"></app-actor-card>
-    <app-actor-card title="Pengusir Burung" style="display: table-cell; padding: 1em"></app-actor-card>
-    <app-actor-card title="Pengusir Burung" style="display: table-cell; padding: 1em"></app-actor-card>
+    <app-actor-card *ngFor="let item of data" [data]="item" style="display: table-cell; padding: 1em"></app-actor-card>
   </div>
 </div>
