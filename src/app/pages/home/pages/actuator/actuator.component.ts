@@ -41,19 +41,19 @@ import { NzMarks } from 'ng-zorro-antd/slider';
     NzGridModule,
     NzSwitchModule,
     NzCardModule,
-    
-    
-    
-    
-    
+
+
+
+
+
   ],
   templateUrl: './actuator.component.html',
   styleUrls: ['./actuator.component.scss']
 })
 export class ActuatorComponent implements OnInit {
 
-  constructor() { 
-    
+  constructor() {
+
   }
 
   ngOnInit(): void {

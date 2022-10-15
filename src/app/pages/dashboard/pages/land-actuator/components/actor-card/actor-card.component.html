@@ -1,13 +1,13 @@
-<nz-card style="width: 300px;">
+<nz-card style="width: 400px;">
     <nz-card-meta
-        nzTitle="{{title}}"
-        nzDescription="Microcontroller 2"
-      ></nz-card-meta>
-      <nz-descriptions>
-        <nz-descriptions-item nzTitle="Region">Region 1</nz-descriptions-item>
-      </nz-descriptions>
-      <div class="flex justify-end items-center content-center">
-          <div style="margin-right: 1em;">Aktif</div>
-          <nz-switch [ngModel]="true"></nz-switch>
-      </div>
+        nzTitle="{{ data?.Name ?? '-' }}"
+        nzDescription="{{ data?.MicroName ?? '-' }}"
+    ></nz-card-meta>
+    <nz-descriptions>
+      <nz-descriptions-item nzTitle="Description">{{ data?.Description ?? '-' }}</nz-descriptions-item>
+    </nz-descriptions>
+    <div class="tw-flex tw-justify-end tw-items-center tw-content-center">
+        <div style="margin-right: 1em;">{{ status ? 'Aktif' : 'Tidak Aktif' }}</div>
+        <nz-switch [(ngModel)]="status"></nz-switch>
+    </div>
 </nz-card>

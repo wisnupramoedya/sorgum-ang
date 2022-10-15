@@ -7,7 +7,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -17,7 +16,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { AuthorizeInterceptor } from './interceptors/authorize.interceptor';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import en from '@angular/common/locales/en';
-import { registerLocaleData } from '@angular/common';
+import {DatePipe, registerLocaleData} from '@angular/common';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -76,7 +75,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     {provide:"mocking", useValue: environment.mocking, multi: true},
     NzMessageService,
-    NzModalService 
+    NzModalService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

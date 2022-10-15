@@ -17,6 +17,7 @@ export class ActuatorItemDto {
     RegionName!: string;
     LandId!: number;
     LandName!: string;
+    StatusActuator!: boolean;
 }
 
 
