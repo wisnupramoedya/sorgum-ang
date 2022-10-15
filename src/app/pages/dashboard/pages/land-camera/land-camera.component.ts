@@ -90,14 +90,14 @@ export class LandCameraComponent implements OnInit, OnDestroy {
     .subscribe(x=>{
       this.hangup();
       console.log(x,"dddddddd");
-      
+
       this.selectedMiniPc = x;
       this.farmingHubService.hubCon.invoke("UserRegionJoinRoom", x+"_USERREGION").then(x=>console.log("afeter invoke",x));
       this.setupWebRtc();
     });
   }
   startHubConnection():void{
-    this.farmingHubService.buildHub('https://localhost:7219/FarmingHub')
+    this.farmingHubService.buildHub('https://192.168.0.14:7219/FarmingHub')
     this.farmingHubService.hubCon.start()
                           .then(x=>{
                             console.log("farming hub is connected");
@@ -106,7 +106,7 @@ export class LandCameraComponent implements OnInit, OnDestroy {
                         .catch(e => console.log("farming hub is not connected",e));
     this.farmingHubService.hubCon.on('AnswerReqActivatingCamera', (data:RTCSessionDescriptionInit)=>{
       console.log("respons AnswerReqActivatingCamera",data);
-      
+
         this.pc.setRemoteDescription(data)
     });
   }
@@ -135,7 +135,7 @@ export class LandCameraComponent implements OnInit, OnDestroy {
       this.pc = new RTCPeerConnection(config);
     }
     console.log(this.pc);
-    
+
     // this.pc.ontrack = (event:any) =>{
     //   (this.remote.nativeElement.srcObject = event.streams[0]); // use ontrack
     // }
@@ -143,7 +143,7 @@ export class LandCameraComponent implements OnInit, OnDestroy {
     this.pc.addEventListener('track', function(evt) {
       if (evt.track.kind == 'video') {
           (document.getElementById('remote')! as any).srcObject = evt.streams[0];
-      } 
+      }
       // else {
       //     document.getElementById('audio').srcObject = evt.streams[0];
       // }
@@ -183,12 +183,12 @@ export class LandCameraComponent implements OnInit, OnDestroy {
 
               }
             )
-    
+
     // end negotiating
 
-    
-    
-   
+
+
+
 
 
   }
