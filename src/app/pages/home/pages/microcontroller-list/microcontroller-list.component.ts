@@ -13,19 +13,17 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { CardNComponent } from 'src/app/components/card-n/card-n.component';
-import { LandService } from 'src/app/api-services/land.service';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
-import { LandItemDto } from 'src/app/common/land.model';
 import {
   debounceTime,
   distinctUntilChanged,
   startWith,
   switchMap,
-  tap
 } from 'rxjs/operators';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MicroItemDto } from 'src/app/common/microcontroller.model';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
+
 @Component({
   selector: 'app-microcontroller-list',
   standalone: true,

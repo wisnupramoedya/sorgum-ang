@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { MicrocontrollerServiceInterface } from '../api-services/microcontroller.service';
 import { SearchRequest } from '../common/app.model';
-import { MicroItemDto, MicrocontrollerSearchResponse, AddMicroDto, MicroItemMinimalDto, UpdateMicroDto, MicrosIdenity } from '../common/microcontroller.model';
+import { MicroItemDto, MicrocontrollerSearchResponse, AddMicroDto, MicroItemMinimalDto, UpdateMicroDto, MicrosIdentity } from '../common/microcontroller.model';
+import {DataParameterParams, GraphDataDto, GraphDataParameterDto} from "../common/parameter.model";
 
 @Injectable()
 export class MicrocontrollerMockService implements MicrocontrollerServiceInterface {
 
   constructor() { }
-  showOverviewMicro(land_id: number, data: MicrosIdenity): Observable<MicroItemDto[]> {
+  showOverviewMicro(land_id: number, data: MicrosIdentity): Observable<MicroItemDto[]> {
     const items: MicroItemDto[]=[
       {
         Id:1,
@@ -146,7 +147,7 @@ export class MicrocontrollerMockService implements MicrocontrollerServiceInterfa
     }));
   }
 
-  showMicroParameterOverRegion(region_id: number): Observable<MicroItemMinimalDto[]> {
+  showMicroParameterByRegion(region_id: number): Observable<MicroItemMinimalDto[]> {
     const dt:MicroItemMinimalDto[]=[
       {
         Id:1,
@@ -166,23 +167,32 @@ export class MicrocontrollerMockService implements MicrocontrollerServiceInterfa
     return of(dt);
   }
 
-  showMicroParameterOverSensor(sensor_id: number): Observable<MicroItemMinimalDto[]> {
-    const dt:MicroItemMinimalDto[]=[
-      {
-        Id:1,
-        Name:'Rpi 1',
-        Description:'faafaw',
-        MiniPcId:2,
-        MiniPcName:'Raspi 2',
-      },
-      {
-        Id:2,
-        Name:'ESP 1',
-        Description:'faafaw',
-        MiniPcId:2,
-        MiniPcName:'Raspi 2',
-      },
-    ];
-    return of(dt);
+  showSensorParameterByRegion(region_id: number, data: DataParameterParams): Observable<GraphDataParameterDto[]> {
+    const date = data.ParamDate;
+    const graphDataParameterList: GraphDataParameterDto[] = [];
+    for (let i = 0; i < 4; i++) {
+      const graphDataDto: GraphDataDto[] = []
+      for (let i = 0; i < 100; i++) {
+        graphDataDto.push({
+          Value: Math.random() * 14,
+          CreatedAt: new Date(date.getTime() + i * 60_000)
+        } as GraphDataDto);
+      }
+
+      const graphDataParameterDto: GraphDataParameterDto = {
+        MicroId: 1,
+        MicroName: "Rpi 1",
+        ParentTypeId: 1,
+        ParentTypeName: "Ph",
+        Values: graphDataDto
+      };
+
+      graphDataParameterList.push(graphDataParameterDto);
+    }
+    console.log(graphDataParameterList);
+
+    return of(graphDataParameterList);
   }
+
+
 }

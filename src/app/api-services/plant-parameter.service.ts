@@ -5,8 +5,6 @@ import {
   CreateDescriptionParameter,
   CreateParameter,
   DeleteParameter,
-  ParamOverv,
-  ParamOverview,
   ParamSelectItem,
   UpdateDescriptionParameter,
   UpdateParameter
@@ -22,8 +20,6 @@ export interface PlantParameterServiceInterface{
   deleteGroup(idPlant:number, ids:number[]):Observable<void>;
   update(id:number, data:UpdateDescriptionParameter):Observable<void>;
   updateGroup(idPlant:number, data: UpdateParameter):Observable<void>;
-  showMinimalParam(land_id:number):Observable<string[]>;
-  showParamOverview(land_id:number, data:ParamOverv):Observable<ParamOverview[]>;
   showAllParam():Observable<ParamSelectItem[]>;
 }
 
@@ -44,15 +40,6 @@ export class PlantParameterService implements PlantParameterServiceInterface{
     private http: HttpClient,
     private utilityService: UtilityService
   ) { }
-  showParamOverview(land_id: number, data: ParamOverv): Observable<ParamOverview[]> {
-    const params = new HttpParams({
-      fromObject: {...data}
-    });
-    return this.http.get<ParamOverview[]>('/api/Param/ShowParamOverview/'+land_id,{params:params});
-  }
-  showMinimalParam(land_id: number): Observable<string[]> {
-    return this.http.get<string[]>('/api/Param/ShowMinimalParam/'+land_id);
-  }
   create(data: CreateDescriptionParameter): Observable<number> {
     return this.http.post<number>('/api/Param/CreateDescriptionParam',data);
   }

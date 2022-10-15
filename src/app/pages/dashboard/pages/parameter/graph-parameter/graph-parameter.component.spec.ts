@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParamCardComponent } from './param-card.component';
+import { GraphParameterComponent } from './graph-parameter.component';
 
-describe('ParamCardComponent', () => {
-  let component: ParamCardComponent;
-  let fixture: ComponentFixture<ParamCardComponent>;
+describe('GraphParameterComponent', () => {
+  let component: GraphParameterComponent;
+  let fixture: ComponentFixture<GraphParameterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ParamCardComponent ]
+      declarations: [ GraphParameterComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ParamCardComponent);
+    fixture = TestBed.createComponent(GraphParameterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

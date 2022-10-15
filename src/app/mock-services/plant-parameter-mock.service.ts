@@ -4,8 +4,6 @@ import { PlantParameterServiceInterface } from '../api-services/plant-parameter.
 import {
   CreateDescriptionParameter,
   CreateParameter,
-  ParamOverv,
-  ParamOverview,
   ParamSelectItem,
   UpdateDescriptionParameter,
   UpdateParameter
@@ -15,31 +13,6 @@ import {
 export class PlantParameterMockService implements PlantParameterServiceInterface{
 
   constructor() { }
-  showParamOverview(land_id: number, data: ParamOverv): Observable<ParamOverview[]> {
-    const po: ParamOverview[] = [
-      {
-        Id: 1,
-        ParentTypeId: 1,
-        Descriptions: [
-          {
-            Description:'Terlalu asam',
-            Id:2,
-            MaxValue:1,
-            MinValue:4,
-            Color:"#005322"
-          },
-        ],
-        PlantId: 1,
-        PlantName: 'Sorgum Citayam',
-        MicroId: 2,
-        Value: 100
-      }
-    ];
-    return of(po);
-  }
-  showMinimalParam(land_id: number): Observable<string[]> {
-    return of(['ph','kelembaban tanah', 'suhu udara']);
-  }
   create(data: CreateDescriptionParameter): Observable<number> {
     return of(100);
   }

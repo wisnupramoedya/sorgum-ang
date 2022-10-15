@@ -20,8 +20,6 @@ export interface SensorServiceInterface {
   update(id:number,data:UpdateSensorDto):Observable<void>;
   delete(id:number):Observable<void>;
   getSensorTypes():Observable<SensorType[]>;
-  showSensorParameterOverRegion(region_id: number): Observable<SensorMinimalItemDto[]>;
-  showSensorParameterOverMicrocontroller(microcontroller_id: number): Observable<SensorMinimalItemDto[]>;
 }
 
 @Injectable({
@@ -59,11 +57,5 @@ export class SensorService  implements SensorServiceInterface{
   }
   delete(id: number): Observable<void> {
     return this.http.delete<void>('/api/SensorCrud/DeleteSensor/'+id);
-  }
-  showSensorParameterOverRegion(region_id: number): Observable<SensorMinimalItemDto[]> {
-    return this.http.get<SensorMinimalItemDto[]>('/api/MikroCrud/ShowSensorParameterWithRegion/' + region_id);
-  }
-  showSensorParameterOverMicrocontroller(microcontroller_id: number): Observable<SensorMinimalItemDto[]> {
-    return this.http.get<SensorMinimalItemDto[]>('/api/MikroCrud/ShowSensorParameterWithMicrocontroller/' + microcontroller_id);
   }
 }

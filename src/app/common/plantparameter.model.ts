@@ -38,19 +38,6 @@ export class DeleteParameter{
 
 }
 
-
-export class ParamOverv{
-    Ids!:number[]
-    GNames!:string[]
-}
-
-export class ParamOverview extends ParameterReadPlantDto{
-    PlantId !:number;
-    PlantName!:string;
-    MicroId !:number;
-    Value!:number;
-}
-
 export class ParamSelectItem{
     Id!: number;
     Name!: string;

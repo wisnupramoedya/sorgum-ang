@@ -17,7 +17,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import {NzNotificationModule, NzNotificationService} from 'ng-zorro-antd/notification';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -34,12 +34,15 @@ import { GreenHouseGraphParameterDto, GreenHouseGraphParameterDtoWithLocal, Gree
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import {SensorService} from "../../../../api-services/sensor.service";
-import {debounceTime, distinctUntilChanged, startWith, switchMap} from "rxjs";
-import {SensorItemDto, SensorMinimalItemDto} from "../../../../common/sensor.model";
-import {MicroItemDto, MicroItemMinimalDto} from "../../../../common/microcontroller.model";
+import {tap} from "rxjs";
+import {MicroItemMinimalDto} from "../../../../common/microcontroller.model";
 import {RegionsItemMinimalDto} from "../../../../common/region.model";
 import {RegionService} from "../../../../api-services/region.service";
 import {MicrocontrollerService} from "../../../../api-services/microcontroller.service";
+import {PlantParameterService} from "../../../../api-services/plant-parameter.service";
+import {ParamSelectItem} from "../../../../common/plantparameter.model";
+import {GraphParameterComponent} from "./graph-parameter/graph-parameter.component";
+import {GraphDataParameterDto} from "../../../../common/parameter.model";
 
 @Component({
   selector: 'app-parameter',
@@ -57,7 +60,8 @@ import {MicrocontrollerService} from "../../../../api-services/microcontroller.s
     NzSelectModule,
     NzRadioModule,
     NzButtonModule,
-    NzDividerModule
+    NzDividerModule,
+    GraphParameterComponent
   ]
 })
 export class ParameterComponent implements OnInit {
@@ -65,6 +69,7 @@ export class ParameterComponent implements OnInit {
   isLoading = false;
   radioValue = 's';
   dateValue: Date = new Date();
+  graphDataList: GraphDataParameterDto[] = [];
 
   form = this.fb.group({
     ChosenDate: [null, Validators.required],
@@ -75,8 +80,8 @@ export class ParameterComponent implements OnInit {
   });
 
   regionOptions: RegionsItemMinimalDto[] = [];
-  listOfFirstParams: (SensorMinimalItemDto | MicroItemMinimalDto)[] = [];
-  listOfSecondParams: (SensorMinimalItemDto | MicroItemMinimalDto)[] = [];
+  listOfFirstParams: (ParamSelectItem | MicroItemMinimalDto)[] = [];
+  listOfSecondParams: (ParamSelectItem | MicroItemMinimalDto)[] = [];
 
   chartOptions:{[key:string]:any}={
     // 'SpH':{init:undefined,merged:undefined},
@@ -105,8 +110,10 @@ export class ParameterComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private currentGreenHouseService:CurrentGreenHouseService,
     private microControllerService: MicrocontrollerService,
+    private plantParameterService: PlantParameterService,
     private sensorService: SensorService,
-    private regionService: RegionService
+    private regionService: RegionService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -122,8 +129,44 @@ export class ParameterComponent implements OnInit {
   }
   submitForm():void{
     this.isLoading=true;
-    this.greenhouseService.getGraphParamater(this.form.value)
-        .subscribe(x=>{this.setChart(x);this.isLoading=false;}, err=>this.isLoading=false);
+    console.log(this.form.value);
+
+    const regionId: number = this.form.controls["ChosenRegion"].value;
+    const date: Date = this.form.controls["ChosenDate"].value;
+    const firstParam: number[] = [this.form.controls["FirstParam"].value];
+    const secondParam: number[] = this.form.controls["SecondParam"].value;
+    const chosenMode: string = this.form.controls["ChosenMode"].value;
+
+    let microIds: number[] = [];
+    let parentTypeIds: number[] = [];
+
+    if (chosenMode == 'm') {
+      microIds = firstParam;
+      parentTypeIds = secondParam;
+    } else {
+      parentTypeIds = firstParam;
+      microIds = secondParam;
+    }
+
+    const formBuilder = this.fb.group({
+      ParamDate: [date, Validators.required],
+      MicroIds: [microIds, Validators.required],
+      ParentTypeIds: [parentTypeIds, Validators.required]
+    });
+
+    console.log(formBuilder.valid, formBuilder.value);
+    if (formBuilder.valid) {
+      this.microControllerService.showSensorParameterByRegion(regionId, formBuilder.value)
+        .pipe(
+          tap(() => this.notification.create(
+            "success",
+            "Sukses",
+            "Mengambil data parameter graph"
+          ))
+        ).subscribe(x => this.graphDataList = x);
+    }
+    // this.greenhouseService.getGraphParamater(this.form.value)
+    //     .subscribe(x=>{this.setChart(x);this.isLoading=false;}, err=>this.isLoading=false);
   }
 
   setFirstParameter(): void {
@@ -132,27 +175,27 @@ export class ParameterComponent implements OnInit {
 
     switch (mode) {
       case "m":
-        this.microControllerService.showMicroParameterOverRegion(regionId)
+        this.microControllerService.showMicroParameterByRegion(regionId)
           .subscribe(x => this.listOfFirstParams = x);
         break;
       case "s":
-        this.sensorService.showSensorParameterOverRegion(regionId)
+        this.plantParameterService.showAllParam()
           .subscribe(x => this.listOfFirstParams = x);
         break;
     }
   }
 
   setSecondParameter(): void {
+    const regionId: number = this.form.controls["ChosenRegion"].value;
     const mode: string = this.form.controls["ChosenMode"].value;
-    const firstParam: number = this.form.controls["FirstParam"].value;
 
     switch (mode) {
       case "s":
-        this.microControllerService.showMicroParameterOverSensor(firstParam)
+        this.microControllerService.showMicroParameterByRegion(regionId)
           .subscribe(x => this.listOfSecondParams = x);
         break;
       case "m":
-        this.sensorService.showSensorParameterOverMicrocontroller(firstParam)
+        this.plantParameterService.showAllParam()
           .subscribe(x => this.listOfSecondParams = x);
         break;
     }

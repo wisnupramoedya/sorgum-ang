@@ -34,6 +34,6 @@ export class UpdateMicroDto{
     Description!:string;
     MiniPcId!:number;
 }
-export class MicrosIdenity{
+export class MicrosIdentity{
     Ids!:number[];
 }

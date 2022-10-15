@@ -35,7 +35,7 @@
           <nz-option
             *ngFor="let option of listOfFirstParams"
             [nzLabel]="option.Name"
-            [nzValue]="option.Name"
+            [nzValue]="option.Id"
           ></nz-option>
         </nz-select>
     </nz-form-control>
@@ -51,7 +51,7 @@
         <nz-option
           *ngFor="let option of listOfSecondParams"
           [nzLabel]="option.Name"
-          [nzValue]="option.Name"
+          [nzValue]="option.Id"
         ></nz-option>
       </nz-select>
     </nz-form-control>
@@ -69,3 +69,8 @@
   </nz-form-item>
 </form>
 <nz-divider></nz-divider>
+<div class="tw-grid tw-grid-cols-3 tw-gap-5">
+  <div *ngFor="let graphData of graphDataList">
+    <app-graph-parameter [graphData]="graphData"></app-graph-parameter>
+  </div>
+</div>
