@@ -1,73 +1,63 @@
-<nz-page-header class="site-page-header" nzTitle="Nama Lahan | Code Lahan" nzSubtitle="">
+<nz-page-header
+  class="site-page-header"
+  nzTitle="Dashboard"
+  nzSubtitle="- | -"
+
+>
   <nz-page-header-content></nz-page-header-content>
 </nz-page-header>
-<div style="display: flex; flex-direction: row;margin-bottom:1em;">
-  <nz-button-group style="margin: 0px 1em;">
-    <button nz-button >
-      <span nz-icon nzType="check"></span>
-    </button>
-    <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomLeft">Microcontroller/MiniPc</button>
-    <nz-dropdown-menu #menu2="nzDropdownMenu">
-      <div nz-menu style="padding: 1em;overflow-y:auto;max-height: 400px;">
-        <label
-        nz-checkbox
-        [(ngModel)]="allCheckedMc"
-        (ngModelChange)="updateAllCheckedMc()"
-        [nzIndeterminate]="indeterminateMc"
-      >
-        Check all
-      </label>
-      <nz-checkbox-group class="checkbox-group-vertical" [(ngModel)]="checkOptionsMc" (ngModelChange)="updateSingleCheckedMc()"></nz-checkbox-group>
-      </div>
-    </nz-dropdown-menu>
-  </nz-button-group>
-  <nz-button-group style="margin: 0px 1em;">
-    <button nz-button >
-      <span nz-icon nzType="check"></span>
-    </button>
-    <button nz-button nz-dropdown [nzDropdownMenu]="menu3" nzPlacement="bottomLeft">Sensor</button>
-    <nz-dropdown-menu #menu3="nzDropdownMenu" style="">
-      <div nz-menu style="padding: 1em;overflow-y:auto;max-height: 400px;">
-        <label
-        nz-checkbox
-        [(ngModel)]="allCheckedPp"
-        (ngModelChange)="updateAllCheckedPp()"
-        [nzIndeterminate]="indeterminatePp"
-      >
-        Check all
-      </label>
-      <nz-checkbox-group class="checkbox-group-vertical" [(ngModel)]="checkOptionsPp" (ngModelChange)="updateSingleCheckedPp()"></nz-checkbox-group>
-      </div>
 
-    </nz-dropdown-menu>
-  </nz-button-group>
+
+<h3 class="tw-my-5">Sensor</h3>
+<nz-divider></nz-divider>
+<div class="tw-grid lg:tw-grid-cols-5 md:tw-grid-cols-3 tw-grid-cols-2 tw-gap-5">
+  <div  *ngFor="let data of dashboardSensorDtoList"  class="tw-w-full tw-p-4 tw-rounded-xl tw-bg-[#FFE2E5] tw-drop-shadow-md hover:tw-drop-shadow-lg">
+    <div class="tw-flex tw-items-center">
+      <div class="tw-bg-[#FA5A7D] tw-rounded-full tw-p-2 tw-mr-4">
+        <span nz-icon nzType="project" nzTheme="outline" class="tw-text-xl"></span>
+      </div>
+      <p class="tw-font-bold tw-text-2xl tw-m-0">{{ data.Values[0].Value }}</p>
+    </div>
+    <div class="tw-pt-3">
+      <p class="tw-text-lg tw-text-gray-800 tw-m-0">{{ data.ParentTypeName }}</p>
+    </div>
+  </div>
 </div>
-<div style="white-space: nowrap; display: table;width: max-content;border-collapse: collapse;">
-  <div style="display: table-row; border-top: 1px solid grey;border-bottom: 1px solid grey;" *ngFor="let item of mcppData">
-    <app-mc-card [status]="item.Status" [mc_name]="item.Name" [region_name]="item.RegionName" [plant_name]="item.PlantName " style="display: table-cell;padding:1em;"></app-mc-card>
-    <app-param-card [group_name]="itdes.PlantId" [value]="itdes.Value" [desc]="itdes.Descriptions" style="display: table-cell;padding:1em;" *ngFor="let itdes of item.data_sensor"></app-param-card>
-  </div>
-  <!-- <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
-    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-  </div>
 
-  <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
-    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-  </div>
 
-  <div style="display: table-row;border-top: 1px solid grey;border-bottom: 1px solid grey;">
-    <app-mc-card style="display: table-cell;padding:1em;"></app-mc-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-    <app-param-card style="display: table-cell;padding:1em;"></app-param-card>
-  </div> -->
+<h3 class="tw-mb-5 tw-mt-7">Mini PC</h3>
+<nz-divider></nz-divider>
+<div class="tw-grid tw-grid-cols-2 tw-gap-5 lg:tw-grid-cols-3">
+  <div *ngFor="let data of dashboardDataDtoList" class="tw-rounded-xl tw-p-5 tw-shadow-lg hover:tw-shadow-xl">
+    <div class="tw-flex tw-justify-between">
+      <div>
+        <p class="tw-m-0 tw-text-lg">{{ data.MiniPcName }}</p>
+        <div class="tw-text-gray-600">
+          <p class="tw-m-0">{{ data.LandName }}</p>
+          <p class="tw-m-0">{{ data.RegionName }}</p>
+        </div>
+      </div>
+      <div>
+        <div class="tw-rounded-md tw-py-2 tw-px-3 {{ data.Status ? 'tw-bg-green-500' : 'tw-bg-red-500'}} tw-font-medium tw-text-white">
+          {{ data.Status ? 'Online' : 'Offline'}}
+        </div>
+      </div>
+    </div>
+    <div class="tw-grid tw-grid-cols-2 tw-justify-around tw-pt-4">
+      <div class="tw-flex tw-items-center tw-justify-center">
+        <div class="tw-text-lg"><span nz-icon nzType="apartment" nzTheme="outline"></span></div>
+        <div class="tw-ml-3">
+          <p class="tw-text-sm tw-text-gray-600 tw-m-0">Microcontroller</p>
+          <p class="tw-font-semibold tw-m-0">{{ data.MikroCount }}</p>
+        </div>
+      </div>
+      <div class="tw-flex tw-items-center tw-justify-center">
+        <div class="tw-text-lg"><span nz-icon nzType="cluster" nzTheme="outline"></span></div>
+        <div class="tw-ml-3">
+          <p class="tw-text-sm tw-text-gray-600 tw-m-0">Sensor</p>
+          <p class="tw-font-semibold tw-m-0">{{ data.SensorCount }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -24,8 +24,6 @@ import {
 @Injectable()
 export class GreenhouseMockService implements GreenHouseServiceInterface {
   constructor() {
-    console.log('using service from mock greenhouse');
-
   }
   create(data: GreenHouseCreateForm): Observable<CreateResponse<number>> {
     return of({
