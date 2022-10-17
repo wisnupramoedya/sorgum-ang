@@ -11,8 +11,8 @@
         </nz-form-control>
       </nz-form-item>
     </form>
-   
-    <button nz-button nzType="primary" (click)="showModalCreate()"><i nz-icon nzType="plus"></i>Tambah Lahan</button>
+
+    <button *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-button nzType="primary" (click)="showModalCreate()"><i nz-icon nzType="plus"></i>Tambah Lahan</button>
   </div>
   <nz-list nzItemLayout="vertical" class="land-list-content">
     <nz-list-item *ngFor="let item of data">
@@ -28,14 +28,14 @@
           <app-card-n [name]="'Region'" icon="build" [n]="item.NRegion"></app-card-n>
           <app-card-n [name]="'Micro controller'" icon="code-sandbox" [n]="item.NMicrocontroller"></app-card-n>
       </div>
-        
+
         <nz-list-item-extra>
           <img width="272" alt="logo" [src]="item.Photo === null || item.Photo === ''? './assets/land-default.jpg':'data:image/png;base64, '+item.Photo" />
         </nz-list-item-extra>
     </nz-list-item>
   </nz-list>
-  <nz-pagination 
-  [nzPageIndex]="form.controls['Page'].value" 
+  <nz-pagination
+  [nzPageIndex]="form.controls['Page'].value"
   [nzTotal]="dataTotal"
   (nzPageIndexChange)="changePageIndex($event)"
   (nzPageSizeChange)="changePageSize($event)"

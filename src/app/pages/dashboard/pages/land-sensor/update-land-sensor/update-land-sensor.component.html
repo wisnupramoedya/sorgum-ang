@@ -64,6 +64,7 @@
     "
   >
     <button
+      *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]"
       nz-button
       nzType="default"
       nzDanger
@@ -77,6 +78,7 @@
         Cancel
       </button>
       <button
+        *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]"
         nz-button
         nzType="primary"
         type="submit"

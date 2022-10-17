@@ -24,7 +24,7 @@ export class AuthorizeGuard implements CanActivate, CanActivateChild {
       const token = this.tokenService.getTokenObject();
       if(!!token){
         if(this.tokenExpired(token.exp)){
-          
+
           this.accountService.logout();
           return false;
         }
@@ -51,5 +51,5 @@ export class AuthorizeGuard implements CanActivate, CanActivateChild {
       this.router.navigateByUrl("/",{replaceUrl:true});
       return false;
   }
-  
+
 }

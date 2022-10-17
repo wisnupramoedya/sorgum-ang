@@ -21,11 +21,11 @@
             <span nz-icon nzType="build"></span>
             <span>Lahan</span>
           </li>
-          <li nz-menu-item [routerLink]="'/home/microcontroller'" [routerLinkActive]="'ant-menu-item-selected'">
+          <li *ifRoles="[roleEnum.SUPERADMIN]" nz-menu-item [routerLink]="'/home/microcontroller'" [routerLinkActive]="'ant-menu-item-selected'">
             <span nz-icon nzType="control" ></span>
             <span>Microcontroller</span>
           </li>
-          <li nz-menu-item [routerLink]="'/home/sensor'" [routerLinkActive]="'ant-menu-item-selected'">
+          <li *ifRoles="[roleEnum.SUPERADMIN]" nz-menu-item [routerLink]="'/home/sensor'" [routerLinkActive]="'ant-menu-item-selected'">
             <span nz-icon nzType="node-collapse"></span>
             <span>Sensor</span>
           </li>
@@ -33,7 +33,7 @@
             <span nz-icon nzType="audit"></span>
             <span>Tanaman</span>
           </li>
-          
+
         </ul>
       </nz-sider>
       <nz-content class="inner-content">

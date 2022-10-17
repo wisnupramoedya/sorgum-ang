@@ -5,8 +5,9 @@ export class AppResponse
 export class AppTokenModel
 {
     sub!:string;
+    name!:string;
     email!:string;
-    given_name!:string;
+    role!: number;
     nbf!:number;
     exp!:number;
 }

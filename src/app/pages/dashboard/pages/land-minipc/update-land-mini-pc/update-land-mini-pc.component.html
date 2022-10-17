@@ -71,7 +71,7 @@
 
   </div>
   <div *nzModalFooter style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
-    <button nz-button nzType="default" nzDanger type="button" (click)="delete()">
+    <button *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-button nzType="default" nzDanger type="button" (click)="delete()">
       Hapus
     </button>
     <div style="display: flex; flex-direction: row;">
@@ -79,6 +79,7 @@
         Cancel
       </button>
       <button
+        *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]"
         nz-button
         nzType="primary"
         type="submit"

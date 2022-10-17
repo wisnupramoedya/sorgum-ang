@@ -24,7 +24,7 @@
       </nz-form-control>
     </nz-form-item>
   </form>
-  <button nz-button nzType="primary" (click)="showModalCreate()">
+  <button *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-button nzType="primary" (click)="showModalCreate()">
     <i nz-icon nzType="plus"></i>Tambah Microcontroller
   </button>
 </div>

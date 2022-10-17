@@ -56,3 +56,14 @@ export class LoginResponse extends AppResponse
     accessToken!:string;
 }
 
+export class User {
+  name!:string;
+  email!:string;
+  role!: number;
+}
+
+export enum Role {
+  SUPERADMIN = 1,
+  ADMIN ,
+  USER  ,
+}

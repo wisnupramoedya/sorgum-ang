@@ -147,7 +147,7 @@ export class LandCameraComponent implements OnInit, OnDestroy {
       // else {
       //     document.getElementById('audio').srcObject = evt.streams[0];
       // }
-  });
+    });
 
     // negotiating
     this.pc.addTransceiver('video', {direction: 'recvonly'});
@@ -185,12 +185,6 @@ export class LandCameraComponent implements OnInit, OnDestroy {
             )
 
     // end negotiating
-
-
-
-
-
-
   }
 
   hangup() {

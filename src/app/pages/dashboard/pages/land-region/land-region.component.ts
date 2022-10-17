@@ -6,7 +6,6 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { ReadPlantDto } from 'src/app/common/plant.model';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { RegionsItemDto } from 'src/app/common/region.model';
 import { RegionService } from 'src/app/api-services/region.service';
@@ -17,6 +16,8 @@ import { CreateLandRegionComponent } from './create-land-region/create-land-regi
 import { UpdateLandRegionComponent } from './update-land-region/update-land-region.component';
 import { PlantService } from 'src/app/api-services/plant.service';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
+import {Role} from "../../../../common/account.model";
+import {DashboardModule} from "../../dashboard.module";
 
 @Component({
   selector: 'app-land-region',
@@ -25,6 +26,7 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
   styleUrls: ['./land-region.component.scss'],
   imports: [
     CommonModule,
+    DashboardModule,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -38,6 +40,7 @@ export class LandRegionComponent implements OnInit {
   data: RegionsItemDto[] = [];
   landId!:number;
 
+  roleEnum: typeof Role = Role;
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
     Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),

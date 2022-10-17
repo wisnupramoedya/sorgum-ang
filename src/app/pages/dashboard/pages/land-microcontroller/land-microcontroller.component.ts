@@ -15,6 +15,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { CreateLandMicrocontrollerComponent } from './create-land-microcontroller/create-land-microcontroller.component';
 import { UpdateLandMicrocontrollerComponent } from './update-land-microcontroller/update-land-microcontroller.component';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
+import {Role} from "../../../../common/account.model";
+import {DashboardModule} from "../../dashboard.module";
 
 @Component({
   selector: 'app-land-microcontroller',
@@ -23,6 +25,7 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
   styleUrls: ['./land-microcontroller.component.scss'],
   imports: [
     CommonModule,
+    DashboardModule,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -36,6 +39,8 @@ export class LandMicrocontrollerComponent implements OnInit {
   data: MicroItemDto[] = [];
   dataTotal = 0;
   landId!:number;
+
+  roleEnum: typeof Role = Role;
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
