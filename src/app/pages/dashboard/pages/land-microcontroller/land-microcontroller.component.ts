@@ -16,7 +16,8 @@ import { CreateLandMicrocontrollerComponent } from './create-land-microcontrolle
 import { UpdateLandMicrocontrollerComponent } from './update-land-microcontroller/update-land-microcontroller.component';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import {Role} from "../../../../common/account.model";
-import {DashboardModule} from "../../dashboard.module";
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
+
 
 @Component({
   selector: 'app-land-microcontroller',
@@ -25,7 +26,7 @@ import {DashboardModule} from "../../dashboard.module";
   styleUrls: ['./land-microcontroller.component.scss'],
   imports: [
     CommonModule,
-    DashboardModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,

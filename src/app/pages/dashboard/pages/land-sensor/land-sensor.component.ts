@@ -16,7 +16,8 @@ import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { SensorItemDto } from 'src/app/common/sensor.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import {Role} from "../../../../common/account.model";
-import {DashboardModule} from "../../dashboard.module";
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
+
 
 @Component({
   selector: 'app-land-sensor',
@@ -25,7 +26,7 @@ import {DashboardModule} from "../../dashboard.module";
   styleUrls: ['./land-sensor.component.scss'],
   imports: [
     CommonModule,
-    DashboardModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,

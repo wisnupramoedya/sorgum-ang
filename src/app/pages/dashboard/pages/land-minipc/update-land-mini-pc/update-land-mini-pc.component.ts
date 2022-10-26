@@ -18,7 +18,8 @@ import {filter, switchMap, tap} from "rxjs";
 import {MiniPcItemDto, UpdateMiniPcDto} from "../../../../../common/minipc.model";
 import {PasswordService} from "../../../../../services/password.service";
 import {Role} from "../../../../../common/account.model";
-import {DashboardModule} from "../../../dashboard.module";
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
+
 
 @Component({
   selector: 'app-update-land-mini-pc',
@@ -27,7 +28,7 @@ import {DashboardModule} from "../../../dashboard.module";
   styleUrls: ['./update-land-mini-pc.component.scss'],
   imports: [
     CommonModule,
-    DashboardModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,

@@ -18,8 +18,9 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
 import {Role} from "../../common/account.model";
-import {HomeModule} from "./home.module";
+
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,7 @@ import {HomeModule} from "./home.module";
   standalone:true,
   imports:[
     CommonModule,
-    HomeModule,
+    IfRolesDirective,
     RouterModule,
     HeaderComponent,
     FooterComponent,

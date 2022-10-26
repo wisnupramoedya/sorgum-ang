@@ -15,8 +15,9 @@ import {debounceTime, distinctUntilChanged, startWith, switchMap} from "rxjs";
 import {CreateLandMiniPcComponent} from "./create-land-mini-pc/create-land-mini-pc.component";
 import {UpdateLandMiniPcComponent} from "./update-land-mini-pc/update-land-mini-pc.component";
 import {MiniPcService} from "../../../../api-services/mini-pc.service";
-import {DashboardModule} from "../../dashboard.module";
+
 import {Role} from "../../../../common/account.model";
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
 
 @Component({
   selector: 'app-land-minipc',
@@ -25,7 +26,7 @@ import {Role} from "../../../../common/account.model";
   styleUrls: ['./land-mini-pc.component.scss'],
   imports: [
     CommonModule,
-    DashboardModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
