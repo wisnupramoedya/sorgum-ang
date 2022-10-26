@@ -17,7 +17,7 @@ import { MicrocontrollerService } from 'src/app/api-services/microcontroller.ser
 import { SensorService } from 'src/app/api-services/sensor.service';
 import { tap, filter, switchMap } from 'rxjs';
 import {Role} from "../../../../../common/account.model";
-import {DashboardModule} from "../../../dashboard.module";
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
 
 @Component({
   selector: 'app-update-land-sensor',
@@ -26,7 +26,7 @@ import {DashboardModule} from "../../../dashboard.module";
   styleUrls: ['./update-land-sensor.component.scss'],
   imports: [
     CommonModule,
-    DashboardModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,

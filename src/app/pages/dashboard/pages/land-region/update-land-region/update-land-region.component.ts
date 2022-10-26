@@ -17,7 +17,8 @@ import { PlantService } from 'src/app/api-services/plant.service';
 import { ReadPlantDto } from 'src/app/common/plant.model';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import {Role} from "../../../../../common/account.model";
-import {DashboardModule} from "../../../dashboard.module";
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
+
 
 @Component({
   selector: 'app-update-land-region',
@@ -26,7 +27,7 @@ import {DashboardModule} from "../../../dashboard.module";
   styleUrls: ['./update-land-region.component.scss'],
   imports: [
     CommonModule,
-    DashboardModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,

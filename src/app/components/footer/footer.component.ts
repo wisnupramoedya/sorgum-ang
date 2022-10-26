@@ -13,7 +13,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     <nz-footer>
       <div>
         <div>Dikembangkan oleh:</div>
-        <div>Tim Laboratorium Manajemen Cerdas Informasi - ITS</div>
+        <div style="color: #07A04A; font-weight: bold;">Tim Laboratorium Manajemen Cerdas Informasi - ITS</div>
         <!-- <div>Institut Teknologi Sepuluh Nopember, Surabaya</div> -->
         <div>©2022</div>
       </div>

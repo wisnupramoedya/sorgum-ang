@@ -16,8 +16,8 @@ import { filter, switchMap, tap } from 'rxjs';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
 import {MiniPcService} from "../../../../../api-services/mini-pc.service";
 import {MiniPcItem2DTO} from "../../../../../common/minipc.model";
-import {DashboardModule} from "../../../dashboard.module";
 import {Role} from "../../../../../common/account.model";
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
 
 @Component({
   selector: 'app-update-land-microcontroller',
@@ -26,7 +26,7 @@ import {Role} from "../../../../../common/account.model";
   styleUrls: ['./update-land-microcontroller.component.scss'],
   imports: [
     CommonModule,
-    DashboardModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,

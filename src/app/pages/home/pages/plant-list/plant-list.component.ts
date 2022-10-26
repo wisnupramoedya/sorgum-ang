@@ -15,7 +15,7 @@ import { UpdatePlantComponent } from './update-plant/update-plant.component';
 import { ReadPlantDto } from 'src/app/common/plant.model';
 import { PlantService } from 'src/app/api-services/plant.service';
 import {Role} from "../../../../common/account.model";
-import {HomeModule} from "../../home.module";
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
 
 
 @Component({
@@ -25,7 +25,7 @@ import {HomeModule} from "../../home.module";
   styleUrls: ['./plant-list.component.scss'],
   imports: [
     CommonModule,
-    HomeModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,

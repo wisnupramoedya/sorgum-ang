@@ -10,7 +10,7 @@ import {LandMiniPcComponent} from "./pages/dashboard/pages/land-minipc/land-mini
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'home',
+    redirectTo:'auth',
     pathMatch:'full'
   },
   {
