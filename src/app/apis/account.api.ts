@@ -1,5 +1,5 @@
 import { prefix } from './api';
-const controller ="/Account";
+const controller ="/AccountCrud";
 export const AccountAPI={
     Create: prefix+controller+'/Create', //POST
     Update: prefix+controller+'/Update', //PUT

@@ -21,6 +21,7 @@ export class AuthorizeGuard implements CanActivate, CanActivateChild {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      console.log("Hello");
       const token = this.tokenService.getTokenObject();
       if(!!token){
         if(this.tokenExpired(token.exp)){
