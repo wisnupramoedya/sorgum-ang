@@ -17,7 +17,7 @@ import { UpdateLandRegionComponent } from './update-land-region/update-land-regi
 import { PlantService } from 'src/app/api-services/plant.service';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import {Role} from "../../../../common/account.model";
-import {DashboardModule} from "../../dashboard.module";
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-land-region',
@@ -26,7 +26,7 @@ import {DashboardModule} from "../../dashboard.module";
   styleUrls: ['./land-region.component.scss'],
   imports: [
     CommonModule,
-    DashboardModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,

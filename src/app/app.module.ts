@@ -21,7 +21,7 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { IfRolesDirective } from './directives/if-roles.directive';
+
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;

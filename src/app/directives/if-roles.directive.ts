@@ -3,7 +3,8 @@ import {UserService} from "../services/user.service";
 import {Role} from "../common/account.model";
 
 @Directive({
-  selector: '[ifRoles]'
+  selector: '[ifRoles]',
+  standalone: true
 })
 export class IfRolesDirective implements OnInit {
   private role!: number;
