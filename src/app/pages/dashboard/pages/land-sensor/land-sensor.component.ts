@@ -16,8 +16,7 @@ import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { SensorItemDto } from 'src/app/common/sensor.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import {Role} from "../../../../common/account.model";
-import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
-
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-land-sensor',

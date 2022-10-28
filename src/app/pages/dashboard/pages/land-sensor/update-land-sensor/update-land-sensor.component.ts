@@ -17,7 +17,7 @@ import { MicrocontrollerService } from 'src/app/api-services/microcontroller.ser
 import { SensorService } from 'src/app/api-services/sensor.service';
 import { tap, filter, switchMap } from 'rxjs';
 import {Role} from "../../../../../common/account.model";
-import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-update-land-sensor',

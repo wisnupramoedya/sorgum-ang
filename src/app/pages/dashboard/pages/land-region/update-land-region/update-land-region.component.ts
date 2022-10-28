@@ -17,8 +17,7 @@ import { PlantService } from 'src/app/api-services/plant.service';
 import { ReadPlantDto } from 'src/app/common/plant.model';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import {Role} from "../../../../../common/account.model";
-import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
-
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-update-land-region',

@@ -17,7 +17,7 @@ import { MicrocontrollerService } from 'src/app/api-services/microcontroller.ser
 import {MiniPcService} from "../../../../../api-services/mini-pc.service";
 import {MiniPcItem2DTO} from "../../../../../common/minipc.model";
 import {Role} from "../../../../../common/account.model";
-import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-update-land-microcontroller',

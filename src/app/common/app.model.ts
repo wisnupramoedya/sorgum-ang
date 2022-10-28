@@ -4,12 +4,12 @@ export class AppResponse
 }
 export class AppTokenModel
 {
-    sub!:string;
-    name!:string;
-    email!:string;
-    role!: number;
-    nbf!:number;
-    exp!:number;
+    sub!: string;
+    name!: string;
+    email!: string;
+    role!: string;
+    nbf!: number;
+    exp!: number;
 }
 export class CreateResponse<T> extends AppResponse{
     id!:T;

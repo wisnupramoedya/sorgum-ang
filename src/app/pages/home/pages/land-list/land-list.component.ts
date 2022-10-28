@@ -26,7 +26,7 @@ import { LandService } from 'src/app/api-services/land.service';
 import { CardNComponent } from 'src/app/components/card-n/card-n.component';
 import { CreateLandComponent } from './create-land/create-land.component';
 import {Role} from "../../../../common/account.model";
-import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 @Component({
   selector: 'app-land-list',
   standalone: true,

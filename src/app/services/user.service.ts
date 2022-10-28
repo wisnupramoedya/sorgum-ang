@@ -13,9 +13,14 @@ export class UserService {
   ) {}
 
   getUser(): User|null {
-    const user = this.tokenService.getTokenObject() as User;
-    if (!user) {
+    const appToken = this.tokenService.getTokenObject();
+    if (!appToken) {
       return null;
+    }
+    const user: User = {
+      name: appToken.name,
+      email: appToken.email,
+      role: Number(appToken.role)
     }
     return user;
   }

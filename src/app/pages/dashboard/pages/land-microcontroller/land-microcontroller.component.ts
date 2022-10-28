@@ -16,8 +16,7 @@ import { CreateLandMicrocontrollerComponent } from './create-land-microcontrolle
 import { UpdateLandMicrocontrollerComponent } from './update-land-microcontroller/update-land-microcontroller.component';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import {Role} from "../../../../common/account.model";
-import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
-
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-land-microcontroller',

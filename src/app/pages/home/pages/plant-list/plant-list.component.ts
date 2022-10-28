@@ -15,7 +15,7 @@ import { UpdatePlantComponent } from './update-plant/update-plant.component';
 import { ReadPlantDto } from 'src/app/common/plant.model';
 import { PlantService } from 'src/app/api-services/plant.service';
 import {Role} from "../../../../common/account.model";
-import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 
 
 @Component({

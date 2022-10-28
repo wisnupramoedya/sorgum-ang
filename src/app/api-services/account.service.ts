@@ -37,10 +37,7 @@ export interface AccountServiceInterface {
     console.log(p);
 
     if(p[0]===true){
-      console.log("mocking user serv");
-      console.log(t.getTokenObject());
       return new UserMockService(t,r);
-
     }
     else{
      return  new AccountService(h,u,t,r);

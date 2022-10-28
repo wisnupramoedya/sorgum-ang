@@ -11,7 +11,7 @@ export class FarmingHubService {
   constructor() { }
 
   public buildHub(api: string): void {
-    this.hubCon = 
+    this.hubCon =
       new HubConnectionBuilder().withUrl(api, {
         skipNegotiation: true,
         transport: HttpTransportType.WebSockets

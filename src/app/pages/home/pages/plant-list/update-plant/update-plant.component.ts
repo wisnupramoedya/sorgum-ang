@@ -37,8 +37,7 @@ import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notif
 import { PlantParameterService } from 'src/app/api-services/plant-parameter.service';
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {Role} from "../../../../../common/account.model";
-import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
-
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-update-plant',
