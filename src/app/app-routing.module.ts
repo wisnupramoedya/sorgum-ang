@@ -72,7 +72,12 @@ const routes: Routes = [
         path:'plant',
         loadComponent: ()=>import('./pages/home/pages/plant-list/plant-list.component').then(x=>x.PlantListComponent)
       },
-
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./pages/home/pages/user-list/user-list.component')
+          .then(x => x.UserListComponent)
+      }
     ]
   },
   {
