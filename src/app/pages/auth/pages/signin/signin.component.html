@@ -14,11 +14,7 @@
       <nz-form-item class="-tw-mt-4">
         <nz-form-control nzErrorTip="Masukkan Password anda!">
           <h4 class="tw-mt-4">Password</h4>
-          
-          <!-- <nz-input-group nzPrefixIcon="lock">
-            <input type="password" autocomplete="current-password" nz-input formControlName="Password" placeholder="Password" [(ngModel)]="password"/> 
-            <span nz-icon nzType="eye-invisible" nzTheme="outline"></span>
-          </nz-input-group> -->
+
 
           <nz-input-group [nzSuffix]="suffixTemplate">
             <input
@@ -37,36 +33,11 @@
           </ng-template>
         </nz-form-control>
       </nz-form-item>
-      <div nz-row class="login-form-margin">
-        <a  class="tw-my-4 tw-mr-0 tw-ml-auto login-form-forgot tw-text-right" [routerLink]="['../forget-password']" routerLinkActive="router-link-active" >Forgot password?</a>
+      <div nz-row class="tw-mb-4 login-form-margin">
+        <a  class="tw-my-4 tw-mr-0 tw-ml-auto login-form-forgot tw-float-right tw-text-right" [routerLink]="['../forget-password']" routerLinkActive="router-link-active" >Forgot password?</a>
       </div>
-      <button style="border-radius: 6px ;" nz-button class="tw-px-5 login-form-button" [nzType]="'primary'" [disabled]="form.invalid||disabledSubmit">Login</button>
+      <button  nz-button class=" -tw-translate-x-1/2 tw-left-1/2 tw-w-1/2 tw-rounded-md tw-px-5 login-form-button" [nzType]="'primary'" [disabled]="form.invalid||disabledSubmit">Login</button>
     </div>
 
   </div>
-    <!-- <h4 class="-tw-mx-8 tw-text-xs sm:tw-text-sm md:tw-text-md lg:tw-text-lg sm:tw-text-sm md:tw-text-md lg:tw-text-lg" nz-typography style="text-align: center; font-weight: bold;">Welcome Back</h4>
-    <h5 class="tw-text-xs -tw-mx-8 tw-my-12" nz-typography style="text-align: center;">Please sign in to access your data</h5>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Masukkan Email anda!">
-        <h4 class="tw-mt-4" style="margin-bottom: 10px;" >Email</h4>
-        <nz-input-group nzPrefixIcon="mail">
-          <input type="email" autocomplete="username" nz-input formControlName="Email" placeholder="Email" />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Masukkan Password anda!">
-        <h4 class="tw-mb-4" style="margin-bottom: 10px;">Password</h4>
-        
-        <nz-input-group nzPrefixIcon="lock">
-          <input type="password" autocomplete="current-password" nz-input formControlName="Password" placeholder="Password" /> 
-          <span nz-icon nzType="eye-invisible" nzTheme="outline"></span>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <div nz-row class="login-form-margin">
-      <a  class="tw-my-4 tw-mr-0 tw-ml-auto login-form-forgot tw-text-right" [routerLink]="['../forget-password']" routerLinkActive="router-link-active" >Forgot password?</a>
-    </div>
-    <button style="border-radius: 6px ;" nz-button class="tw-px-5 login-form-button" [nzType]="'primary'" [disabled]="form.invalid||disabledSubmit">Login</button>
-   -->
 </form>
