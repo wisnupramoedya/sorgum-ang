@@ -37,4 +37,10 @@ nz-header {
     min-height: calc(100vh - 10.5em);
   }
   
+  [nz-menu-item] {
+    opacity: 0.5;
+  }
   
+  .ant-menu-item-selected {
+    opacity: 1 !important;
+  }
