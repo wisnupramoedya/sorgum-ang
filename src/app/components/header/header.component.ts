@@ -45,10 +45,6 @@ import {IfRolesDirective} from "../../directives/if-roles.directive";
     `,
   ],
   template: `
-
-      <div class="logo-header">
-        <h3 nz-typography>ITSMART FARMING SYSTEM</h3>
-      </div>
       <div
         *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN, roleEnum.USER]"
         class="logo-avatar tw-float-right"
