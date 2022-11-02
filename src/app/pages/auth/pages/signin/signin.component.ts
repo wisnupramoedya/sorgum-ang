@@ -48,6 +48,8 @@ export class SigninComponent implements OnInit {
   form!: UntypedFormGroup;
   disabledSubmit:boolean=false;
 
+  passwordVisible = false;
+  password?: string;
 
   constructor(
     private fb: UntypedFormBuilder,
