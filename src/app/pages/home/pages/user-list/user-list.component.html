@@ -38,11 +38,18 @@
   </thead>
   <tbody>
   <tr *ngFor="let item of mcTable.data">
-    <td>{{ item.Name }}</td>
-    <td>{{ item.LatinName }}</td>
+    <td>
+      <p>
+        {{ item.Name }}
+      </p>
+      <p>
+        {{ item.Email }}
+      </p>
+    </td>
+    <td>{{ roleEnum[item.RoleId] }}</td>
     <td>
       <button nz-button nzType="primary" (click)="showModalUpdate(item.Id)">
-        <i nz-icon nzType="edit"></i>
+        <i nz-icon nzType="edit"></i> Edit
       </button>
     </td>
   </tr>

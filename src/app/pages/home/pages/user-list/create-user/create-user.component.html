@@ -30,8 +30,17 @@
     <nz-form-item>
       <nz-form-control nzErrorTip="Masukkan role pengguna!">
         <nz-input-group nzPrefixIcon="compass">
-          <nz-select formControlName="RoleId" nzPlaceHolder="Role Pengguna">
-            <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of regions"></nz-option>
+          <nz-select formControlName="RoleId" nzPlaceHolder="Role">
+            <nz-option [nzValue]="id + 1" [nzLabel]="item" *ngFor="let item of roleKeys; index as id"></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ifRoles="[roleEnum.SUPERADMIN]">
+      <nz-form-control nzErrorTip="Masukkan institute pengguna!">
+        <nz-input-group nzPrefixIcon="compass">
+          <nz-select formControlName="InstituteId" nzPlaceHolder="Institute">
+            <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of institutes;"></nz-option>
           </nz-select>
         </nz-input-group>
       </nz-form-control>

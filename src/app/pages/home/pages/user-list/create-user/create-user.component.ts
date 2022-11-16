@@ -16,6 +16,10 @@ import {NzGridModule} from "ng-zorro-antd/grid";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzListModule} from "ng-zorro-antd/list";
 import {NzSelectModule} from "ng-zorro-antd/select";
+import {Role} from "../../../../../common/account.model";
+import {Select} from "../../../../../common/form.model";
+import {InstituteService} from "../../../../../api-services/institute.service";
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-create-user',
@@ -24,6 +28,7 @@ import {NzSelectModule} from "ng-zorro-antd/select";
   standalone: true,
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -40,7 +45,11 @@ export class CreateUserComponent implements OnInit {
   @Input() land_id!:number;
   isSubmitLoading = false;
   passwordVisible = false;
-  regions: RegionsItemMinimalDto[]=[];
+
+  roleEnum: typeof Role = Role;
+  roleKeys: string[] = Object.keys(Role).filter(x => isNaN(Number(x)));
+
+  institutes: Select[] = [];
 
   form: FormGroup = this.fb.nonNullable.group({
     Name: this.fb.nonNullable.control('', {
@@ -52,6 +61,7 @@ export class CreateUserComponent implements OnInit {
     RoleId: this.fb.nonNullable.control(0, {
       validators: [Validators.required],
     }),
+    InstituteId: this.fb.nonNullable.control(0),
     Password: this.fb.nonNullable.control('', {
       validators: [Validators.required],
     }),
@@ -62,15 +72,16 @@ export class CreateUserComponent implements OnInit {
     private modal: NzModalRef,
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
-    private regionService:RegionService,
+    private regionService: RegionService,
     private miniPcService: MiniPcService,
     private notification: NzNotificationService,
-    private passwordService: PasswordService
+    private passwordService: PasswordService,
+    private instituteService: InstituteService
   ) { }
 
   ngOnInit(): void {
-    this.regionService.showMinimal(this.land_id)
-      .subscribe(x=>this.regions=x)
+    this.instituteService.showForSelect()
+      .subscribe(x => this.institutes = x);
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);

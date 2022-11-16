@@ -16,6 +16,9 @@ import {NzPaginationModule} from "ng-zorro-antd/pagination";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {CreateUserComponent} from "./create-user/create-user.component";
+import {UserListService} from "../../../../api-services/user-list.service";
+import {UserItemMinimalDto, UserSearchResponse} from "../../../../common/user.model";
+import {UpdateUserComponent} from "./update-user/update-user.component";
 
 @Component({
   selector: 'app-user-list',
@@ -36,7 +39,7 @@ import {CreateUserComponent} from "./create-user/create-user.component";
   ],
 })
 export class UserListComponent implements OnInit {
-  data: ReadPlantDto[] = [];
+  data: UserItemMinimalDto[] = [];
   roleEnum: typeof Role = Role;
 
   form: FormGroup = this.fb.nonNullable.group({
@@ -49,7 +52,7 @@ export class UserListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NzModalService,
-    private plantService: PlantService,
+    private userService: UserListService,
     private router: Router
   ) { }
 
@@ -60,10 +63,9 @@ export class UserListComponent implements OnInit {
       ),
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap(x=>this.plantService.search(x))
+      switchMap(x=>this.userService.search(x))
     ).subscribe(
-      (res: any)=>{
-        console.log(res);
+      (res: UserSearchResponse)=>{
         this.data = res.Data;
         this.dataTotal=res.NTotal;
       }
@@ -88,7 +90,7 @@ export class UserListComponent implements OnInit {
     })
   }
   loadData():void{
-    this.plantService.search(this.form.value).subscribe((res: any)=>{
+    this.userService.search(this.form.value).subscribe((res: any)=>{
       console.log(res);
       this.data = res.Data;
       this.dataTotal=res.NTotal;
@@ -98,7 +100,7 @@ export class UserListComponent implements OnInit {
   showModalUpdate(id:number):void{
     const dt = this.data.filter(x=>x.Id === id )[0];
     this.modalService.create({
-      nzContent:UpdatePlantComponent,
+      nzContent:UpdateUserComponent,
       nzWidth:'80%',
       nzComponentParams:{
         data: dt

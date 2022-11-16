@@ -15,17 +15,15 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { AuthorizeInterceptor } from './interceptors/authorize.interceptor';
 import * as AllIcons from '@ant-design/icons-angular/icons';
-import en from '@angular/common/locales/en';
 import {DatePipe, registerLocaleData} from '@angular/common';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import {NzTableModule} from "ng-zorro-antd/table";
-import { CreateUserComponent } from './pages/home/pages/user-list/create-user/create-user.component';
-import { UpdateUserComponent } from './pages/home/pages/user-list/update-user/update-user.component';
+import localeId from "@angular/common/locales/id";
 
-registerLocaleData(en);
+registerLocaleData(localeId);
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };

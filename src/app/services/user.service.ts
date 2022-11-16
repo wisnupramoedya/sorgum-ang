@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TokenService} from "./token.service";
-import {AppTokenModel} from "../common/app.model";
 import {User} from "../common/account.model";
 
 @Injectable({
@@ -17,12 +16,10 @@ export class UserService {
     if (!appToken) {
       return null;
     }
-    const user: User = {
-      name: appToken.name,
-      email: appToken.email,
+    return {
+      ...appToken,
       role: Number(appToken.role)
-    }
-    return user;
+    } as User;
   }
 
   getRole(): number {
