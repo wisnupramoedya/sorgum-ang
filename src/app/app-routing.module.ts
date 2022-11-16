@@ -6,6 +6,13 @@ import { GreenhouseDetailOverviewResolver } from './pages/dashboard/resolvers/gr
 import { LandIdResolver } from './pages/dashboard/resolvers/land-id.resolver';
 import { SensorTypeListResolver } from './resolvers/sensor-type-list.resolver';
 import {LandMiniPcComponent} from "./pages/dashboard/pages/land-minipc/land-mini-pc.component";
+import {
+  UpdateDiseaseMonitorComponent
+} from "./pages/dashboard/pages/land-health/update-disease-monitor/update-disease-monitor.component";
+import {LandHealthComponent} from "./pages/dashboard/pages/land-health/land-health.component";
+import {
+  AddDiseaseMonitorComponent
+} from "./pages/dashboard/pages/land-health/add-disease-monitor/add-disease-monitor.component";
 
 const routes: Routes = [
   {
@@ -137,6 +144,18 @@ const routes: Routes = [
       {
         path:'camera',
         loadComponent: ()=>import('./pages/dashboard/pages/land-camera/land-camera.component').then(x=>x.LandCameraComponent)
+      },
+      {
+        path: 'healths',
+        component: LandHealthComponent,
+      },
+      {
+        path: 'healths/create',
+        component: AddDiseaseMonitorComponent
+      },
+      {
+        path: 'healths/:id_health',
+        component: UpdateDiseaseMonitorComponent
       }
     ]
   },

@@ -1,0 +1,67 @@
+<nz-page-header
+  class="site-page-header"
+  nzTitle="Kesehatan Tanaman"
+>
+  <nz-page-header-content></nz-page-header-content>
+</nz-page-header>
+
+<div class="land-micro-con-list-toolbar">
+  <form nz-form [formGroup]="form" class="login-form" style="width: 60%">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input
+            type="text"
+            nz-input
+            formControlName="Search"
+            placeholder="Cari pantauan penyakit berdasarkan nama"
+          />
+          <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <button *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-button nzType="primary" [routerLink]="'/dashboard/' + landId + '/healths/create'">
+    <i nz-icon nzType="plus"></i>Tambah Pantauan Penyakit
+  </button>
+</div>
+
+<nz-table
+  #mcTable
+  [nzData]="data"
+  class="land-micro-con-list-content"
+  [nzPageSize]="form.controls['N'].value"
+  [nzPageIndex]="form.controls['Page'].value"
+  (nzPageIndexChange)="changePageIndex($event)"
+>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Nama Penyakit</th>
+    <th>Lokasi Petak</th>
+    <th>Kondisi</th>
+    <th>Tanggal Pantauan</th>
+    <th>Detail</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of mcTable.data">
+    <td>{{ item.Id }}</td>
+    <td>
+      <a [routerLink]="'/dashboard/' + landId + '/healths/' + item.Id">
+        {{ item.Name }}
+      </a>
+    </td>
+    <td class="tw-font-bold">{{ item.RegionName }}</td>
+    <td>{{ item.Condition }}</td>
+    <td>{{ item.MonitorDate | date: 'full' }}</td>
+    <td>
+      <button nz-button nzType="primary">
+        <span nz-icon nzType="plus-circle" nzTheme="outline"></span> Pemeliharaan
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
