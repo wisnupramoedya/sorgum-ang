@@ -39,11 +39,11 @@ export class UserListService implements UserListServiceInterface {
   }
 
   add(data: AddUserDto): Observable<number> {
-    return of( 1);
+    return this.http.post<number>('api/AccountCrud/Create', this.utilityService.convertModelToFormData(data));
   }
 
   update(id: number, data: UpdateUserDto): Observable<void> {
-    return of(void 0);
+    return this.http.put<void>(`api/AccountCrud/Update/${id}`, this.utilityService.convertModelToFormData(data));
   }
 
   delete(id: number): Observable<void> {

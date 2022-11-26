@@ -66,7 +66,7 @@ export class UpdateUserComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
     private modalService: NzModalService,
-    private userService: UserListService,
+    private userListService: UserListService,
     private notification: NzNotificationService,
   ) { }
 
@@ -82,14 +82,14 @@ export class UpdateUserComponent implements OnInit {
   }
   submitForm(): void {
     if(this.form.valid){
-      this.userService.update(this.data.Id,this.form.value)
+      this.userListService.update(this.data.Id,this.form.value)
         .pipe(
           tap(()=>this.notification.create(
             'success',
             'Sukses',
             'Pembaharuan pengguna berhasil.'
           ))
-        ).subscribe(()=>this.modal.close(0));
+        ).subscribe(()=>this.modal.close(1));
 
     }
   }
@@ -116,7 +116,7 @@ export class UpdateUserComponent implements OnInit {
       .pipe(
         filter(x=>x!==-1),
         switchMap(x=>{
-          return this.userService.delete(x);
+          return this.userListService.delete(x);
         }),
         tap(()=>this.notification.create(
           'success',

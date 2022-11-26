@@ -28,6 +28,6 @@ export class InstituteService implements InstituteServiceInterface {
   ) { }
 
   showForSelect(): Observable<Select[]> {
-    return this.http.get<Select[]>('/api/AccountCrud/GetInstitutedName');
+    return this.http.get<Select[]>('/api/InstitutedUser/GetInstituteName');
   }
 }

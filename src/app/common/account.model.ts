@@ -67,9 +67,3 @@ export enum Role {
   ADMIN ,
   USER  ,
 }
-
-export class UpdateUserDto {
-  Name!: string;
-  Email!: string;
-  RoleId!: number;
-}

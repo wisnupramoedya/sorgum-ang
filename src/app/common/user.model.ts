@@ -1,7 +1,7 @@
 import {SearchResponse} from "./app.model";
 
 export class UserItemMinimalDto {
-  Id!: number;
+  Id: number = 0;
   Name!: string;
   Email!: string;
   RoleId!: number;

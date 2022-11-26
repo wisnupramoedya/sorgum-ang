@@ -20,6 +20,7 @@ import {Role} from "../../../../../common/account.model";
 import {Select} from "../../../../../common/form.model";
 import {InstituteService} from "../../../../../api-services/institute.service";
 import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
+import {UserListService} from "../../../../../api-services/user-list.service";
 
 @Component({
   selector: 'app-create-user',
@@ -73,7 +74,7 @@ export class CreateUserComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
     private regionService: RegionService,
-    private miniPcService: MiniPcService,
+    private userListService: UserListService,
     private notification: NzNotificationService,
     private passwordService: PasswordService,
     private instituteService: InstituteService
@@ -82,12 +83,13 @@ export class CreateUserComponent implements OnInit {
   ngOnInit(): void {
     this.instituteService.showForSelect()
       .subscribe(x => this.institutes = x);
+    console.log(this.institutes)
   }
   submitForm(): void {
     console.log(this.form.valid, this.form.value);
 
     if(this.form.valid){
-      this.miniPcService.add(this.form.value)
+      this.userListService.add(this.form.value)
         .pipe(
           tap(()=>this.notification.create(
             'success',
