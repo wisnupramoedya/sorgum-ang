@@ -15,14 +15,15 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { AuthorizeInterceptor } from './interceptors/authorize.interceptor';
 import * as AllIcons from '@ant-design/icons-angular/icons';
-import en from '@angular/common/locales/en';
 import {DatePipe, registerLocaleData} from '@angular/common';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import {NzTableModule} from "ng-zorro-antd/table";
+import localeId from "@angular/common/locales/id";
 
-registerLocaleData(en);
+registerLocaleData(localeId);
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };
@@ -45,7 +46,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     //   // or after 30 seconds (whichever comes first).
     //   registrationStrategy: 'registerWhenStable:30000'
     // })
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
@@ -55,11 +56,11 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NzTypographyModule,
     NzIconModule.forRoot(icons),
     NgxEchartsModule.forRoot({
-      echarts:()=> import('echarts')
+      echarts: () => import('echarts')
     }),
     NzDropDownModule,
     ServiceWorkerModule.register('custom-service-worker.js', {
-    // ServiceWorkerModule.register('ngsw-worker.js', {
+      // ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
@@ -70,7 +71,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    NzTableModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },

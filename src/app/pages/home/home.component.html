@@ -33,6 +33,10 @@
             <span nz-icon nzType="audit"></span>
             <span>Tanaman</span>
           </li>
+          <li *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-menu-item [routerLink]="'/home/users'" [routerLinkActive]="'ant-menu-item-selected'">
+            <span nz-icon nzType="audit"></span>
+            <span>Pengguna</span>
+          </li>
 
         </ul>
       </nz-sider>

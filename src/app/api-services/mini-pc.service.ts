@@ -56,7 +56,6 @@ export class MiniPcService implements MiniPcServiceInterface{
     const params = new HttpParams({
       fromObject: {...data}
     });
-    console.log('/api/MiniPCsCrud/Search'+(land_id===undefined?'':'/'+land_id));
     return this.http.get<MiniPcSearchResponse>('/api/MiniPcsCrud/Search'+(land_id===undefined?'':'/'+land_id),{params: params});
   }
 

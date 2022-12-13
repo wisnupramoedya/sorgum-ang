@@ -1,0 +1,84 @@
+<form nz-form [formGroup]="form" class="login-form" >
+  <div *nzModalTitle>
+    <h3 nz-typography>Tambah </h3>
+  </div>
+  <div>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan nama pengguna!">
+        <nz-input-group nzPrefixIcon="bank">
+          <input
+            type="text"
+            nz-input
+            formControlName="Name"
+            placeholder="Nama Pengguna"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan email pengguna!">
+        <nz-input-group nzPrefixIcon="compass">
+          <input
+            type="text"
+            nz-input
+            formControlName="Email"
+            placeholder="Email"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan role pengguna!">
+        <nz-input-group nzPrefixIcon="compass">
+          <nz-select formControlName="RoleId" nzPlaceHolder="Role">
+            <nz-option [nzValue]="id + 1" [nzLabel]="item" *ngFor="let item of roleKeys; index as id"></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ifRoles="[roleEnum.SUPERADMIN]">
+      <nz-form-control nzErrorTip="Masukkan institute pengguna!">
+        <nz-input-group nzPrefixIcon="compass">
+          <nz-select formControlName="InstituteId" nzPlaceHolder="Institute">
+            <nz-option [nzValue]="item.Id" [nzLabel]="item.Name" *ngFor="let item of institutes;"></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan password!">
+        <nz-input-group nzSearch nzPrefixIcon="compass" [nzAddOnAfter]="suffixIconButton">
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            formControlName="Password"
+            placeholder="Password" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzSearch>
+            <span
+              nz-icon
+              [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+              (click)="passwordVisible = !passwordVisible"></span>
+          </button>
+          <button nz-button nzType="primary" nzSearch (click)="generateRandom()"><span nz-icon nzType="reload" nzTheme="outline"></span></button>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" type="button" (click)="destroyModal()">
+      Cancel
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      type="submit"
+      [disabled]="form.invalid"
+      [nzLoading]="isSubmitLoading"
+      (click)="submitForm()"
+    >
+      Submit
+    </button>
+  </div>
+</form>
