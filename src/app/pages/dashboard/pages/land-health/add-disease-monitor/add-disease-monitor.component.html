@@ -6,22 +6,23 @@
     <h2 class="tw-m-0 tw-ml-3">Tambah Pantauan Penyakit</h2>
   </div>
 
-  <form>
+  <form [formGroup]="healthForm" (submit)="onSubmit()">
     <div class="tw-flex tw-flex-col tw-space-y-4">
       <div class="tw-w-1/2 tw-pr-4">
         <p>Nama Penyakit<span class="tw-text-red-500">*</span></p>
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Pilih penyakit" class="tw-w-full">
-          <nz-option nzLabel="Antraknose" nzValue="jack"></nz-option>
-          <nz-option nzLabel="Bercak Daun" nzValue="jack"></nz-option>
-          <nz-option nzLabel="Busuk Batang" nzValue="jack"></nz-option>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Pilih penyakit" class="tw-w-full" formControlName="IdDisease">
+          <nz-option nzLabel="Antraknose" nzValue="1"></nz-option>
+          <nz-option nzLabel="Bercak Daun" nzValue="2"></nz-option>
+          <nz-option nzLabel="Busuk Batang" nzValue="3"></nz-option>
         </nz-select>
       </div>
       <div class="tw-grid md:tw-grid-cols-2 tw-grid-cols-1 tw-gap-4">
         <div class="tw-flex tw-flex-col tw-space-y-4">
           <div>
             <p>Lokasi Petak<span class="tw-text-red-500">*</span></p>
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Pilih penyakit" class="tw-w-full">
-              <nz-option nzLabel="Petak 10" nzValue="petak10"></nz-option>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Pilih penyakit" class="tw-w-full" formControlName="IdRegion">
+              <nz-option nzLabel="Petak 10" nzValue="1"></nz-option>
+              <nz-option nzLabel="Petak 11" nzValue="2"></nz-option>
             </nz-select>
           </div>
           <div class="tw-grid tw-grid-cols-1 tw-gap-2">
@@ -31,15 +32,17 @@
                  [leafletOptions]="leafletOptions">
               <div *ngFor="let layer of leafletLayers" [leafletLayer]="layer.marker"></div>
             </div>
-            <div class="tw-flex tw-flex-col tw-space-y-2">
+            <div class="tw-flex tw-flex-col tw-space-y-2" formArrayName="Cordinate">
               <div class="tw-flex tw-w-full tw-justify-between tw-items-center tw-p-2 tw-border-solid tw-border tw-border-b-gray-300" *ngFor="let layer of leafletLayers; index as i">
-                <div class="tw-font-bold">Marker {{ layer.markerId }}</div>
-                <div>
+                <div class="tw-font-bold">Marker {{ layer.markerId }} {{ i }}</div>
+                <div [formGroupName]="i">
                   <p class="tw-m-0">
                     <span class="tw-font-bold">Lat:</span> {{ layer.marker.getLatLng().lat }}
+                    <input style="display: none" formControlName="Latitude" value="{{ layer.marker.getLatLng().lat }}">
                   </p>
                   <p class="tw-m-0">
                     <span class="tw-font-bold">Lon:</span> {{ layer.marker.getLatLng().lng }}
+                    <input style="display: none" formControlName="Longitude" value="{{ layer.marker.getLatLng().lng }}">
                   </p>
                 </div>
                 <div>
@@ -57,32 +60,18 @@
         <div class="tw-flex tw-flex-col tw-space-y-4">
           <div>
             <p>Kondisi<span class="tw-text-red-500">*</span></p>
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Pilih Perawatan" class="tw-w-full">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Pilih Perawatan" class="tw-w-full" formControlName="IdStatus">
               <nz-option nzLabel="Terpantau" nzValue="1"></nz-option>
-<!--              <nz-option nzLabel="Perawatan" nzValue="2"></nz-option>-->
-<!--              <nz-option nzLabel="Sudah Sembuh" nzValue="3"></nz-option>-->
             </nz-select>
           </div>
           <div>
             <p>Bukti Penyakit<span class="tw-text-red-500">*</span></p>
-            <nz-upload
-              nzType="drag"
-              nzListType="picture-card"
-              [nzMultiple]="true"
-              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              (nzChange)="handleChange($event)"
-              class="tw-block"
-            >
-              <p class="ant-upload-drag-icon">
-                <span nz-icon nzType="cloud-upload" nzTheme="outline"></span>
-              </p>
-              <p class="ant-upload-text">Upload Bukti Penyakit</p>
-            </nz-upload>
+            <app-upload-multi-preview title="Upload Bukti Penyakit" (uploadEmitter)="addUploadToForm($event)"></app-upload-multi-preview>
           </div>
         </div>
       </div>
       <div class="tw-flex tw-justify-end">
-        <button>
+        <button type="submit">
           Buat
         </button>
       </div>

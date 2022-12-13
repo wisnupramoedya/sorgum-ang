@@ -15,8 +15,6 @@ import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {CurrentGreenHouseService} from "../../../../services/current-green-house.service";
 import {DiseaseMonitorService} from "../../../../api-services/disease-monitor.service";
 import {debounceTime, distinctUntilChanged, startWith, switchMap} from "rxjs/operators";
-import {AddDiseaseMonitorComponent} from "./add-disease-monitor/add-disease-monitor.component";
-import {AppModule} from "../../../../app.module";
 
 @Component({
   selector: 'app-land-health',

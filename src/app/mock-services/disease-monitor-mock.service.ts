@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {DiseaseMonitorServiceInterface} from "../api-services/disease-monitor.service";
 import {SearchRequest} from "../common/app.model";
 import {map, Observable, of} from "rxjs";
-import {DiseaseItemMinimalDto, DiseaseSearchResponse} from "../common/disease.model";
+import {AddDiseaseMonitor, DiseaseItemMinimalDto, DiseaseSearchResponse} from "../common/disease.model";
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +47,9 @@ export class DiseaseMonitorMockService implements DiseaseMonitorServiceInterface
       x.NTotal = x.Data.length;
       return x;
     }));
+  }
+
+  add(data: AddDiseaseMonitor): Observable<number> {
+    return of(1)
   }
 }

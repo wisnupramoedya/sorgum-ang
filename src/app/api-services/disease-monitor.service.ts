@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {SearchRequest} from "../common/app.model";
 import {Observable} from "rxjs";
-import {DiseaseSearchResponse} from "../common/disease.model";
+import {AddDiseaseMonitor, DiseaseSearchResponse} from "../common/disease.model";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {UtilityService} from "../services/utility.service";
 import {DiseaseMonitorMockService} from "../mock-services/disease-monitor-mock.service";
 
 export interface DiseaseMonitorServiceInterface {
   search(data: SearchRequest, land_id?: number): Observable<DiseaseSearchResponse>;
-
+  add(data: AddDiseaseMonitor): Observable<number>;
 }
 
 @Injectable({
@@ -33,5 +33,10 @@ export class DiseaseMonitorService implements DiseaseMonitorServiceInterface{
       fromObject: {...data}
     });
     return this.http.get<DiseaseSearchResponse>('/api/MonitorVirus/Search'+(land_id===undefined?'':'/'+land_id),{params: params});
+  }
+
+  add(data: AddDiseaseMonitor): Observable<number> {
+    console.log(data);
+    return this.http.post<number>('/api/MonitorVirus/AddMonitorVirus', data);
   }
 }
