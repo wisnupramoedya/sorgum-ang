@@ -71,8 +71,7 @@ const routes: Routes = [
       {
         path:'plant',
         loadComponent: ()=>import('./pages/home/pages/plant-list/plant-list.component').then(x=>x.PlantListComponent)
-      },
-
+      }
     ]
   },
   {
@@ -132,10 +131,32 @@ const routes: Routes = [
       {
         path:'camera',
         loadComponent: ()=>import('./pages/dashboard/pages/land-camera/land-camera.component').then(x=>x.LandCameraComponent)
-      }
+      },
+      {
+        path:'plan',
+        loadComponent: ()=>import('./pages/dashboard/pages/land-plan/land-plan.component').then(x=>x.PlanComponent),
+        resolve:{
+          landId:LandIdResolver
+        }
+      },
     ]
   },
-
+  {
+    path: 'dashboard/:landId/plan/:planId',
+    // loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) ,
+    canActivate:[AuthorizeGuard],
+    loadComponent: () => import('./pages/dashboard/dashboard.component').then(x=>x.DashboardComponent),
+    children:[
+      {
+        path:'',
+        loadComponent: ()=>import('./pages/dashboard/pages/land-plan/plan-detail/plan-detail.component').then(x=>x.PlanDetailComponent),
+        resolve:{
+          sensorTypesData:SensorTypeListResolver
+        },
+        pathMatch:'full'
+      },
+    ]
+  }
 ];
 
 @NgModule({

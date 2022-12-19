@@ -1,0 +1,89 @@
+<div class="plant-list-toolbar">
+  <nz-calendar>
+    
+    <ul *nzDateCell="let date" class="events">
+      <ng-container [ngSwitch]="date.getDate()">
+        <ng-container *ngSwitchCase="8">
+          <li *ngFor="let item of listDataMap.eight">
+            <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
+          </li>
+        </ng-container>
+        <ng-container *ngSwitchCase="10">
+          <li *ngFor="let item of listDataMap.ten">
+            <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
+          </li>
+        </ng-container>
+        <ng-container *ngSwitchCase="11">
+          <li *ngFor="let item of listDataMap.eleven">
+            <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+    <ng-container *nzMonthCell="let month">
+      <div *ngIf="getMonthData(month) as monthData" class="notes-month ">
+        <section>{{ monthData }}</section>
+        <span>Backlog number</span>
+      </div>
+    </ng-container>
+  </nz-calendar>
+
+  
+</div>
+<div class="tw-bg-white tw-w-full tw-py-4 tw-px-8 tw-rounded-lg tw-mb-6	">
+<div class="tw-w-full tw-flex tw-flex-row tw-justify-between tw-mb-4">
+  <form nz-form [formGroup]="form" class="login-form">
+    <nz-form-item class="tw-border-solid tw-w-full tw-mr-16 tw-border">
+      <nz-form-control>
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input
+            
+            type="text"
+            nz-input
+            formControlName="Search"
+            placeholder="input search text"
+          />
+          <ng-template #suffixIconSearch>
+            <i class="tw-p-4 -tw-my-1.5 -tw-mr-3 tw-border-y-0 tw-border-r-0 tw-border-solid tw-border-l" nz-icon nzType="search"></i>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <button *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-button nzType="primary" (click)="showModalCreate()">
+    <i nz-icon nzType="plus"></i>Tambah Penjadwalan
+  </button>
+</div>
+  <nz-table
+    #mcTable
+    [nzData]="data"
+    class="plant-list-content"
+    [nzFrontPagination]="false"
+    
+    [nzTotal]="dataTotal"
+    (nzQueryParams)="onQueryParamsChange($event)"
+  >
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>Jadwal Awal</th>
+      <th>Jadwal Akhir</th>
+      <th>Petak</th>
+      <th>Tag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of mcTable.data">
+
+      <td><a [routerLink]="''+item.Id">{{item.Name}} </a></td>
+      <td>{{ item.LatinName }}</td>
+      <td>{{ item.Description }}</td>
+      <td>
+        <button nz-button nzType="primary" (click)="showModalUpdate(item.Id)">
+          <i nz-icon nzType="edit"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+</div>

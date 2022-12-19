@@ -1,0 +1,128 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+  <div *nzModalTitle>
+    <h3 nz-typography>Tambah Keterangan</h3>
+  </div>
+  <div>
+    <nz-form-item class="tw-block">
+      <nz-form-label nzRequired>Tanggal Mulai Jadwal</nz-form-label>
+      <nz-form-control nzErrorTip="Masukkan tanggal mulai penjadawalan!">
+        <nz-input-group>
+          <nz-date-picker class="tw-w-full" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item class="tw-block" >
+      <nz-form-label nzRequired>Catatan Jadwal</nz-form-label>
+      <nz-form-control nzErrorTip="Masukkan nama Jadwal!">
+        <nz-input-group>
+          <input 
+            type="text"
+            nz-input
+            formControlName="Name"
+            placeholder="Nama Jadwal"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <div class="clearfix">
+      <nz-upload
+        class="upload-list-inline"
+        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        nzListType="picture"
+        [(nzFileList)]="fileList2"
+      >
+        <button nz-button>
+          <span>
+            <span nz-icon nzType="upload"></span>
+            Upload
+          </span>
+        </button>
+      </nz-upload>
+    </div>
+
+
+    <!-- <nz-list nzItemLayout="horizontal"  >
+      <nz-list-item  >
+        <div style="width: 100%;">
+          <div nz-row >
+            <div nz-col nzSpan="6">
+              <nz-input-group >
+                <input type="text" nz-input placeholder="Parameter" />
+              </nz-input-group>
+
+            </div>
+            <div nz-col nzSpan="2">
+              <button nz-button nzType="primary" nzDanger  type="button" >
+                <i nz-icon nzType="delete"></i>
+              </button>
+
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzSpan="6" style="text-align: center;margin-top:auto;margin-bottom:auto;">
+              <i style="font-size: 1em;">
+                <svg style="width: 1em; height: 1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M.2 468.9C2.7 493.1 23.1 512 48 512l96 0 320 0c26.5 0 48-21.5 48-48l0-96c0-26.5-21.5-48-48-48l-48 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-64-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-64-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-48c0-26.5-21.5-48-48-48L48 0C21.5 0 0 21.5 0 48L0 368l0 96c0 1.7 .1 3.3 .2 4.9z"/></svg>
+              </i>
+            </div>
+            <div nz-col nzSpan="6">
+              <nz-input-group >
+                <input type="text" nz-input placeholder="Deskripsi Parameter" />
+              </nz-input-group>
+            </div>
+            <div nz-col nzSpan="5">
+              <nz-input-group >
+                <input type="text" nz-input placeholder="Nilai Batas Bawah" />
+              </nz-input-group>
+            </div>
+            <div nz-col nzSpan="5">
+              <nz-input-group >
+                <input type="text" nz-input placeholder="Nilai Batas Atas" />
+              </nz-input-group>
+            </div>
+            <div nz-col nzSpan="2">
+              <button nz-button nzType="default" nzDanger type="button" >
+                <i nz-icon nzType="delete"></i>
+              </button>
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzSpan="12" nzOffset="6">
+              <button nz-button nzType="default" type="button" >
+                <i nz-icon nzType="plus"></i>Tambah Deskripsi Parameter
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </nz-list-item>
+      <nz-list-item>
+        <div>
+          <div nz-row>
+            <div nz-col nzSpan="6">
+              <button nz-button nzType="default" type="button" >
+                <i nz-icon nzType="plus"></i>Tambah Parameter
+              </button>
+            </div>
+          </div>
+        </div>
+      </nz-list-item>
+    </nz-list> -->
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" type="button" (click)="destroyModal()">
+      Cancel
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      type="submit"
+      [disabled]="form.invalid"
+      [nzLoading]="isSubmitLoading"
+      (click)="submitForm()"
+    >
+      Submit
+    </button>
+  </div>
+</form>

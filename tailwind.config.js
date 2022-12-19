@@ -12,7 +12,10 @@ module.exports = {
           'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
           'Noto Color Emoji'
         ]
-      }
+      },
+    colors: {
+      'gray': '#EAEAEC'
+    }
     },
   },
   plugins: [],

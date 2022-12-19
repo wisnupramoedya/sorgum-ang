@@ -1,0 +1,124 @@
+<div class="plant-list-toolbar">
+  
+</div>
+
+<div class="tw-bg-white tw-w-full tw-py-4 tw-px-8 tw-rounded-lg tw-mb-6">
+  <form nz-form [formGroup]="form" class="login-form">
+    <nz-form-item class="tw-block tw-w-2/3" >
+      <nz-form-label nzRequired>Nama Jadwal</nz-form-label>
+      <nz-form-control nzErrorTip="Masukkan nama Jadwal!">
+        <nz-input-group>
+          <input 
+            type="text"
+            nz-input
+            formControlName="Name"
+            placeholder="Nama Jadwal"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <label class="tw-font-bold tw-block tw-mb-8">Detail Jadwal</label>
+<nz-form-item class="tw-grid tw-grid-cols-2 tw-gap-5">
+  <nz-form-item class="tw-block -tw-mt-6">
+    <nz-form-control nzErrorTip="Masukkan berapa kali jadwal akan diulang!">
+    <nz-form-label nzRequired>Petak</nz-form-label>
+    <nz-select style="width: 65%;" class="tw-block">
+      <nz-option nzValue="hari" nzLabel="Hari"></nz-option>
+      <nz-option nzValue="minggu" nzLabel="Minggu"></nz-option>
+      <nz-option nzValue="bulan" nzLabel="Bulan"></nz-option>
+    </nz-select>
+    
+  </nz-form-control>
+</nz-form-item>
+
+<nz-form-item class="tw-block -tw-mt-6">
+  <nz-form-control nzErrorTip="Masukkan berapa kali jadwal akan diulang!">
+  <nz-form-label nzRequired>Tag</nz-form-label>
+  <nz-select style="width: 100%;" class="tw-block">
+    <nz-option nzValue="hari" nzLabel="Hari"></nz-option>
+    <nz-option nzValue="minggu" nzLabel="Minggu"></nz-option>
+    <nz-option nzValue="bulan" nzLabel="Bulan"></nz-option>
+  </nz-select>
+</nz-form-control>
+</nz-form-item>
+
+<nz-form-item class="tw-block -tw-mt-6">
+  <nz-form-control nzErrorTip="Masukkan berapa kali jadwal akan diulang!">
+  <nz-form-label nzRequired>Catatan Jadwal</nz-form-label>
+  <nz-input-group>
+    <textarea 
+    nz-input 
+    placeholder="                               " 
+    [nzAutosize]="{ minRows: 3, maxRows: 3 }">
+  </textarea>
+  </nz-input-group>
+</nz-form-control>
+</nz-form-item>
+
+<nz-form-item class="tw-block -tw-mt-6">
+  <nz-form-control nzErrorTip="Masukkan berapa kali jadwal akan diulang!">
+  <nz-form-label nzRequired>Pilih Penyakit yang Dimonitor</nz-form-label>
+  <nz-select style="width: 100%;" class="tw-block">
+    <nz-option nzValue="hari" nzLabel="Hari"></nz-option>
+    <nz-option nzValue="minggu" nzLabel="Minggu"></nz-option>
+    <nz-option nzValue="bulan" nzLabel="Bulan"></nz-option>
+  </nz-select>
+</nz-form-control>
+</nz-form-item>
+</nz-form-item>
+<label class="tw-font-bold tw-block tw-mb-4">Log Jadwal</label>
+<nz-form-item class="tw-border-solid tw-w-1/4 tw-mr-16 tw-border">
+  <nz-form-control>
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input
+        
+        type="text"
+        nz-input
+        formControlName="Search"
+        placeholder="input search text"
+      />
+      <ng-template #suffixIconSearch>
+        <i class="tw-p-4 -tw-my-1.5 -tw-mr-3 tw-border-y-0 tw-border-r-0 tw-border-solid tw-border-l" nz-icon nzType="search"></i>
+      </ng-template>
+    </nz-input-group>
+  </nz-form-control>
+</nz-form-item>
+<nz-table
+    #mcTable
+    [nzData]="data"
+    class="plant-list-content"
+    [nzFrontPagination]="false"
+    
+    [nzTotal]="dataTotal"
+    (nzQueryParams)="onQueryParamsChange($event)"
+  >
+  <thead>
+    <tr>
+      <th>Tanggal</th>
+      <th>Deskripsi Kegiatan</th>
+      <th>Gambar Perkembangan</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of mcTable.data">
+
+      <td><a [routerLink]="''+item.Id">{{item.Name}} </a></td>
+      <td>{{ item.LatinName }}</td>
+      <td>{{ item.Description }}</td>
+      <td>
+        <button nz-button nzType="primary" (click)="showModalCreate()">
+          <i nz-icon nzType="edit"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+  </form>
+</div>
+<!-- <nz-pagination
+    [nzPageIndex]="form.controls['Page'].value"
+    [nzTotal]="dataTotal"
+    (nzPageIndexChange)="changePageIndex($event)"
+    (nzPageSizeChange)="changePageSize($event)"
+  ></nz-pagination> -->
