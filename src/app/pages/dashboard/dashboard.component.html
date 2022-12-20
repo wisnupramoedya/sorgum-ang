@@ -1,76 +1,102 @@
 <!-- <router-outlet></router-outlet> -->
 <nz-layout>
   <nz-sider nzWidth="200px" nzTheme="light" style="z-index: 999;">
-    <nz-page-header
+    <!-- <nz-page-header
       class="site-page-header"
       nzBackIcon
       [nzTitle]="ToHome"
       (nzBack)="onBack()"
-    ></nz-page-header>
-    <ng-template #ToHome>
-      <span> Home </span>
-    </ng-template>
+      ></nz-page-header> -->
+      
+      <ul nz-menu nzMode="inline" class="sider-menu tw-space-y-8">
+        
+        <li>
+          <img class src="./assets/logo.png" alt="Logo" class="tw-w-4/5 tw-h-full tw-mx-6 tw-mt-4">
+          </li>
+        
+        
+        <li  
+        nz-menu-item
+        [routerLink]="'/home/land'">
+        <span nz-icon nzType="arrow-left"></span>
+        <span class="tw-font-bold"> Lahan </span>
+    </li>
 
-    <ul nz-menu nzMode="inline" class="sider-menu">
       <li
         nz-menu-item
         [routerLink]="'./overview'"
         [routerLinkActive]="'ant-menu-item-selected'"
       >
-        <span nz-icon nzType="build"></span>
-        <span>Dashboard</span>
+        <span style="color: #0C9DA4;" nz-icon nzType="codepen"></span>
+        <span style="color: #0C9DA4;" class="tw-font-bold">Detail Lahan</span>
       </li>
       <li
         nz-menu-item
         [routerLink]="'./parameter'"
         [routerLinkActive]="'ant-menu-item-selected'"
       >
-        <span nz-icon nzType="build"></span>
-        <span>Parameter</span>
+        <span style="color: #F89747;" nz-icon nzType="dot-chart"></span>
+        <span style="color: #F89747;" class="tw-font-bold">Detail Parameter</span>
       </li>
       <li nz-menu-item [routerLink]="'./camera'" [routerLinkActive]="'ant-menu-item-selected'">
-        <span nz-icon nzType="audit"></span>
-        <span>Camera</span>
-      </li>
-      <li
-        nz-menu-item
-        [routerLink]="'./region'"
-        [routerLinkActive]="'ant-menu-item-selected'"
-      >
-        <span nz-icon nzType="control"></span>
-        <span>Region</span>
-      </li>
-      <li
-        nz-menu-item
-        [routerLink]="'./minipc'"
-        [routerLinkActive]="'ant-menu-item-selected'"
-      >
-        <span nz-icon nzType="control"></span>
-        <span>Mini PC</span>
-      </li>
-      <li
-        nz-menu-item
-        [routerLink]="'./microcontroller'"
-        [routerLinkActive]="'ant-menu-item-selected'"
-      >
-        <span nz-icon nzType="control"></span>
-        <span>Microcontroller</span>
-      </li>
-      <li
-        nz-menu-item
-        [routerLink]="'./sensor'"
-        [routerLinkActive]="'ant-menu-item-selected'"
-      >
-        <span nz-icon nzType="control"></span>
-        <span>Sensor</span>
+        <span style="color: #BB2026;" nz-icon nzType="camera"nzTheme="fill" ></span>
+        <span style="color: #BB2026;" class="tw-font-bold">Kamera</span>
       </li>
       <li
         nz-menu-item
         [routerLink]="'./actuator'"
         [routerLinkActive]="'ant-menu-item-selected'"
       >
-        <span nz-icon nzType="node-collapse"></span>
-        <span>Actuator</span>
+        <span style="color: #07A04A;" nz-icon nzType="medicine-box"></span>
+        <span style="color: #07A04A;" class="tw-font-bold">Kesehatan Tanaman</span>
+      </li>
+      <li
+        nz-menu-item
+        [routerLink]="'./actuator'"
+        [routerLinkActive]="'ant-menu-item-selected'"
+      >
+        <span style="color: #0C9DA4;" nz-icon nzType="project"></span>
+        <span style="color: #0C9DA4;" class="tw-font-bold">Pemeliharaan</span>
+      </li>
+      <li
+        nz-menu-item
+        [routerLink]="'./actuator'"
+        [routerLinkActive]="'ant-menu-item-selected'"
+      >
+        <span style="color: #F89747;" nz-icon nzType="tool"></span>
+        <span style="color: #F89747;" class="tw-font-bold">Pengaturan Aktuator</span>
+      </li>
+      <li
+      nz-menu-item
+      [routerLink]="'./region'"
+      [routerLinkActive]="'ant-menu-item-selected'"
+      >
+      <span style="color: #BB2026;" nz-icon nzType="table"></span>
+      <span style="color: #BB2026;" class="tw-font-bold">Pengaturan Petak</span>
+    </li>
+    <li
+    nz-menu-item
+    [routerLink]="'./minipc'"
+    [routerLinkActive]="'ant-menu-item-selected'"
+    >
+    <span style="color: #07A04A;" nz-icon nzType="table"></span>
+    <span style="color: #07A04A;" class="tw-font-bold">Pengaturan Mini PC</span>
+  </li>
+      <li
+        nz-menu-item
+        [routerLink]="'./microcontroller'"
+        [routerLinkActive]="'ant-menu-item-selected'"
+      >
+        <span style="color: #0C9DA4;" nz-icon nzType="table"></span>
+        <span style="color: #0C9DA4;" class="tw-font-bold">Pengaturan Micro</span>
+      </li>
+      <li
+        nz-menu-item
+        [routerLink]="'./sensor'"
+        [routerLinkActive]="'ant-menu-item-selected'"
+      >
+        <span style="color: #F89747;" nz-icon nzType="table"></span>
+        <span style="color: #F89747;" class="tw-font-bold">Pengaturan Sensor</span>
       </li>
       <li
         nz-menu-item
