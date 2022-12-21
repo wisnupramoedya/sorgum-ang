@@ -15,6 +15,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { SensorItemDto } from 'src/app/common/sensor.model';
 import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
+import {Role} from "../../../../common/account.model";
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-land-sensor',
@@ -23,6 +25,7 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
   styleUrls: ['./land-sensor.component.scss'],
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -35,6 +38,7 @@ import { CurrentGreenHouseService } from 'src/app/services/current-green-house.s
 export class LandSensorComponent implements OnInit {
   data: SensorItemDto[] = [];
   landId!:number;
+  roleEnum: typeof Role = Role;
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
     Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),

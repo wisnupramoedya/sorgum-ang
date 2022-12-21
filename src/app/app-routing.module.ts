@@ -6,11 +6,18 @@ import { GreenhouseDetailOverviewResolver } from './pages/dashboard/resolvers/gr
 import { LandIdResolver } from './pages/dashboard/resolvers/land-id.resolver';
 import { SensorTypeListResolver } from './resolvers/sensor-type-list.resolver';
 import {LandMiniPcComponent} from "./pages/dashboard/pages/land-minipc/land-mini-pc.component";
+import {
+  UpdateDiseaseMonitorComponent
+} from "./pages/dashboard/pages/land-health/update-disease-monitor/update-disease-monitor.component";
+import {LandHealthComponent} from "./pages/dashboard/pages/land-health/land-health.component";
+import {
+  AddDiseaseMonitorComponent
+} from "./pages/dashboard/pages/land-health/add-disease-monitor/add-disease-monitor.component";
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'home',
+    redirectTo:'auth',
     pathMatch:'full'
   },
   {
@@ -45,7 +52,7 @@ const routes: Routes = [
   {
     path: 'home',
     // loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) ,
-    // canActivate:[AuthorizeGuard]
+    canActivate:[AuthorizeGuard],
     loadComponent:()=>import('./pages/home/home.component').then(x=>x.HomeComponent),
     children:[
       {
@@ -72,13 +79,18 @@ const routes: Routes = [
         path:'plant',
         loadComponent: ()=>import('./pages/home/pages/plant-list/plant-list.component').then(x=>x.PlantListComponent)
       },
-
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./pages/home/pages/user-list/user-list.component')
+          .then(x => x.UserListComponent)
+      }
     ]
   },
   {
     path: 'dashboard/:landId',
     // loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) ,
-    // canActivate:[AuthorizeGuard]
+    canActivate:[AuthorizeGuard],
     loadComponent: () => import('./pages/dashboard/dashboard.component').then(x=>x.DashboardComponent),
     children:[
       {
@@ -132,6 +144,18 @@ const routes: Routes = [
       {
         path:'camera',
         loadComponent: ()=>import('./pages/dashboard/pages/land-camera/land-camera.component').then(x=>x.LandCameraComponent)
+      },
+      {
+        path: 'healths',
+        component: LandHealthComponent,
+      },
+      {
+        path: 'healths/create',
+        component: AddDiseaseMonitorComponent
+      },
+      {
+        path: 'healths/:id_health',
+        component: UpdateDiseaseMonitorComponent
       }
     ]
   },

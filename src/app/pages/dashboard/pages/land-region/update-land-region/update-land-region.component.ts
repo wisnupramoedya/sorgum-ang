@@ -16,6 +16,8 @@ import { filter, switchMap, tap } from 'rxjs';
 import { PlantService } from 'src/app/api-services/plant.service';
 import { ReadPlantDto } from 'src/app/common/plant.model';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import {Role} from "../../../../../common/account.model";
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-update-land-region',
@@ -24,6 +26,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
   styleUrls: ['./update-land-region.component.scss'],
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -38,6 +41,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 })
 export class UpdateLandRegionComponent implements OnInit {
   @Input() region!:RegionsItemDto;
+  roleEnum: typeof Role = Role;
+
   form: FormGroup = this.fb.nonNullable.group({
     Name: this.fb.nonNullable.control('', {
       validators: [Validators.required],

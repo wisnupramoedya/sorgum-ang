@@ -223,7 +223,7 @@
   </form>
 </div>
 <div *nzModalFooter style="display: flex;flex-direction: row;flex-wrap: nowrap;align-content: center;justify-content: space-between;align-items: center;">
-  <button nz-button nzType="primary" nzDanger type="button" (click)="deletePlant()">
+  <button *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-button nzType="primary" nzDanger type="button" (click)="deletePlant()">
     <i nz-icon nzType="delete"></i> Hapus Tanaman
   </button>
   <button nz-button nzType="default" type="button" (click)="destroyModal()">

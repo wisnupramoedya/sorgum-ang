@@ -15,6 +15,8 @@ import {debounceTime, distinctUntilChanged, startWith, switchMap} from "rxjs";
 import {CreateLandMiniPcComponent} from "./create-land-mini-pc/create-land-mini-pc.component";
 import {UpdateLandMiniPcComponent} from "./update-land-mini-pc/update-land-mini-pc.component";
 import {MiniPcService} from "../../../../api-services/mini-pc.service";
+import {Role} from "../../../../common/account.model";
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-land-minipc',
@@ -23,6 +25,7 @@ import {MiniPcService} from "../../../../api-services/mini-pc.service";
   styleUrls: ['./land-mini-pc.component.scss'],
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -36,6 +39,8 @@ export class LandMiniPcComponent implements OnInit {
   landId!: number;
   data: MiniPcItemDto[] = [];
   dataTotal = 0;
+
+  roleEnum: typeof Role = Role;
   form: FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
     Page: this.fb.nonNullable.control(1, {validators:[Validators.required]}),

@@ -14,10 +14,10 @@ import { MicroItemDto, UpdateMicroDto } from 'src/app/common/microcontroller.mod
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { filter, switchMap, tap } from 'rxjs';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
-import { RegionService } from 'src/app/api-services/region.service';
-import { RegionsItemMinimalDto } from 'src/app/common/region.model';
 import {MiniPcService} from "../../../../../api-services/mini-pc.service";
-import {MiniPcItem2DTO, MiniPcItemMinimalDto} from "../../../../../common/minipc.model";
+import {MiniPcItem2DTO} from "../../../../../common/minipc.model";
+import {Role} from "../../../../../common/account.model";
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-update-land-microcontroller',
@@ -26,6 +26,7 @@ import {MiniPcItem2DTO, MiniPcItemMinimalDto} from "../../../../../common/minipc
   styleUrls: ['./update-land-microcontroller.component.scss'],
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -41,6 +42,8 @@ import {MiniPcItem2DTO, MiniPcItemMinimalDto} from "../../../../../common/minipc
 export class UpdateLandMicrocontrollerComponent implements OnInit {
   @Input() land_id!:number;
   @Input() data!:MicroItemDto;
+
+  roleEnum: typeof Role = Role;
   form: FormGroup = this.fb.nonNullable.group({
     Name: this.fb.nonNullable.control('', {
       validators: [Validators.required],

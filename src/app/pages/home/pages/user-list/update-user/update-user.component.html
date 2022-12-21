@@ -1,0 +1,65 @@
+<form nz-form [formGroup]="form" class="login-form" >
+  <div *nzModalTitle>
+    <h3 nz-typography>Update Pengguna</h3>
+  </div>
+  <div>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan nama pengguna anda!">
+        <nz-input-group nzPrefixIcon="bank">
+          <input
+            type="text"
+            nz-input
+            formControlName="Name"
+            placeholder="Nama Pengguna"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan email anda!">
+        <nz-input-group nzPrefixIcon="compass">
+          <input
+            type="text"
+            nz-input
+            formControlName="Email"
+            placeholder="Email Pengguna"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Masukkan role anda!">
+        <nz-input-group nzPrefixIcon="compass">
+          <nz-select formControlName="RoleId" nzPlaceHolder="Role">
+            <nz-option [nzValue]="id + 1" [nzLabel]="item" *ngFor="let item of roleKeys; index as id"></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div>
+      <p>Password</p>
+      <a href="/">Kirim Email</a>
+    </div>
+  </div>
+  <div *nzModalFooter style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+    <button *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-button nzType="default" nzDanger type="button" (click)="delete()">
+      Hapus
+    </button>
+    <div style="display: flex; flex-direction: row;">
+      <button nz-button nzType="default" type="button" (click)="destroyModal()">
+        Cancel
+      </button>
+      <button
+        *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]"
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="form.invalid"
+        [nzLoading]="isSubmitLoading"
+        (click)="submitForm()"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</form>

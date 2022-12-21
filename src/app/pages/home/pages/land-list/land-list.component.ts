@@ -25,6 +25,8 @@ import {
 import { LandService } from 'src/app/api-services/land.service';
 import { CardNComponent } from 'src/app/components/card-n/card-n.component';
 import { CreateLandComponent } from './create-land/create-land.component';
+import {Role} from "../../../../common/account.model";
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 @Component({
   selector: 'app-land-list',
   standalone: true,
@@ -32,6 +34,7 @@ import { CreateLandComponent } from './create-land/create-land.component';
   styleUrls: ['./land-list.component.scss'],
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     FormsModule,
     NzFormModule,
@@ -50,6 +53,7 @@ import { CreateLandComponent } from './create-land/create-land.component';
 })
 export class LandListComponent implements OnInit {
   data: LandItemDto[] = [];
+  roleEnum: typeof Role = Role;
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),
@@ -96,7 +100,7 @@ export class LandListComponent implements OnInit {
     this.form.controls['N'].setValue(event);
   }
   submitFormSearch():void{
-    
+
   }
   loadData():void{
     this.landService.search(this.form.value).subscribe((res: any)=>{

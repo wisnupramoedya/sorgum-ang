@@ -8,13 +8,14 @@ import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
 import { CreatePlantComponent } from './create-plant/create-plant.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { UpdatePlantComponent } from './update-plant/update-plant.component';
 import { ReadPlantDto } from 'src/app/common/plant.model';
 import { PlantService } from 'src/app/api-services/plant.service';
+import {Role} from "../../../../common/account.model";
+import {IfRolesDirective} from "../../../../directives/if-roles.directive";
 
 
 @Component({
@@ -24,6 +25,7 @@ import { PlantService } from 'src/app/api-services/plant.service';
   styleUrls: ['./plant-list.component.scss'],
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -36,6 +38,7 @@ import { PlantService } from 'src/app/api-services/plant.service';
 })
 export class PlantListComponent implements OnInit {
   data: ReadPlantDto[] = [];
+  roleEnum: typeof Role = Role;
 
   form:FormGroup = this.fb.nonNullable.group({
     Search: this.fb.nonNullable.control('',{validators:[Validators.required]}),

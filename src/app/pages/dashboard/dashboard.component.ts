@@ -14,6 +14,7 @@ import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { IfRolesDirective } from 'src/app/directives/if-roles.directive';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
     CommonModule,
     RouterModule,
     NzLayoutModule,
+    IfRolesDirective,
     HeaderComponent,
     FooterComponent,
     NzIconModule,

@@ -17,6 +17,7 @@ import {MicrocontrollerService} from "../../../../../api-services/microcontrolle
 import {filter, switchMap, tap} from "rxjs";
 import {MiniPcItemDto, UpdateMiniPcDto} from "../../../../../common/minipc.model";
 import {PasswordService} from "../../../../../services/password.service";
+import {Role} from "../../../../../common/account.model";
 
 @Component({
   selector: 'app-update-land-mini-pc',
@@ -43,6 +44,8 @@ export class UpdateLandMiniPcComponent implements OnInit {
   isSubmitLoading = false;
   passwordVisible = false;
   regions:RegionsItemMinimalDto[]=[];
+
+  roleEnum: typeof Role = Role;
 
   form: FormGroup = this.fb.nonNullable.group({
     Name: this.fb.nonNullable.control('', {

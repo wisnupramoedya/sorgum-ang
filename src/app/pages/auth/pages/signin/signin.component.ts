@@ -8,6 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -38,14 +39,17 @@ import { TokenService } from 'src/app/services/token.service';
     NzCheckboxModule,
     NzGridModule,
     NzNotificationModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzIconModule
   ]
 })
 export class SigninComponent implements OnInit {
 
   form!: UntypedFormGroup;
   disabledSubmit:boolean=false;
-  
+
+  passwordVisible = false;
+  password?: string;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -60,7 +64,7 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     console.log(this.accountService);
-    
+
   }
   initForm():void{
     this.form = this.fb.group({
@@ -81,8 +85,10 @@ export class SigninComponent implements OnInit {
       },
       (err:HttpErrorResponse)=>{
         this.disabledSubmit=false;
-        const errMsg:AppResponse = err.error;
-        this.notification.warning("Peringatan",errMsg.message);
+        const errMsg: {
+          Message: string
+        } = err.error;
+        this.notification.warning("Peringatan", errMsg.Message);
       }
     )
   }

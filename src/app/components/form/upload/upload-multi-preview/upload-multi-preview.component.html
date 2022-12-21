@@ -1,0 +1,13 @@
+<nz-upload
+  nzType="drag"
+  nzListType="picture-card"
+  [nzMultiple]="true"
+  [nzBeforeUpload]="beforeUpload"
+  [(nzFileList)]="fileList"
+  class="tw-block"
+>
+  <p class="ant-upload-drag-icon">
+    <span nz-icon nzType="cloud-upload" nzTheme="outline"></span>
+  </p>
+  <p class="ant-upload-text">{{ title }}</p>
+</nz-upload>

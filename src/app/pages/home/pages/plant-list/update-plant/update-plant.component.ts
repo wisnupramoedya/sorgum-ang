@@ -36,6 +36,8 @@ import { filter, switchMap, tap } from 'rxjs';
 import { NzNotificationModule, NzNotificationService } from 'ng-zorro-antd/notification';
 import { PlantParameterService } from 'src/app/api-services/plant-parameter.service';
 import {NzSelectModule} from "ng-zorro-antd/select";
+import {Role} from "../../../../../common/account.model";
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-update-plant',
@@ -44,6 +46,7 @@ import {NzSelectModule} from "ng-zorro-antd/select";
   styleUrls: ['./update-plant.component.scss'],
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -58,6 +61,8 @@ import {NzSelectModule} from "ng-zorro-antd/select";
 })
 export class UpdatePlantComponent implements OnInit {
   @Input() data!: ReadPlantDto;
+  roleEnum: typeof Role = Role;
+
   form: FormGroup = this.fb.nonNullable.group({
     Id: this.fb.nonNullable.control(0, {
       validators: [Validators.required],

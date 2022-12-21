@@ -16,6 +16,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { MicrocontrollerService } from 'src/app/api-services/microcontroller.service';
 import { SensorService } from 'src/app/api-services/sensor.service';
 import { tap, filter, switchMap } from 'rxjs';
+import {Role} from "../../../../../common/account.model";
+import {IfRolesDirective} from "../../../../../directives/if-roles.directive";
 
 @Component({
   selector: 'app-update-land-sensor',
@@ -24,6 +26,7 @@ import { tap, filter, switchMap } from 'rxjs';
   styleUrls: ['./update-land-sensor.component.scss'],
   imports: [
     CommonModule,
+    IfRolesDirective,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -42,6 +45,7 @@ export class UpdateLandSensorComponent implements OnInit {
   isSubmitLoading = false;
   micros:MicroItemMinimalDto[]=[];
   sensorTypes:SensorType[]=[];
+  roleEnum: typeof Role = Role;
   form: FormGroup = this.fb.nonNullable.group({
     Name: this.fb.nonNullable.control('', {
       validators: [Validators.required],

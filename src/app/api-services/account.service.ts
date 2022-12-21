@@ -4,15 +4,15 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccountAPI } from '../apis/account.api';
-import { 
-  LoginResponse, 
-  UserCreateForm, 
-  UserForm, 
-  UserLoginForm, 
-  UserOTPPassword, 
-  UserResetPassword, 
-  UserUpdateForm, 
-  UserUpdatePasswordForm 
+import {
+  LoginResponse,
+  UserCreateForm,
+  UserForm,
+  UserLoginForm,
+  UserOTPPassword,
+  UserResetPassword,
+  UserUpdateForm,
+  UserUpdatePasswordForm
 } from '../common/account.model';
 import { AppResponse } from '../common/app.model';
 import { UserMockService } from '../mock-services/user-mock.service';
@@ -35,11 +35,9 @@ export interface AccountServiceInterface {
   providedIn: 'root',
   useFactory: (p:any[], h: HttpClient, u:UtilityService, t:TokenService, r:Router) =>{
     console.log(p);
-    
+
     if(p[0]===true){
-      console.log("mocking user serv");
       return new UserMockService(t,r);
-      
     }
     else{
      return  new AccountService(h,u,t,r);

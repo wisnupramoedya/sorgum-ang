@@ -7,6 +7,7 @@
         <li nz-menu-item nzSelected>nav 2</li>
         <li nz-menu-item>nav 3</li>
       </ul> -->
+      
   </nz-header>
   <nz-content class="outer-content">
     <!-- <nz-breadcrumb>
@@ -16,24 +17,36 @@
       </nz-breadcrumb> -->
     <nz-layout class="inner-layout">
       <nz-sider nzWidth="200px" nzTheme="light">
-        <ul nz-menu nzMode="inline" class="sider-menu">
-          <li nz-menu-item [routerLink]="'/home/land'" [routerLinkActive]="'ant-menu-item-selected'">
-            <span nz-icon nzType="build"></span>
-            <span>Lahan</span>
+        <ul nz-menu nzMode="inline" class="sider-menu tw-space-y-8">
+          <!-- <li *ifRoles="[roleEnum.SUPERADMIN]" nz-menu-item [routerLink]="'/home/microcontroller'" [routerLinkActive]="'ant-menu-item-selected'">
+            <span nz-icon nzType="container" nzTheme="fill"></span>
+            <span>Proyek</span>
+          </li> -->
+          <li>
+          <img class src="./assets/logo.png" alt="Logo" class="tw-w-4/5 tw-h-full tw-mx-6">
           </li>
+
           <li nz-menu-item [routerLink]="'/home/microcontroller'" [routerLinkActive]="'ant-menu-item-selected'">
-            <span nz-icon nzType="control" ></span>
-            <span>Microcontroller</span>
-          </li>
-          <li nz-menu-item [routerLink]="'/home/sensor'" [routerLinkActive]="'ant-menu-item-selected'">
-            <span nz-icon nzType="node-collapse"></span>
-            <span>Sensor</span>
+            <span style="color: #0C9DA4;" nz-icon nzType="container" nzTheme="fill"></span>
+            <span class="tw-font-bold" style="color: #0C9DA4;" >Proyek</span>
           </li>
           <li nz-menu-item [routerLink]="'/home/plant'" [routerLinkActive]="'ant-menu-item-selected'">
-            <span nz-icon nzType="audit"></span>
-            <span>Tanaman</span>
+            <span style="color: #F89747;" nz-icon nzType="funnel-plot" nzTheme="outline"></span>
+            <span class="tw-font-bold" style="color: #F89747;">Tanaman</span>
           </li>
-          
+          <li nz-menu-item [routerLink]="'/home/sensor'" [routerLinkActive]="'ant-menu-item-selected'">
+            <span style="color: #BB2026;" nz-icon nzType="usergroup-add" nzTheme="outline"></span>
+            <span class="tw-font-bold" style="color: #BB2026;">Pengguna</span>
+          </li>
+          <li nz-menu-item [routerLink]="'/home/land'" [routerLinkActive]="'ant-menu-item-selected'">
+            <span style="color: #07A04A;" nz-icon nzType="table" nzTheme="outline"></span>
+            <span class="tw-font-bold" style="color: #07A04A;">Lahan</span>
+          </li>
+          <li *ifRoles="[roleEnum.SUPERADMIN, roleEnum.ADMIN]" nz-menu-item [routerLink]="'/home/users'" [routerLinkActive]="'ant-menu-item-selected'">
+            <span nz-icon nzType="audit"></span>
+            <span>Pengguna</span>
+          </li>
+
         </ul>
       </nz-sider>
       <nz-content class="inner-content">
