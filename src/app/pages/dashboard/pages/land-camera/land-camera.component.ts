@@ -97,7 +97,7 @@ export class LandCameraComponent implements OnInit, OnDestroy {
     });
   }
   startHubConnection():void{
-    this.farmingHubService.buildHub('https://192.168.0.14:7219/FarmingHub')
+    this.farmingHubService.buildHub('/FarmingHub')
     this.farmingHubService.hubCon.start()
                           .then(x=>{
                             console.log("farming hub is connected");
@@ -124,8 +124,12 @@ export class LandCameraComponent implements OnInit, OnDestroy {
   async setupWebRtc() {
     const config:RTCConfiguration ={
       iceServers:[
-        { urls: "stun:stun.services.mozilla.com" },
-        { urls: "stun:stun.l.google.com:19302" }
+        {urls:["stun:stun.testazure.online:3478?transport=udp"]},
+        {
+          urls: ["turn:turn.testazure.online:3478?transport=udp"],
+          username: 'test',
+          credential:"test123"
+        },
       ]
     };
     try {
