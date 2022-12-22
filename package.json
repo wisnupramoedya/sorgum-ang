@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "start-pwa": "ng build && gzipper c ./dist --include js,css,html && http-server -p 8080 --gzip -c-1 dist/sorgum",
     "proxy": "ng serve --proxy-config proxy.conf.json",
     "start:windows": "ng serve --port 44455 --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\""
   },
@@ -19,6 +20,7 @@
     "@angular/forms": "^14.2.0",
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
+    "@angular/pwa": "^0.5.3",
     "@angular/router": "^14.2.0",
     "@angular/service-worker": "^14.2.0",
     "@asymmetrik/ngx-leaflet": "^14.0.1",
@@ -34,9 +36,11 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^14.1.0",
     "@angular-devkit/build-angular": "^14.2.2",
     "@angular/cli": "~14.2.2",
     "@angular/compiler-cli": "^14.2.0",
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "@types/jasmine": "~4.0.0",
     "@types/leaflet": "^1.9.0",
     "autoprefixer": "^10.4.12",
@@ -47,6 +51,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "postcss": "^8.4.17",
+    "postcss-scss": "^4.0.6",
     "tailwindcss": "^3.1.8",
     "typescript": "~4.7.2"
   }

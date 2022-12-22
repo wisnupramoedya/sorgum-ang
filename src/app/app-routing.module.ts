@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { AuthorizeGuard } from './guards/authorize.guard';
-import { GreenhouseDetailOverviewResolver } from './pages/dashboard/resolvers/greenhouse-detail-overview.resolver';
 import { LandIdResolver } from './pages/dashboard/resolvers/land-id.resolver';
 import { SensorTypeListResolver } from './resolvers/sensor-type-list.resolver';
-import {LandMiniPcComponent} from "./pages/dashboard/pages/land-minipc/land-mini-pc.component";
 import {
   UpdateDiseaseMonitorComponent
 } from "./pages/dashboard/pages/land-health/update-disease-monitor/update-disease-monitor.component";
@@ -163,7 +161,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
