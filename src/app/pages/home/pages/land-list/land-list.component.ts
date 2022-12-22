@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
@@ -11,16 +11,13 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CurrentGreenHouseService } from 'src/app/services/current-green-house.service';
-import { ModalAddGreenhouseComponent } from '../../components/modal-add-greenhouse/modal-add-greenhouse.component';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LandItemDto } from 'src/app/common/land.model';
 import {
   debounceTime,
   distinctUntilChanged,
   startWith,
   switchMap,
-  tap
 } from 'rxjs/operators';
 import { LandService } from 'src/app/api-services/land.service';
 import { CardNComponent } from 'src/app/components/card-n/card-n.component';
@@ -64,9 +61,7 @@ export class LandListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NzModalService,
-    private landService: LandService,
-    private currentGreenHouse: CurrentGreenHouseService,
-    private router: Router
+    private landService: LandService
   ) { }
 
   ngOnInit(): void {
@@ -98,9 +93,6 @@ export class LandListComponent implements OnInit {
   }
   changePageSize(event:number):void{
     this.form.controls['N'].setValue(event);
-  }
-  submitFormSearch():void{
-
   }
   loadData():void{
     this.landService.search(this.form.value).subscribe((res: any)=>{
